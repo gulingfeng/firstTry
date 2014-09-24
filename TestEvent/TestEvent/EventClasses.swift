@@ -39,9 +39,12 @@ class EventButton
 {
     var title: String
     var nextSequence: Int
-    init(title: String,nextSequence: Int)
+    var position: CGRect
+    init(title: String,nextSequence: Int, position: CGRect)
     {
         self.title = title
         self.nextSequence = nextSequence
+        self.position = position
     }
+    
 }
