@@ -37,6 +37,13 @@ class Event: UIViewController {
         self.view.addSubview(dialog)
         prepareEvent()
         showDefaultEventDetail()
+        var c = 0
+        for i in 1...100
+        {
+            let r = arc4random_uniform(100)
+            if r<=80 {c++}
+        }
+        println("c: \(c)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,6 +103,13 @@ class Event: UIViewController {
             }
             backgroundImage.addGestureRecognizer(touch)
         }
+        var c = 0
+        for i in 1...100
+        {
+            let r = arc4random_uniform(100)
+            if r<=80 {c++}
+        }
+        println("c: \(c)")
     }
     func prepareEvent()
     {
