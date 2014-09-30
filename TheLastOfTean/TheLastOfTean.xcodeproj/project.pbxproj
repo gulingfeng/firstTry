@@ -1,0 +1,556 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DCB08FED19D745DE00DB4E19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */; };
+		DCB08FEF19D745DE00DB4E19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB08FEE19D745DE00DB4E19 /* ViewController.swift */; };
+		DCB08FF219D745DE00DB4E19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCB08FF019D745DE00DB4E19 /* Main.storyboard */; };
+		DCB08FF419D745DE00DB4E19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCB08FF319D745DE00DB4E19 /* Images.xcassets */; };
+		DCB0900019D745DE00DB4E19 /* TheLastOfTeanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB08FFF19D745DE00DB4E19 /* TheLastOfTeanTests.swift */; };
+		DCB0900F19D77B3300DB4E19 /* main_back.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0900C19D77B3300DB4E19 /* main_back.png */; };
+		DCB0901019D77B3300DB4E19 /* main_back_fire.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0900D19D77B3300DB4E19 /* main_back_fire.png */; };
+		DCB0901119D77B3300DB4E19 /* main_back_status.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0900E19D77B3300DB4E19 /* main_back_status.png */; };
+		DCB0901419D7ACA300DB4E19 /* new_day_bak.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0901319D7ACA300DB4E19 /* new_day_bak.png */; };
+		DCB0901619D7B0C900DB4E19 /* showEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB0901519D7B0C900DB4E19 /* showEvent.swift */; };
+		DCB0902219D7B1FA00DB4E19 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0901C19D7B1FA00DB4E19 /* border.png */; };
+		DCB0902919D7B81A00DB4E19 /* human_1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0902419D7B81A00DB4E19 /* human_1.png */; };
+		DCB0902A19D7B81A00DB4E19 /* human_2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0902519D7B81A00DB4E19 /* human_2.png */; };
+		DCB0902B19D7B81A00DB4E19 /* human_3.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0902619D7B81A00DB4E19 /* human_3.png */; };
+		DCB0902C19D7B81A00DB4E19 /* human_4.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0902719D7B81A00DB4E19 /* human_4.png */; };
+		DCB0902D19D7B81A00DB4E19 /* human_5.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0902819D7B81A00DB4E19 /* human_5.png */; };
+		DCB0902F19D7CAB300DB4E19 /* DoMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB0902E19D7CAB300DB4E19 /* DoMission.swift */; };
+		DCB0903419D7CFF900DB4E19 /* mission_back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCB0903319D7CFF900DB4E19 /* mission_back.jpg */; };
+		DCB0903619D7D61F00DB4E19 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB0903519D7D61F00DB4E19 /* test.png */; };
+		DCBE400C19DA773300238919 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBE400219DA773300238919 /* FMDatabase.m */; };
+		DCBE400D19DA773300238919 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBE400419DA773300238919 /* FMDatabaseAdditions.m */; };
+		DCBE400E19DA773300238919 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBE400619DA773300238919 /* FMDatabasePool.m */; };
+		DCBE400F19DA773300238919 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBE400819DA773300238919 /* FMDatabaseQueue.m */; };
+		DCBE401019DA773300238919 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBE400B19DA773300238919 /* FMResultSet.m */; };
+		DCBE401219DA774D00238919 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBE401119DA774D00238919 /* libsqlite3.dylib */; };
+		DCBE401519DA79BE00238919 /* TheLastOfTeam.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DCBE401419DA79BE00238919 /* TheLastOfTeam.sqlite */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCB08FFA19D745DE00DB4E19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCB08FDF19D745DE00DB4E19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB08FE619D745DE00DB4E19;
+			remoteInfo = TheLastOfTean;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DCB08FE719D745DE00DB4E19 /* TheLastOfTean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastOfTean.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCB08FEB19D745DE00DB4E19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DCB08FEE19D745DE00DB4E19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DCB08FF119D745DE00DB4E19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DCB08FF319D745DE00DB4E19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DCB08FF919D745DE00DB4E19 /* TheLastOfTeanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheLastOfTeanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCB08FFE19D745DE00DB4E19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCB08FFF19D745DE00DB4E19 /* TheLastOfTeanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheLastOfTeanTests.swift; sourceTree = "<group>"; };
+		DCB0900C19D77B3300DB4E19 /* main_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_back.png; sourceTree = "<group>"; };
+		DCB0900D19D77B3300DB4E19 /* main_back_fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_back_fire.png; sourceTree = "<group>"; };
+		DCB0900E19D77B3300DB4E19 /* main_back_status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_back_status.png; sourceTree = "<group>"; };
+		DCB0901319D7ACA300DB4E19 /* new_day_bak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_day_bak.png; sourceTree = "<group>"; };
+		DCB0901519D7B0C900DB4E19 /* showEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = showEvent.swift; sourceTree = "<group>"; };
+		DCB0901C19D7B1FA00DB4E19 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
+		DCB0902419D7B81A00DB4E19 /* human_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_1.png; sourceTree = "<group>"; };
+		DCB0902519D7B81A00DB4E19 /* human_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_2.png; sourceTree = "<group>"; };
+		DCB0902619D7B81A00DB4E19 /* human_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_3.png; sourceTree = "<group>"; };
+		DCB0902719D7B81A00DB4E19 /* human_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_4.png; sourceTree = "<group>"; };
+		DCB0902819D7B81A00DB4E19 /* human_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_5.png; sourceTree = "<group>"; };
+		DCB0902E19D7CAB300DB4E19 /* DoMission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoMission.swift; sourceTree = "<group>"; };
+		DCB0903319D7CFF900DB4E19 /* mission_back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mission_back.jpg; sourceTree = "<group>"; };
+		DCB0903519D7D61F00DB4E19 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		DCBE400119DA773300238919 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		DCBE400219DA773300238919 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		DCBE400319DA773300238919 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		DCBE400419DA773300238919 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		DCBE400519DA773300238919 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		DCBE400619DA773300238919 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		DCBE400719DA773300238919 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		DCBE400819DA773300238919 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		DCBE400919DA773300238919 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		DCBE400A19DA773300238919 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		DCBE400B19DA773300238919 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		DCBE401119DA774D00238919 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		DCBE401319DA777A00238919 /* FMDB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDB-Bridging-Header.h"; sourceTree = "<group>"; };
+		DCBE401419DA79BE00238919 /* TheLastOfTeam.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TheLastOfTeam.sqlite; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCB08FE419D745DE00DB4E19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCBE401219DA774D00238919 /* libsqlite3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCB08FF619D745DE00DB4E19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCB08FDE19D745DE00DB4E19 = {
+			isa = PBXGroup;
+			children = (
+				DCBE401119DA774D00238919 /* libsqlite3.dylib */,
+				DCB08FE919D745DE00DB4E19 /* TheLastOfTean */,
+				DCB08FFC19D745DE00DB4E19 /* TheLastOfTeanTests */,
+				DCB08FE819D745DE00DB4E19 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCB08FE819D745DE00DB4E19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCB08FE719D745DE00DB4E19 /* TheLastOfTean.app */,
+				DCB08FF919D745DE00DB4E19 /* TheLastOfTeanTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCB08FE919D745DE00DB4E19 /* TheLastOfTean */ = {
+			isa = PBXGroup;
+			children = (
+				DCBE400019DA773200238919 /* FMDB */,
+				DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */,
+				DCB08FEE19D745DE00DB4E19 /* ViewController.swift */,
+				DCB0901519D7B0C900DB4E19 /* showEvent.swift */,
+				DCB0902E19D7CAB300DB4E19 /* DoMission.swift */,
+				DCBE401419DA79BE00238919 /* TheLastOfTeam.sqlite */,
+				DCB08FF019D745DE00DB4E19 /* Main.storyboard */,
+				DCB0903019D7CF5100DB4E19 /* misson */,
+				DCB0901719D7B1FA00DB4E19 /* event */,
+				DCB0901219D7ACA300DB4E19 /* newday */,
+				DCB0900B19D77B3200DB4E19 /* mainbase_pic */,
+				DCB08FF319D745DE00DB4E19 /* Images.xcassets */,
+				DCB08FEA19D745DE00DB4E19 /* Supporting Files */,
+			);
+			path = TheLastOfTean;
+			sourceTree = "<group>";
+		};
+		DCB08FEA19D745DE00DB4E19 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCBE401319DA777A00238919 /* FMDB-Bridging-Header.h */,
+				DCB08FEB19D745DE00DB4E19 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCB08FFC19D745DE00DB4E19 /* TheLastOfTeanTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCB08FFF19D745DE00DB4E19 /* TheLastOfTeanTests.swift */,
+				DCB08FFD19D745DE00DB4E19 /* Supporting Files */,
+			);
+			path = TheLastOfTeanTests;
+			sourceTree = "<group>";
+		};
+		DCB08FFD19D745DE00DB4E19 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCB08FFE19D745DE00DB4E19 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCB0900B19D77B3200DB4E19 /* mainbase_pic */ = {
+			isa = PBXGroup;
+			children = (
+				DCB0900C19D77B3300DB4E19 /* main_back.png */,
+				DCB0900D19D77B3300DB4E19 /* main_back_fire.png */,
+				DCB0900E19D77B3300DB4E19 /* main_back_status.png */,
+			);
+			path = mainbase_pic;
+			sourceTree = "<group>";
+		};
+		DCB0901219D7ACA300DB4E19 /* newday */ = {
+			isa = PBXGroup;
+			children = (
+				DCB0901319D7ACA300DB4E19 /* new_day_bak.png */,
+			);
+			path = newday;
+			sourceTree = "<group>";
+		};
+		DCB0901719D7B1FA00DB4E19 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				DCB0902419D7B81A00DB4E19 /* human_1.png */,
+				DCB0902519D7B81A00DB4E19 /* human_2.png */,
+				DCB0902619D7B81A00DB4E19 /* human_3.png */,
+				DCB0902719D7B81A00DB4E19 /* human_4.png */,
+				DCB0902819D7B81A00DB4E19 /* human_5.png */,
+				DCB0901C19D7B1FA00DB4E19 /* border.png */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
+		DCB0903019D7CF5100DB4E19 /* misson */ = {
+			isa = PBXGroup;
+			children = (
+				DCB0903319D7CFF900DB4E19 /* mission_back.jpg */,
+				DCB0903519D7D61F00DB4E19 /* test.png */,
+			);
+			path = misson;
+			sourceTree = "<group>";
+		};
+		DCBE400019DA773200238919 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				DCBE400119DA773300238919 /* FMDatabase.h */,
+				DCBE400219DA773300238919 /* FMDatabase.m */,
+				DCBE400319DA773300238919 /* FMDatabaseAdditions.h */,
+				DCBE400419DA773300238919 /* FMDatabaseAdditions.m */,
+				DCBE400519DA773300238919 /* FMDatabasePool.h */,
+				DCBE400619DA773300238919 /* FMDatabasePool.m */,
+				DCBE400719DA773300238919 /* FMDatabaseQueue.h */,
+				DCBE400819DA773300238919 /* FMDatabaseQueue.m */,
+				DCBE400919DA773300238919 /* FMDB.h */,
+				DCBE400A19DA773300238919 /* FMResultSet.h */,
+				DCBE400B19DA773300238919 /* FMResultSet.m */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCB08FE619D745DE00DB4E19 /* TheLastOfTean */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCB0900319D745DE00DB4E19 /* Build configuration list for PBXNativeTarget "TheLastOfTean" */;
+			buildPhases = (
+				DCB08FE319D745DE00DB4E19 /* Sources */,
+				DCB08FE419D745DE00DB4E19 /* Frameworks */,
+				DCB08FE519D745DE00DB4E19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TheLastOfTean;
+			productName = TheLastOfTean;
+			productReference = DCB08FE719D745DE00DB4E19 /* TheLastOfTean.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DCB08FF819D745DE00DB4E19 /* TheLastOfTeanTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCB0900619D745DE00DB4E19 /* Build configuration list for PBXNativeTarget "TheLastOfTeanTests" */;
+			buildPhases = (
+				DCB08FF519D745DE00DB4E19 /* Sources */,
+				DCB08FF619D745DE00DB4E19 /* Frameworks */,
+				DCB08FF719D745DE00DB4E19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCB08FFB19D745DE00DB4E19 /* PBXTargetDependency */,
+			);
+			name = TheLastOfTeanTests;
+			productName = TheLastOfTeanTests;
+			productReference = DCB08FF919D745DE00DB4E19 /* TheLastOfTeanTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCB08FDF19D745DE00DB4E19 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = gulingfeng;
+				TargetAttributes = {
+					DCB08FE619D745DE00DB4E19 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					DCB08FF819D745DE00DB4E19 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = DCB08FE619D745DE00DB4E19;
+					};
+				};
+			};
+			buildConfigurationList = DCB08FE219D745DE00DB4E19 /* Build configuration list for PBXProject "TheLastOfTean" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DCB08FDE19D745DE00DB4E19;
+			productRefGroup = DCB08FE819D745DE00DB4E19 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCB08FE619D745DE00DB4E19 /* TheLastOfTean */,
+				DCB08FF819D745DE00DB4E19 /* TheLastOfTeanTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCB08FE519D745DE00DB4E19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCB0902219D7B1FA00DB4E19 /* border.png in Resources */,
+				DCB0902C19D7B81A00DB4E19 /* human_4.png in Resources */,
+				DCB0902B19D7B81A00DB4E19 /* human_3.png in Resources */,
+				DCBE401519DA79BE00238919 /* TheLastOfTeam.sqlite in Resources */,
+				DCB0903419D7CFF900DB4E19 /* mission_back.jpg in Resources */,
+				DCB0901119D77B3300DB4E19 /* main_back_status.png in Resources */,
+				DCB08FF219D745DE00DB4E19 /* Main.storyboard in Resources */,
+				DCB0901419D7ACA300DB4E19 /* new_day_bak.png in Resources */,
+				DCB0900F19D77B3300DB4E19 /* main_back.png in Resources */,
+				DCB0902A19D7B81A00DB4E19 /* human_2.png in Resources */,
+				DCB0903619D7D61F00DB4E19 /* test.png in Resources */,
+				DCB08FF419D745DE00DB4E19 /* Images.xcassets in Resources */,
+				DCB0901019D77B3300DB4E19 /* main_back_fire.png in Resources */,
+				DCB0902919D7B81A00DB4E19 /* human_1.png in Resources */,
+				DCB0902D19D7B81A00DB4E19 /* human_5.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCB08FF719D745DE00DB4E19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCB08FE319D745DE00DB4E19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCB08FEF19D745DE00DB4E19 /* ViewController.swift in Sources */,
+				DCBE400F19DA773300238919 /* FMDatabaseQueue.m in Sources */,
+				DCB0901619D7B0C900DB4E19 /* showEvent.swift in Sources */,
+				DCB08FED19D745DE00DB4E19 /* AppDelegate.swift in Sources */,
+				DCBE400C19DA773300238919 /* FMDatabase.m in Sources */,
+				DCBE400E19DA773300238919 /* FMDatabasePool.m in Sources */,
+				DCBE401019DA773300238919 /* FMResultSet.m in Sources */,
+				DCB0902F19D7CAB300DB4E19 /* DoMission.swift in Sources */,
+				DCBE400D19DA773300238919 /* FMDatabaseAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCB08FF519D745DE00DB4E19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCB0900019D745DE00DB4E19 /* TheLastOfTeanTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCB08FFB19D745DE00DB4E19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB08FE619D745DE00DB4E19 /* TheLastOfTean */;
+			targetProxy = DCB08FFA19D745DE00DB4E19 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DCB08FF019D745DE00DB4E19 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCB08FF119D745DE00DB4E19 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DCB0900119D745DE00DB4E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DCB0900219D745DE00DB4E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DCB0900419D745DE00DB4E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = TheLastOfTean/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "TheLastOfTean/FMDB-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DCB0900519D745DE00DB4E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = TheLastOfTean/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "TheLastOfTean/FMDB-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		DCB0900719D745DE00DB4E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TheLastOfTeanTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheLastOfTean.app/TheLastOfTean";
+			};
+			name = Debug;
+		};
+		DCB0900819D745DE00DB4E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TheLastOfTeanTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheLastOfTean.app/TheLastOfTean";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCB08FE219D745DE00DB4E19 /* Build configuration list for PBXProject "TheLastOfTean" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCB0900119D745DE00DB4E19 /* Debug */,
+				DCB0900219D745DE00DB4E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCB0900319D745DE00DB4E19 /* Build configuration list for PBXNativeTarget "TheLastOfTean" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCB0900419D745DE00DB4E19 /* Debug */,
+				DCB0900519D745DE00DB4E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCB0900619D745DE00DB4E19 /* Build configuration list for PBXNativeTarget "TheLastOfTeanTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCB0900719D745DE00DB4E19 /* Debug */,
+				DCB0900819D745DE00DB4E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCB08FDF19D745DE00DB4E19 /* Project object */;
+}
