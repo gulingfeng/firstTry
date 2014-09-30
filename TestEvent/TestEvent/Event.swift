@@ -113,21 +113,49 @@ class Event: UIViewController {
     }
     func prepareEvent()
     {
+        var buttonDef = [["Go 3",3,50,360,40,20],["Go 5",5,110,360,40,20]]
         var buttons = [EventButton]()
+        for i in 0..<2
+        {
+            var def = buttonDef[i]
+            var button = EventButton(title: def[0] as String, nextSequence: def[1] as Int, position: CGRect(x: def[2] as Int, y: def[3] as Int, width: def[4] as Int, height: def[5] as Int))
+            buttons.append(button)
+        }
+        var sceneDef = [["z-01.png","z-05","dialog 1 in z-02",[]],
+                        ["z-02.png","z-05","dialog 2 in z-02",[["Go 3",3,50,360,40,20],["Go 5",5,110,360,40,20]]],
+                        ["z-03.png","z-05","dialog 3 in z-02",[]],
+                        ["z-04.png","z-05","dialog 4 in z-02",[]],
+                        ["z-05.png","z-05","dialog 5 in z-02",[["Go 3",3,50,360,40,20],["Go 5",5,110,360,40,20]]]]
+        for i in 0..<sceneDef.count
+        {
+            var def = sceneDef[i]
+            //var buttons:[Array]? = def[3]
+            /*if buttons!.count<=0
+            {
+                buttons = nil
+            }*/
+            var scene = Scene(backgroundImage: def[0] as String, backText: def[1] as String, dialog: def[2] as String, button: def[3] as? [EventButton])
+            scenes.append(scene)
+
+        }
+        /*
         var button = EventButton(title: "Go 3",nextSequence: 3,position: CGRect(x: 50, y: 360, width: 40, height: 20))
         buttons.append(button)
         button = EventButton(title: "Go 5", nextSequence: 5,position: CGRect(x: 110, y: 360, width: 40, height: 20))
         buttons.append(button)
+        */
+        /*
         var scene = Scene(backgroundImage: "z-01.png", backText: "z-01", dialog: "dialog 1 in z-02", button: nil)
         scenes.append(scene)
         scene = Scene(backgroundImage: "z-02.png", backText: "z-02", dialog: "dialog 2 in z-02", button: buttons)
         scenes.append(scene)
         scene = Scene(backgroundImage: "z-03.png", backText: "z-03", dialog: "dialog 2 in z-02", button: nil)
         scenes.append(scene)
-        scene = Scene(backgroundImage: "z-04.png", backText: "z-04", dialog: "dialog 2 in z-02", button: buttons)
+        scene = Scene(backgroundImage: "z-04.png", backText: "z-04", dialog: "dialog 2 in z-02", button: nil)
         scenes.append(scene)
         scene = Scene(backgroundImage: "z-05.png", backText: "z-05", dialog: "dialog 2 in z-02", button: buttons)
         scenes.append(scene)
+*/
         println(scenes)
         eventDetail = EventDetail(sequence: 1, scene: scenes)
         
