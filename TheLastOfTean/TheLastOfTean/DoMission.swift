@@ -64,10 +64,15 @@ class DoMission: UIViewController {
             println("open db failed")
             return
         }
-        let querySql = "select * from scene_detail"
+        let querySql = "select * from scene_detail a, scene_resource b a.resource_id=b.global_id"
         var result = db.executeQuery(querySql, withArgumentsInArray: nil)
+        var sceneDetails = [SceneDetail]()
         while result.next()
         {
+            /*
+            var resource = SceneResource(globalID: result.longForColumn("global_id"), type: result.intForColumn("type") as ResourceType!, content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x") as Float, positionY: result.doubleForColumn("position_y") as Float, width: result.doubleForColumn("width") as Float, height: result.doubleForColumn("height") as Float, alpha: result.doubleForColumn("alpha") as Float, countTouch: result.boolForColumn("count_touch") as Boolean, touchCount: result.intForColumn("touch_count") as Int, selfDelete: result.intForColumn("self_delete") as Int)
+            var sceneDetail = SceneDetail(sceneID: result.longForColumn("scene_id"), resource: nil, action: result.stringForColumn("action") as ActionType, nextSceneID: result.longForColumn("next_scene_id"), rewardGroup: result.longForColumn("reward_group"))
+*/
             let name = result.stringForColumn("scene_id")
             let keyword = result.stringForColumn("resource_id")
             println("scene_id: \(name) resource_id: \(keyword)")
