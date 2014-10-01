@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */; };
 		DCB08FED19D745DE00DB4E19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */; };
 		DCB08FEF19D745DE00DB4E19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB08FEE19D745DE00DB4E19 /* ViewController.swift */; };
 		DCB08FF219D745DE00DB4E19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCB08FF019D745DE00DB4E19 /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtil.swift; sourceTree = "<group>"; };
 		DCB08FE719D745DE00DB4E19 /* TheLastOfTean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastOfTean.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB08FEB19D745DE00DB4E19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				DCBE400019DA773200238919 /* FMDB */,
 				DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */,
 				DCB08FEE19D745DE00DB4E19 /* ViewController.swift */,
+				DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */,
 				DCB0901519D7B0C900DB4E19 /* showEvent.swift */,
 				DCB0902E19D7CAB300DB4E19 /* DoMission.swift */,
 				DCBE401419DA79BE00238919 /* TheLastOfTeam.sqlite */,
@@ -346,6 +349,7 @@
 				DCBE400C19DA773300238919 /* FMDatabase.m in Sources */,
 				DCBE400E19DA773300238919 /* FMDatabasePool.m in Sources */,
 				DCBE401019DA773300238919 /* FMResultSet.m in Sources */,
+				DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */,
 				DCB0902F19D7CAB300DB4E19 /* DoMission.swift in Sources */,
 				DCBE400D19DA773300238919 /* FMDatabaseAdditions.m in Sources */,
 			);

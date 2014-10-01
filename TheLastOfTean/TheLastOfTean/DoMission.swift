@@ -44,11 +44,41 @@ class DoMission: UIViewController {
         dialogBack.frame = CGRect(x: appFrame.minX+5, y: appFrame.maxY-60, width:appFrame.width-10, height: 50)
         dialogBack.alpha = 0.5
         self.view.addSubview(dialogBack)
-        
+        loadScene()
         
     }
     
     func startMission(){
+        
+    }
+    func loadScene()
+    {
+        println("start load scene")
+        
+        let db = DBUtilSingleton.shared.connection!
+        
+        if db.open()
+        {
+            println("open db ok")
+        }else{
+            println("open db failed")
+            return
+        }
+        let querySql = "select * from scene_detail"
+        var result = db.executeQuery(querySql, withArgumentsInArray: nil)
+        while result.next()
+        {
+            let name = result.stringForColumn("scene_id")
+            let keyword = result.stringForColumn("resource_id")
+            println("scene_id: \(name) resource_id: \(keyword)")
+        }
+        if db.close()
+        {
+            println("close db ok")
+        }else{
+            println("close db failed")
+        }
+        result = db.executeQuery(querySql, withArgumentsInArray: nil)
         
     }
     override func didReceiveMemoryWarning() {
