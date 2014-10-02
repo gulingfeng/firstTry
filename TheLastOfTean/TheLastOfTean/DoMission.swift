@@ -64,18 +64,20 @@ class DoMission: UIViewController {
             println("open db failed")
             return
         }
-        let querySql = "select * from scene_detail a, scene_resource b a.resource_id=b.global_id"
+        let querySql = "select * from scene_detail a, scene_resource b where a.resource_id=b.global_id"
         var result = db.executeQuery(querySql, withArgumentsInArray: nil)
         var sceneDetails = [SceneDetail]()
+        var scenes = Scene()
         while result.next()
         {
-            /*
-            var resource = SceneResource(globalID: result.longForColumn("global_id"), type: result.intForColumn("type") as ResourceType!, content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x") as Float, positionY: result.doubleForColumn("position_y") as Float, width: result.doubleForColumn("width") as Float, height: result.doubleForColumn("height") as Float, alpha: result.doubleForColumn("alpha") as Float, countTouch: result.boolForColumn("count_touch") as Boolean, touchCount: result.intForColumn("touch_count") as Int, selfDelete: result.intForColumn("self_delete") as Int)
-            var sceneDetail = SceneDetail(sceneID: result.longForColumn("scene_id"), resource: nil, action: result.stringForColumn("action") as ActionType, nextSceneID: result.longForColumn("next_scene_id"), rewardGroup: result.longForColumn("reward_group"))
-*/
-            let name = result.stringForColumn("scene_id")
-            let keyword = result.stringForColumn("resource_id")
-            println("scene_id: \(name) resource_id: \(keyword)")
+            
+            var resource = SceneResource(globalID: result.longForColumn("global_id"), type: result.longForColumn("type"), content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x"), positionY: result.doubleForColumn("position_y") , width: result.doubleForColumn("width") , height: result.doubleForColumn("height") , alpha: result.doubleForColumn("alpha") , countTouch: result.boolForColumn("count_touch"), touchCount: result.longForColumn("touch_count") , selfDelete: result.longForColumn("self_delete"))
+            
+            var sceneDetail = SceneDetail(sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextSceneID: result.longForColumn("next_scene_id"), rewardGroup: result.longForColumn("reward_group"))
+            
+            scenes.addSceneDetail(sceneDetail)
+
+            println(sceneDetail)
         }
         if db.close()
         {
@@ -83,7 +85,6 @@ class DoMission: UIViewController {
         }else{
             println("close db failed")
         }
-        result = db.executeQuery(querySql, withArgumentsInArray: nil)
         
     }
     override func didReceiveMemoryWarning() {
