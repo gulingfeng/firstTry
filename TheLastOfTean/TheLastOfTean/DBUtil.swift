@@ -40,7 +40,7 @@ class DBUtilSingleton{
         let dbfile = "/" + DATABASE_FILE_NAME;
         
         self.dbFilePath = documentFolderPath.stringByAppendingString(dbfile)
-        
+        println(self.dbFilePath)
         let filemanager = NSFileManager.defaultManager()
         if (!filemanager.fileExistsAtPath(dbFilePath) ) {
             

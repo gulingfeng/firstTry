@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum ActionType: String
 {
@@ -22,7 +23,7 @@ class Scene: Printable
                                     var desc = ""
                                     for sceneDetail in sceneDetails
                                     {
-                                        desc = "\(desc + sceneDetail.description)"
+                                        desc = "\(desc+sceneDetail.description)\r\n"
                                     }
                                     return desc
                                 }
@@ -98,4 +99,22 @@ class SceneResource:Printable
         self.selfDelete = selfDelete
         self.content = content
     }
+}
+
+class SceneButton: UIButton
+{
+    var globalID: Int?
+    var selfDelete: Int?
+}
+
+class SceneImageView: UIImageView
+{
+    var globalID: Int?
+    var selfDelete: Int?
+}
+
+class SceneLabel: UILabel
+{
+    var globalID: Int?
+    var selfDelete: Int?
 }
