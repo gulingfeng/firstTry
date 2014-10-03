@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DC6C29E819DBC07700E6A436 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6C29E719DBC07700E6A436 /* Scene.swift */; };
 		DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */; };
+		DC938F0A19DE6414002E320F /* MainBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC938F0919DE6414002E320F /* MainBase.swift */; };
 		DCB08FED19D745DE00DB4E19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */; };
 		DCB08FEF19D745DE00DB4E19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB08FEE19D745DE00DB4E19 /* ViewController.swift */; };
 		DCB08FF219D745DE00DB4E19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCB08FF019D745DE00DB4E19 /* Main.storyboard */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		DC6C29E719DBC07700E6A436 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtil.swift; sourceTree = "<group>"; };
+		DC938F0919DE6414002E320F /* MainBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBase.swift; sourceTree = "<group>"; };
 		DCB08FE719D745DE00DB4E19 /* TheLastOfTean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastOfTean.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB08FEB19D745DE00DB4E19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */,
 				DCB08FEE19D745DE00DB4E19 /* ViewController.swift */,
 				DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */,
+				DC938F0919DE6414002E320F /* MainBase.swift */,
 				DCB0901519D7B0C900DB4E19 /* showEvent.swift */,
 				DCB0902E19D7CAB300DB4E19 /* DoMission.swift */,
 				DC6C29E719DBC07700E6A436 /* Scene.swift */,
@@ -282,6 +285,7 @@
 				TargetAttributes = {
 					DCB08FE619D745DE00DB4E19 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = Z69WJW2AGX;
 					};
 					DCB08FF819D745DE00DB4E19 = {
 						CreatedOnToolsVersion = 6.0;
@@ -350,6 +354,7 @@
 				DCB0901619D7B0C900DB4E19 /* showEvent.swift in Sources */,
 				DCB08FED19D745DE00DB4E19 /* AppDelegate.swift in Sources */,
 				DCBE400C19DA773300238919 /* FMDatabase.m in Sources */,
+				DC938F0A19DE6414002E320F /* MainBase.swift in Sources */,
 				DCBE400E19DA773300238919 /* FMDatabasePool.m in Sources */,
 				DCBE401019DA773300238919 /* FMResultSet.m in Sources */,
 				DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */,
@@ -472,6 +477,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = TheLastOfTean/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -486,6 +492,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = TheLastOfTean/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
