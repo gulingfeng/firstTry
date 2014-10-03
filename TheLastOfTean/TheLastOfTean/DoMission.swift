@@ -13,7 +13,7 @@ import UIKit
 class DoMission: UIViewController {
     
     var currentSceneID = 1
-    var scenes: Scene!
+    var scenes: [Int:Scene]!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -48,15 +48,12 @@ class DoMission: UIViewController {
         //self.view.addSubview(dialogBack)
         scenes = loadScene()
         //println(scene)
-        if scenes != nil && scenes.sceneDetails.count>0
+        if scenes != nil && scenes.count>0
         {
-            var details = scenes!.sceneDetails
-            for detail in details
+            var scene = scenes[1]
+            var details = scene?.sceneDetails
+            for detail in details!
             {
-                if detail.sceneID != 1
-                {
-                    continue
-                }
                 var resource: UIView
                 var resDef = detail.resource
                 var label: SceneLabel
@@ -102,7 +99,8 @@ class DoMission: UIViewController {
     func nextScene(sender: UIButton)
     {
         println(sender.tag)
-        var sceneDetail = scenes.sceneDetails[currentSceneID - 1 ]
+        var scene = scenes[currentSceneID]
+        var sceneDetail = scene?.sceneDetails
         for obj in self.view.subviews
         {
             if let subview =  obj as? SceneButton
@@ -128,15 +126,12 @@ class DoMission: UIViewController {
             }
             //println(self.view.subviews)
         }
-        if scenes != nil && scenes.sceneDetails.count>0
+        scene = scenes[sender.tag]
+        if scene?.sceneDetails.count>0
         {
-            var details = scenes!.sceneDetails
-            for detail in details
+            var details = scene?.sceneDetails
+            for detail in details!
             {
-                if detail.sceneID != sender.tag
-                {
-                    continue
-                }
                 var resource: UIView
                 var resDef = detail.resource
                 var label: SceneLabel
@@ -183,7 +178,7 @@ class DoMission: UIViewController {
     func startMission(){
         
     }
-    func loadScene()->Scene?
+    func loadScene()->[Int:Scene]?
     {
         println("start load scene")
         
@@ -200,6 +195,7 @@ class DoMission: UIViewController {
         var result = db.executeQuery(querySql, withArgumentsInArray: nil)
         var sceneDetails = [SceneDetail]()
         var scenes = Scene()
+        var scenesMap = [Int:Scene]()
         while result.next()
         {
             
@@ -208,6 +204,15 @@ class DoMission: UIViewController {
             var sceneDetail = SceneDetail(sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextSceneID: result.longForColumn("next_scene_id"), rewardGroup: result.longForColumn("reward_group"))
             
             scenes.addSceneDetail(sceneDetail)
+            var temp = scenesMap[sceneDetail.sceneID]
+            if (temp != nil)
+            {
+                temp?.addSceneDetail(sceneDetail)
+            }else{
+                var scenes = Scene()
+                scenes.addSceneDetail(sceneDetail)
+                scenesMap[sceneDetail.sceneID] = scenes
+            }
 
             //println(sceneDetail)
         }
@@ -218,7 +223,8 @@ class DoMission: UIViewController {
         }else{
             println("close db failed")
         }
-        return scenes
+        println(scenesMap)
+        return scenesMap
         
     }
     override func didReceiveMemoryWarning() {
