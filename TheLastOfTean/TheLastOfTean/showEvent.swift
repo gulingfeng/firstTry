@@ -13,7 +13,7 @@ import UIKit
 class showEvent: UIViewController {
     
     var mainBase = MainBase.shared
-    
+    var info = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -56,10 +56,8 @@ class showEvent: UIViewController {
         lable.frame = CGRect(x: appFrame.maxX/2-50, y: appFrame.maxY-80, width: 200, height: 50)
         self.view.addSubview(lable)
         
-        var info = UILabel()
-        info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
-        info.frame = CGRect(x: appFrame.minX+80, y: appFrame.maxY-40, width: 500, height: 20)
-        self.view.addSubview(info)
+        
+        
         
     }
 
@@ -73,5 +71,13 @@ class showEvent: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool){
+        super.viewWillAppear(animated)
+        var appFrame = UIScreen.mainScreen().applicationFrame
+
+        info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
+        info.frame = CGRect(x: appFrame.minX+80, y: appFrame.maxY-40, width: 500, height: 20)
+        self.view.addSubview(info)
+    }
     
 }

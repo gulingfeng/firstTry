@@ -39,8 +39,7 @@ class DoMission: UIViewController {
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
         button.frame = CGRect(x: appFrame.maxX-100, y: appFrame.minY+10, width: 60, height: 20)
         button.addTarget(self, action: "startMission", forControlEvents: .TouchUpInside)
-        button.setTitle("出发", forState: .Normal)
-        //self.view.addSubview(button)
+        button.setTitle("返回基地", forState: .Normal)
    
         var dialogBack = UIImageView(image: UIImage(named: "test.png"))
         dialogBack.frame = CGRect(x: appFrame.minX+5, y: appFrame.maxY-60, width:appFrame.width-10, height: 50)
@@ -93,7 +92,8 @@ class DoMission: UIViewController {
                 self.view.addSubview(resource)
             }
         }
-        
+        self.view.addSubview(button)
+
     }
     
     func nextScene(sender: UIButton)
@@ -105,20 +105,20 @@ class DoMission: UIViewController {
         {
             if let subview =  obj as? SceneButton
             {
-                println("SceneButton")
+                //println("SceneButton")
                 if subview.selfDelete == 1
                 {
                     subview.removeFromSuperview()
                 }
                 
             }else if let subview = obj as? SceneImageView{
-                println("SceneImage")
+                //println("SceneImage")
                 if subview.selfDelete == 1
                 {
                     subview.removeFromSuperview()
                 }
             }else if let subview = obj as? SceneLabel{
-                println("label")
+                //println("label")
                 if subview.selfDelete == 1
                 {
                     subview.removeFromSuperview()
@@ -127,6 +127,12 @@ class DoMission: UIViewController {
             //println(self.view.subviews)
         }
         scene = scenes[sender.tag]
+        if sender.tag == 5
+        {
+            var mainBase = MainBase.shared
+            mainBase.food+=10
+            mainBase.supply+=5
+        }
         if scene?.sceneDetails.count>0
         {
             var details = scene?.sceneDetails
@@ -176,7 +182,7 @@ class DoMission: UIViewController {
     }
     
     func startMission(){
-        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     func loadScene()->[Int:Scene]?
     {
