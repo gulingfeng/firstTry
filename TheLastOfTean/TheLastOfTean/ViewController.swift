@@ -40,6 +40,23 @@ class ViewController: UIViewController {
         
         self.view.addSubview(button)
         
+        var count1 = 0
+        var count2 = 0
+        var count3 = 0
+        var t=0 as UInt32
+        for i in 1...100000
+        {
+            var r = arc4random_uniform(100)
+            if r<=t && r>t
+            {
+                count1++
+            }else if r>80 && r<=90 {
+                count2++
+            }else if r>90 && r<=100 {
+                count3++
+            }
+        }
+        println("count1:\(count1) count2:\(count2) count3:\(count3)")
         
     }
 

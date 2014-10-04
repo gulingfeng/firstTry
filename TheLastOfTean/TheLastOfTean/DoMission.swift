@@ -37,7 +37,7 @@ class DoMission: UIViewController {
         button.layer.cornerRadius = 5;
         button.backgroundColor = UIColor.whiteColor()
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.frame = CGRect(x: appFrame.maxX-100, y: appFrame.minY+10, width: 60, height: 20)
+        button.frame = CGRect(x: appFrame.maxX-150, y: appFrame.minY+10, width: 100, height: 20)
         button.addTarget(self, action: "startMission", forControlEvents: .TouchUpInside)
         button.setTitle("返回基地", forState: .Normal)
    
@@ -67,7 +67,7 @@ class DoMission: UIViewController {
                         button.setTitle(resDef.content, forState: .Normal)
                         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
                         button.globalID = resDef.globalID
-                        button.tag = detail.nextSceneID
+                        button.tag = getNextSceneID(detail)
                         button.selfDelete = resDef.selfDelete
                         button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
                         resource = button
@@ -96,6 +96,57 @@ class DoMission: UIViewController {
 
     }
     
+    func getNextSceneID(sceneDetail: SceneDetail)->Int
+    {
+        var sceneID = 0
+        switch sceneDetail.nextSceneType
+        {
+            case .sceneID:
+                sceneID = sceneDetail.nextScene
+            case .calcSceneID:
+                sceneID = 0
+                let db = DBUtilSingleton.shared.connection!
+                
+                if db.open()
+                {
+                    println("open db ok")
+                }else{
+                    println("open db failed")
+                    return 0
+                }
+                let r = arc4random_uniform(100)
+                let touchCount = sceneDetail.touchCount
+                let querySql = "select * from calc_scene_id where calc_id=\(sceneDetail.nextScene)"
+                var result = db.executeQuery(querySql, withArgumentsInArray: nil)
+                var temp = 0 as UInt32
+                var resultSceneID = 0
+                var calcNextScene = [CalcNextScene]()
+                while result.next()
+                {
+                    var calcID = result.longForColumn("calc_id")
+                    var sceneID = result.longForColumn("scene_id")
+                    var probability = result.longForColumn("probability")
+                    var probabilityAdj = result.longForColumn("probability_adj")
+                    var resetCount = result.boolForColumn("reset_count")
+                    
+                    calcNextScene.append(CalcNextScene(calcID: sceneID, sceneID: sceneID, probability: probability, probabilityAdj: probabilityAdj, resetCount: resetCount, touchCount: touchCount))
+                    var finalProbability = probability + probabilityAdj*touchCount
+
+                    if r > temp && r <= temp + finalProbability
+                    {
+                        return sceneID
+                    }else{
+                        temp = temp+finalProbability
+                    }
+                    
+                }
+            
+            
+        default:
+                sceneID = 0
+        }
+        return sceneID
+    }
     func nextScene(sender: UIButton)
     {
         println(sender.tag)
@@ -152,7 +203,7 @@ class DoMission: UIViewController {
                     button.setTitle(resDef.content, forState: .Normal)
                     button.setTitleColor(UIColor.blueColor(), forState: .Normal)
                     button.globalID = resDef.globalID
-                    button.tag = detail.nextSceneID
+                    button.tag = getNextSceneID(detail)
                     button.selfDelete = resDef.selfDelete
                     button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
                     resource = button
@@ -207,7 +258,7 @@ class DoMission: UIViewController {
             
             var resource = SceneResource(globalID: result.longForColumn("global_id"), type: result.longForColumn("type"), content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x"), positionY: result.doubleForColumn("position_y") , width: result.doubleForColumn("width") , height: result.doubleForColumn("height") , alpha: result.doubleForColumn("alpha") , countTouch: result.boolForColumn("count_touch"), touchCount: result.longForColumn("touch_count") , selfDelete: result.longForColumn("self_delete"))
             
-            var sceneDetail = SceneDetail(sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextSceneID: result.longForColumn("next_scene_id"), rewardGroup: result.longForColumn("reward_group"))
+            var sceneDetail = SceneDetail(sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextScene: result.longForColumn("next_scene"), nextSceneType: result.stringForColumn("next_scene_type"), rewardGroup: result.longForColumn("reward_group"), touchCount: result.longForColumn("touch_count"))
             
             scenes.addSceneDetail(sceneDetail)
             var temp = scenesMap[sceneDetail.sceneID]

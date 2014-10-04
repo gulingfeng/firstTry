@@ -9,11 +9,34 @@
 import Foundation
 import UIKit
 
+class CalcNextScene
+{
+    let calcID: Int
+    let sceneID: Int
+    let probability: Int
+    let probabilityAdj: Int
+    let resetCount: Bool
+    let finalProbability: Int
+    init(calcID: Int, sceneID: Int, probability: Int, probabilityAdj: Int,resetCount: Bool,touchCount: Int)
+    {
+        self.calcID = calcID
+        self.sceneID = sceneID
+        self.probability = probability
+        self.probabilityAdj = probabilityAdj
+        self.resetCount = resetCount
+        finalProbability = probability + probabilityAdj*touchCount
+    }
+}
 enum ActionType: String
 {
     case add = "A"
     case delete = "D"
     case replace = "R"
+}
+enum NextSceneType: String
+{
+    case sceneID = "scene_id"
+    case calcSceneID = "calc_id"
 }
 class Scene: Printable
 {
@@ -42,21 +65,25 @@ class SceneDetail: Printable
     let sceneID: Int
     let resource: SceneResource
     let action: ActionType
-    let nextSceneID: Int
+    let nextScene: Int
     let rewardGroup: Int
+    let nextSceneType: NextSceneType
+    var touchCount: Int
     var description: String { get
                                 {
-                                    return "sceneID:\(sceneID),action:\(action),nextSceneID:\(nextSceneID),rewardGroup:\(rewardGroup),resource:\(resource) "
+                                    return "sceneID:\(sceneID),action:\(action),nextSceneID:\(nextScene),nextSceneType:\(nextSceneType),rewardGroup:\(rewardGroup),resource:\(resource),touchCount:\(touchCount) "
                                 }
                             }
     
-    init(sceneID: Int, resource: SceneResource, action: String, nextSceneID: Int, rewardGroup: Int)
+    init(sceneID: Int, resource: SceneResource, action: String, nextScene: Int, nextSceneType: String, rewardGroup: Int, touchCount: Int)
     {
         self.sceneID = sceneID
         self.resource = resource
         self.action = ActionType.fromRaw(action)!
-        self.nextSceneID = nextSceneID
+        self.nextScene = nextScene
+        self.nextSceneType = NextSceneType.fromRaw(nextSceneType)!
         self.rewardGroup = rewardGroup
+        self.touchCount = touchCount
     }
     
 }
