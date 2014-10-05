@@ -17,7 +17,8 @@ class MainBase
     var security = 0
     var health = 0
     var character = 0
-    
+    var touchRecord =  [Int:SceneDetail]()
+
     class var shared:MainBase {
         return Inner.instance
     }

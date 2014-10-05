@@ -62,12 +62,13 @@ class Scene: Printable
 }
 class SceneDetail: Printable
 {
+    let globalID: Int
     let sceneID: Int
     let resource: SceneResource
     let action: ActionType
     let nextScene: Int
     let rewardGroup: Int
-    let nextSceneType: NextSceneType
+    var nextSceneType: NextSceneType?
     var touchCount: Int
     var description: String { get
                                 {
@@ -75,13 +76,17 @@ class SceneDetail: Printable
                                 }
                             }
     
-    init(sceneID: Int, resource: SceneResource, action: String, nextScene: Int, nextSceneType: String, rewardGroup: Int, touchCount: Int)
+    init(globalID: Int, sceneID: Int, resource: SceneResource, action: String, nextScene: Int, nextSceneType: String?, rewardGroup: Int, touchCount: Int)
     {
+        self.globalID = globalID
         self.sceneID = sceneID
         self.resource = resource
         self.action = ActionType.fromRaw(action)!
         self.nextScene = nextScene
-        self.nextSceneType = NextSceneType.fromRaw(nextSceneType)!
+        if nextSceneType != nil
+        {
+            self.nextSceneType = NextSceneType.fromRaw(nextSceneType!)
+        }
         self.rewardGroup = rewardGroup
         self.touchCount = touchCount
     }
@@ -132,6 +137,7 @@ class SceneButton: UIButton
 {
     var globalID: Int?
     var selfDelete: Int?
+    var sceneDetailGlobalID: Int?
 }
 
 class SceneImageView: UIImageView

@@ -21,8 +21,8 @@ class showEvent: UIViewController {
         var appFrame = UIScreen.mainScreen().applicationFrame
         mainBack.frame = CGRect(x: appFrame.minX, y: appFrame.minY, width: appFrame.width, height: appFrame.height)
         self.view.addSubview(mainBack)
-        println(appFrame)
-        println(UIScreen.mainScreen().bounds)
+        println("showEvent appFrame: \(appFrame)")
+        println("showEvent bounds: \(UIScreen.mainScreen().bounds)")
         
         
         var dayLabel = UILabel()

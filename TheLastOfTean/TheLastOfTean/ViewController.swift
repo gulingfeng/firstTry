@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         var appFrame = UIScreen.mainScreen().applicationFrame
         mainBack.frame = CGRect(x: appFrame.minX, y: appFrame.minY, width: appFrame.width, height: appFrame.height)
         self.view.addSubview(mainBack)
-        println(appFrame)
+        println("ViewController appframe:\(appFrame)")
         println(UIScreen.mainScreen().bounds)
         
         var newDayBack = UIImageView(image: UIImage(named: "new_day_bak.png"))
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         button.setTitle("开始", forState: .Normal)
         
         self.view.addSubview(button)
-        
+        /*
         var count1 = 0
         var count2 = 0
         var count3 = 0
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
             }
         }
         println("count1:\(count1) count2:\(count2) count3:\(count3)")
-        
+        */
     }
 
     func showEventPage()

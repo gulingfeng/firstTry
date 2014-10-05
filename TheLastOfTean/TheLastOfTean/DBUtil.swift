@@ -14,13 +14,16 @@ class DBUtilSingleton{
     let DATABASE_RESOURCE_NAME = "TheLastOfTeam"
     let DATABASE_RESOURCE_TYPE = "sqlite"
     let DATABASE_FILE_NAME = "TheLastOfTeam.sqlite"
-    
+    var count2 = 0
+    var count4 = 0
+    var count5 = 0
     class var shared:DBUtilSingleton {
         return Inner.instance
     }
 
     struct Inner {
         static var instance = DBUtilSingleton()
+
     }
 
     var connection:FMDatabase?
@@ -30,6 +33,12 @@ class DBUtilSingleton{
         {
             println("init DB Successfully")
             connection = FMDatabase(path: self.dbFilePath)
+            if (connection?.open() != nil)
+            {
+                println("open db ok")
+            }else{
+                println("open db failed")
+            }
         }
     }
     func initializeDb() -> Bool {
@@ -62,6 +71,35 @@ class DBUtilSingleton{
         return true
         
     }
-    
 
+    var count = 0
+    func executeQuerySql(sql: String) -> FMResultSet?
+    {
+        println("executeQuerySql:\(sql)")
+        
+        
+        var result = connection?.executeQuery(sql, withArgumentsInArray: nil)
+        
+        
+        return result
+
+    }
+
+    func executeUpdateSql(sql: String) -> Bool?
+    {
+        println("executeUpdateSql:\(sql)")
+        
+        
+        var result = connection?.executeUpdate(sql, withArgumentsInArray: nil)
+        /*
+        if (connection?.close() != nil)
+        {
+            println("close db ok")
+        }else{
+            println("close db failed")
+        }
+        */
+        return result
+        
+    }
 }

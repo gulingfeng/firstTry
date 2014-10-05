@@ -14,6 +14,10 @@ class DoMission: UIViewController {
     
     var currentSceneID = 1
     var scenes: [Int:Scene]!
+    var mainBase = MainBase.shared
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,12 +25,12 @@ class DoMission: UIViewController {
         var appFrame = UIScreen.mainScreen().applicationFrame
         mainBack.frame = CGRect(x: appFrame.minX, y: appFrame.minY, width: appFrame.width, height: appFrame.height)
         self.view.addSubview(mainBack)
-        println(appFrame)
-        println(UIScreen.mainScreen().bounds)
+        println("DoMission appFrame: \(appFrame)")
+        println("DoMission bounds: \(UIScreen.mainScreen().bounds)")
         
         var newDayBack = UIImageView(image: UIImage(named: "mission_back.jpg"))
         newDayBack.frame = CGRect(x: appFrame.minX+5, y: appFrame.minY+5, width:appFrame.width-10, height: appFrame.height-10)
-        self.view.addSubview(newDayBack)
+        //self.view.addSubview(newDayBack)
         var dayLabel = UILabel()
         dayLabel.text = "清剿僵尸任务"
         dayLabel.frame = CGRect(x: appFrame.minX+220, y: appFrame.minY+10, width: 200, height:8)
@@ -50,47 +54,7 @@ class DoMission: UIViewController {
         if scenes != nil && scenes.count>0
         {
             var scene = scenes[1]
-            var details = scene?.sceneDetails
-            for detail in details!
-            {
-                var resource: UIView
-                var resDef = detail.resource
-                var label: SceneLabel
-                switch resDef.type
-                {
-                    case .button:
-                        var button = SceneButton()
-                        button.layer.borderWidth = 1;
-                        button.layer.borderColor = UIColor.blackColor().CGColor
-                        button.layer.cornerRadius = 5;
-                        button.backgroundColor = UIColor.whiteColor()
-                        button.setTitle(resDef.content, forState: .Normal)
-                        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-                        button.globalID = resDef.globalID
-                        button.tag = getNextSceneID(detail)
-                        button.selfDelete = resDef.selfDelete
-                        button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
-                        resource = button
-                    case .image:
-                        var image = SceneImageView(image: UIImage(named: resDef.content))
-                        image.globalID = resDef.globalID
-                        image.selfDelete = resDef.selfDelete
-                        resource = image
-                    case .label:
-                        label = SceneLabel()
-                        label.text = resDef.content
-                        label.globalID = resDef.globalID
-                        label.selfDelete = resDef.selfDelete
-                        resource = label
-                    default:
-                        label = SceneLabel()
-                        label.globalID = resDef.globalID
-                        label.selfDelete = resDef.selfDelete
-                        label.text = "unknow type"
-                }
-                resource.frame = CGRect(x: detail.resource.positionX, y: detail.resource.positionY, width: detail.resource.width, height: detail.resource.height)
-                self.view.addSubview(resource)
-            }
+            showScene(scene!)
         }
         self.view.addSubview(button)
 
@@ -98,58 +62,105 @@ class DoMission: UIViewController {
     
     func getNextSceneID(sceneDetail: SceneDetail)->Int
     {
-        var sceneID = 0
-        switch sceneDetail.nextSceneType
-        {
-            case .sceneID:
-                sceneID = sceneDetail.nextScene
-            case .calcSceneID:
-                sceneID = 0
-                let db = DBUtilSingleton.shared.connection!
-                
-                if db.open()
-                {
-                    println("open db ok")
-                }else{
-                    println("open db failed")
-                    return 0
-                }
-                let r = arc4random_uniform(100)
-                let touchCount = sceneDetail.touchCount
-                let querySql = "select * from calc_scene_id where calc_id=\(sceneDetail.nextScene)"
-                var result = db.executeQuery(querySql, withArgumentsInArray: nil)
-                var temp = 0 as UInt32
-                var resultSceneID = 0
-                var calcNextScene = [CalcNextScene]()
-                while result.next()
-                {
-                    var calcID = result.longForColumn("calc_id")
-                    var sceneID = result.longForColumn("scene_id")
-                    var probability = result.longForColumn("probability")
-                    var probabilityAdj = result.longForColumn("probability_adj")
-                    var resetCount = result.boolForColumn("reset_count")
-                    
-                    calcNextScene.append(CalcNextScene(calcID: sceneID, sceneID: sceneID, probability: probability, probabilityAdj: probabilityAdj, resetCount: resetCount, touchCount: touchCount))
-                    var finalProbability = probability + probabilityAdj*touchCount
+        let db = DBUtilSingleton.shared.connection!
 
-                    if r > temp && r <= temp + finalProbability
-                    {
-                        return sceneID
-                    }else{
-                        temp = temp+finalProbability
-                    }
+        var result = 0
+        if (sceneDetail.nextSceneType != nil)
+        {
+            switch sceneDetail.nextSceneType!
+            {
+                case .sceneID:
+                    result = sceneDetail.nextScene
+                    println("directly:\(result)")
+                    return result
+                case .calcSceneID:
                     
-                }
-            
-            
-        default:
-                sceneID = 0
+                    var t = mainBase.touchRecord[sceneDetail.globalID]
+                    var touchCount = t?.touchCount
+                    if touchCount == nil
+                    {
+                        touchCount = 0
+                    }
+                    var sql = "select * from scene_detail where rowid=\(sceneDetail.globalID)"
+                    var tempResult = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if (tempResult?.next() != nil)
+                    {
+                        touchCount = tempResult?.longForColumn("touch_count")
+                    }
+                    println("touchCount:\(touchCount)")
+                    
+                    if db.open()
+                    {
+                        println("open db ok")
+                    }else{
+                        println("open db failed")
+                        return 0
+                    }
+                    let random = arc4random_uniform(100)+1
+                    
+                    let querySql = "select * from calc_scene_id where calc_id=\(sceneDetail.nextScene)"
+                    var resultSet = db.executeQuery(querySql, withArgumentsInArray: nil)
+                    var temp = 0 as UInt32
+                    var resultSceneID = 0
+                    var calcNextScene = [CalcNextScene]()
+                    while resultSet.next()
+                    {
+                        var calcID = resultSet.longForColumn("calc_id")
+                        var sceneID = resultSet.longForColumn("scene_id")
+                        var probability = resultSet.longForColumn("probability")
+                        var probabilityAdj = resultSet.longForColumn("probability_adj")
+                        var resetCount = resultSet.boolForColumn("reset_count")
+                        
+                        calcNextScene.append(CalcNextScene(calcID: sceneID, sceneID: sceneID, probability: probability, probabilityAdj: probabilityAdj, resetCount: resetCount, touchCount: touchCount!))
+                        var finalProbability = probability + probabilityAdj*touchCount!
+                        println("finalProbability: \(finalProbability)")
+
+                        if random > temp && random <= temp + finalProbability
+                        {
+                            result = sceneID
+                            break
+                        }else{
+                            temp = temp+finalProbability
+                        }
+                        
+                    }
+                
+                
+                default:
+                    result = 0
+            }
         }
-        return sceneID
+        println("random:\(result)")
+        if result == 2
+        {
+            DBUtilSingleton.shared.count2++
+        }else if result == 4
+        {
+            DBUtilSingleton.shared.count4++
+        }else if result == 5
+        {
+            DBUtilSingleton.shared.count5++
+        }
+        println("count2:\(DBUtilSingleton.shared.count2) count4:\(DBUtilSingleton.shared.count4) count5:\(DBUtilSingleton.shared.count5)")
+        /*
+        if !db.close()
+        {
+            println("getNextSceneID close db failed")
+        }
+        */
+        return result
     }
-    func nextScene(sender: UIButton)
+    
+    func nextScene(sender: SceneButton)
     {
-        println(sender.tag)
+        //println(sender.tag)
+        var temp = mainBase.touchRecord[sender.sceneDetailGlobalID!]
+        println("nextScene sceneDetailGlobalID:\(sender.sceneDetailGlobalID)")
+        temp?.touchCount = temp!.touchCount+1
+        var db = DBUtilSingleton.shared
+        let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where rowid = \(sender.sceneDetailGlobalID!)"
+        var result = db.executeUpdateSql(sql)
+        
         var scene = scenes[currentSceneID]
         var sceneDetail = scene?.sceneDetails
         for obj in self.view.subviews
@@ -186,8 +197,18 @@ class DoMission: UIViewController {
         }
         if scene?.sceneDetails.count>0
         {
-            var details = scene?.sceneDetails
-            for detail in details!
+            showScene(scene!)
+        }
+        
+        
+    }
+    
+    func showScene(scene: Scene)
+    {
+        if scene.sceneDetails.count>0
+        {
+            var details = scene.sceneDetails
+            for detail in details
             {
                 var resource: UIView
                 var resDef = detail.resource
@@ -205,6 +226,8 @@ class DoMission: UIViewController {
                     button.globalID = resDef.globalID
                     button.tag = getNextSceneID(detail)
                     button.selfDelete = resDef.selfDelete
+                    button.sceneDetailGlobalID = detail.globalID
+                    mainBase.touchRecord[detail.globalID] = detail
                     button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
                     resource = button
                 case .image:
@@ -228,10 +251,7 @@ class DoMission: UIViewController {
                 self.view.addSubview(resource)
             }
         }
-        
-        
     }
-    
     func startMission(){
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -248,19 +268,17 @@ class DoMission: UIViewController {
             println("open db failed")
             return nil
         }
-        let querySql = "select * from scene_detail a, scene_resource b where a.resource_id=b.global_id"
+        let querySql = "select a.rowid,* from scene_detail a, scene_resource b where a.resource_id=b.global_id"
         var result = db.executeQuery(querySql, withArgumentsInArray: nil)
         var sceneDetails = [SceneDetail]()
-        var scenes = Scene()
         var scenesMap = [Int:Scene]()
         while result.next()
         {
             
             var resource = SceneResource(globalID: result.longForColumn("global_id"), type: result.longForColumn("type"), content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x"), positionY: result.doubleForColumn("position_y") , width: result.doubleForColumn("width") , height: result.doubleForColumn("height") , alpha: result.doubleForColumn("alpha") , countTouch: result.boolForColumn("count_touch"), touchCount: result.longForColumn("touch_count") , selfDelete: result.longForColumn("self_delete"))
             
-            var sceneDetail = SceneDetail(sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextScene: result.longForColumn("next_scene"), nextSceneType: result.stringForColumn("next_scene_type"), rewardGroup: result.longForColumn("reward_group"), touchCount: result.longForColumn("touch_count"))
+            var sceneDetail = SceneDetail(globalID: result.longForColumn("rowid"), sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextScene: result.longForColumn("next_scene_id"), nextSceneType: result.stringForColumn("next_scene_type"), rewardGroup: result.longForColumn("reward_group"), touchCount: result.longForColumn("touch_count"))
             
-            scenes.addSceneDetail(sceneDetail)
             var temp = scenesMap[sceneDetail.sceneID]
             if (temp != nil)
             {
@@ -274,13 +292,15 @@ class DoMission: UIViewController {
             //println(sceneDetail)
         }
         //println(scenes)
+        /*
         if db.close()
         {
             println("close db ok")
         }else{
             println("close db failed")
         }
-        println(scenesMap)
+        */
+        //println(scenesMap)
         return scenesMap
         
     }
