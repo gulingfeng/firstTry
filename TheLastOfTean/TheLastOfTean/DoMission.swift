@@ -75,34 +75,21 @@ class DoMission: UIViewController {
                     return result
                 case .calcSceneID:
                     
-                    var t = mainBase.touchRecord[sceneDetail.globalID]
-                    var touchCount = t?.touchCount
-                    if touchCount == nil
-                    {
-                        touchCount = 0
-                    }
-                    var sql = "select * from scene_detail where rowid=\(sceneDetail.globalID)"
+                    var touchCount = 0
+                    var sql = "select * from scene_detail where global_id=\(sceneDetail.globalID)"
                     var tempResult = DBUtilSingleton.shared.executeQuerySql(sql)
-                    if (tempResult?.next() != nil)
+                    if tempResult.next()
                     {
-                        touchCount = tempResult?.longForColumn("touch_count")
+                        touchCount = tempResult.longForColumn("touch_count")
                     }
                     println("touchCount:\(touchCount)")
                     
-                    if db.open()
-                    {
-                        println("open db ok")
-                    }else{
-                        println("open db failed")
-                        return 0
-                    }
                     let random = arc4random_uniform(100)+1
                     
                     let querySql = "select * from calc_scene_id where calc_id=\(sceneDetail.nextScene)"
-                    var resultSet = db.executeQuery(querySql, withArgumentsInArray: nil)
+                    var resultSet = DBUtilSingleton.shared.executeQuerySql(querySql)
                     var temp = 0 as UInt32
                     var resultSceneID = 0
-                    var calcNextScene = [CalcNextScene]()
                     while resultSet.next()
                     {
                         var calcID = resultSet.longForColumn("calc_id")
@@ -111,13 +98,20 @@ class DoMission: UIViewController {
                         var probabilityAdj = resultSet.longForColumn("probability_adj")
                         var resetCount = resultSet.boolForColumn("reset_count")
                         
-                        calcNextScene.append(CalcNextScene(calcID: sceneID, sceneID: sceneID, probability: probability, probabilityAdj: probabilityAdj, resetCount: resetCount, touchCount: touchCount!))
-                        var finalProbability = probability + probabilityAdj*touchCount!
+                        var finalProbability = probability + probabilityAdj*touchCount
+                        if finalProbability<0
+                        {
+                            finalProbability = 0
+                        }
                         println("finalProbability: \(finalProbability)")
 
                         if random > temp && random <= temp + finalProbability
                         {
                             result = sceneID
+                            if resetCount
+                            {
+                                DBUtilSingleton.shared.executeUpdateSql("update scene_detail set touch_count=0 where global_id=\(sceneDetail.globalID)")
+                            }
                             break
                         }else{
                             temp = temp+finalProbability
@@ -154,12 +148,9 @@ class DoMission: UIViewController {
     func nextScene(sender: SceneButton)
     {
         //println(sender.tag)
-        var temp = mainBase.touchRecord[sender.sceneDetailGlobalID!]
         println("nextScene sceneDetailGlobalID:\(sender.sceneDetailGlobalID)")
-        temp?.touchCount = temp!.touchCount+1
-        var db = DBUtilSingleton.shared
-        let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where rowid = \(sender.sceneDetailGlobalID!)"
-        var result = db.executeUpdateSql(sql)
+        let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(sender.sceneDetailGlobalID!)"
+        var result = DBUtilSingleton.shared.executeUpdateSql(sql)
         
         var scene = scenes[currentSceneID]
         var sceneDetail = scene?.sceneDetails
@@ -259,25 +250,16 @@ class DoMission: UIViewController {
     {
         println("start load scene")
         
-        let db = DBUtilSingleton.shared.connection!
-        
-        if db.open()
-        {
-            println("open db ok")
-        }else{
-            println("open db failed")
-            return nil
-        }
-        let querySql = "select a.rowid,* from scene_detail a, scene_resource b where a.resource_id=b.global_id"
-        var result = db.executeQuery(querySql, withArgumentsInArray: nil)
+        let querySql = "select a.global_id as detail_global,b.global_id as res_global,a.touch_count as detail_touch_count,b.touch_count as res_touch_count,* from scene_detail a, scene_resource b where a.resource_id=b.global_id"
+        var result = DBUtilSingleton.shared.executeQuerySql(querySql)
         var sceneDetails = [SceneDetail]()
         var scenesMap = [Int:Scene]()
         while result.next()
         {
             
-            var resource = SceneResource(globalID: result.longForColumn("global_id"), type: result.longForColumn("type"), content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x"), positionY: result.doubleForColumn("position_y") , width: result.doubleForColumn("width") , height: result.doubleForColumn("height") , alpha: result.doubleForColumn("alpha") , countTouch: result.boolForColumn("count_touch"), touchCount: result.longForColumn("touch_count") , selfDelete: result.longForColumn("self_delete"))
+            var resource = SceneResource(globalID: result.longForColumn("res_global"), type: result.longForColumn("type"), content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x"), positionY: result.doubleForColumn("position_y") , width: result.doubleForColumn("width") , height: result.doubleForColumn("height") , alpha: result.doubleForColumn("alpha") , countTouch: result.boolForColumn("count_touch"), touchCount: result.longForColumn("res_touch_count") , selfDelete: result.longForColumn("self_delete"))
             
-            var sceneDetail = SceneDetail(globalID: result.longForColumn("rowid"), sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextScene: result.longForColumn("next_scene_id"), nextSceneType: result.stringForColumn("next_scene_type"), rewardGroup: result.longForColumn("reward_group"), touchCount: result.longForColumn("touch_count"))
+            var sceneDetail = SceneDetail(globalID: result.longForColumn("detail_global"), sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextScene: result.longForColumn("next_scene"), nextSceneType: result.stringForColumn("next_scene_type"), rewardGroup: result.longForColumn("reward_group"), touchCount: result.longForColumn("detail_touch_count"))
             
             var temp = scenesMap[sceneDetail.sceneID]
             if (temp != nil)
@@ -292,14 +274,7 @@ class DoMission: UIViewController {
             //println(sceneDetail)
         }
         //println(scenes)
-        /*
-        if db.close()
-        {
-            println("close db ok")
-        }else{
-            println("close db failed")
-        }
-        */
+
         //println(scenesMap)
         return scenesMap
         

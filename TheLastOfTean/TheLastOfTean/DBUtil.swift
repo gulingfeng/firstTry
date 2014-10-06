@@ -67,20 +67,46 @@ class DBUtilSingleton{
                 
             }
             
+        }else{
+            var error: NSError?
+            let deleteSuccessful = filemanager.removeItemAtPath(self.dbFilePath, error: &error)
+            if deleteSuccessful
+            {
+                println("delete DB file successfully")
+            }else{
+                println("delete DB file error:\(error)")
+            }
+            let backupDbPath = NSBundle.mainBundle().pathForResource(DATABASE_RESOURCE_NAME, ofType: DATABASE_RESOURCE_TYPE)
+            
+            if (backupDbPath == nil) {
+                return false
+            } else {
+                var error: NSError?
+                let copySuccessful = filemanager.copyItemAtPath(backupDbPath!, toPath:dbFilePath, error: &error)
+                if !copySuccessful {
+                    println("copy DB failed: \(error?.localizedDescription)")
+                    return false
+                }else{
+                    println("copy DB file successfully")
+                }
+                
+            }
         }
         return true
         
     }
 
     var count = 0
-    func executeQuerySql(sql: String) -> FMResultSet?
+    func executeQuerySql(sql: String) -> FMResultSet!
     {
         println("executeQuerySql:\(sql)")
         
-        
         var result = connection?.executeQuery(sql, withArgumentsInArray: nil)
         
-        
+        if result == nil
+        {
+            result = FMResultSet()
+        }
         return result
 
     }
