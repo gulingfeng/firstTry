@@ -36,6 +36,7 @@
 		DCBE401019DA773300238919 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBE400B19DA773300238919 /* FMResultSet.m */; };
 		DCBE401219DA774D00238919 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBE401119DA774D00238919 /* libsqlite3.dylib */; };
 		DCBE401519DA79BE00238919 /* TheLastOfTeam.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DCBE401419DA79BE00238919 /* TheLastOfTeam.sqlite */; };
+		DCE9860519E4A84000EC6318 /* GameUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE9860419E4A84000EC6318 /* GameUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		DCBE401119DA774D00238919 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		DCBE401319DA777A00238919 /* FMDB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDB-Bridging-Header.h"; sourceTree = "<group>"; };
 		DCBE401419DA79BE00238919 /* TheLastOfTeam.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TheLastOfTeam.sqlite; sourceTree = "<group>"; };
+		DCE9860419E4A84000EC6318 /* GameUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				DCB08FEC19D745DE00DB4E19 /* AppDelegate.swift */,
 				DCB08FEE19D745DE00DB4E19 /* ViewController.swift */,
 				DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */,
+				DCE9860419E4A84000EC6318 /* GameUtil.swift */,
 				DC938F0919DE6414002E320F /* MainBase.swift */,
 				DCB0901519D7B0C900DB4E19 /* showEvent.swift */,
 				DCB0902E19D7CAB300DB4E19 /* DoMission.swift */,
@@ -359,6 +362,7 @@
 				DCBE401019DA773300238919 /* FMResultSet.m in Sources */,
 				DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */,
 				DCB0902F19D7CAB300DB4E19 /* DoMission.swift in Sources */,
+				DCE9860519E4A84000EC6318 /* GameUtil.swift in Sources */,
 				DCBE400D19DA773300238919 /* FMDatabaseAdditions.m in Sources */,
 				DC6C29E819DBC07700E6A436 /* Scene.swift in Sources */,
 			);

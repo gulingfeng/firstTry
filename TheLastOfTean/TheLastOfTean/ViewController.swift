@@ -18,8 +18,8 @@ class ViewController: UIViewController {
         var appFrame = UIScreen.mainScreen().applicationFrame
         mainBack.frame = CGRect(x: appFrame.minX, y: appFrame.minY, width: appFrame.width, height: appFrame.height)
         self.view.addSubview(mainBack)
-        println("ViewController appframe:\(appFrame)")
-        println(UIScreen.mainScreen().bounds)
+        GameUtil.shared.printDebugInfo("ViewController appframe:\(appFrame)")
+        GameUtil.shared.printDebugInfo(UIScreen.mainScreen().bounds)
         
         var newDayBack = UIImageView(image: UIImage(named: "new_day_bak.png"))
         newDayBack.frame = CGRect(x: appFrame.minX+5, y: appFrame.minY+5, width:appFrame.width-10, height: appFrame.height-10)
