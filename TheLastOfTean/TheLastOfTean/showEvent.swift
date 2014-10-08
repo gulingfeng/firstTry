@@ -14,6 +14,9 @@ class showEvent: UIViewController {
     
     var mainBase = MainBase.shared
     var info = UILabel()
+    var dayLabel = UILabel()
+    var missionOption = ["采集食物","清剿僵尸","打扫基地","休息"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -24,11 +27,14 @@ class showEvent: UIViewController {
         println("showEvent appFrame: \(appFrame)")
         println("showEvent bounds: \(UIScreen.mainScreen().bounds)")
         
+        info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
+        info.frame = CGRect(x: appFrame.minX+80, y: appFrame.maxY-40, width: 500, height: 20)
+        self.view.addSubview(info)
         
-        var dayLabel = UILabel()
-        dayLabel.text = "第 20 天"
+        dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
         dayLabel.frame = CGRect(x: appFrame.minX+15, y: appFrame.minY+10, width: 100, height:8)
         self.view.addSubview(dayLabel)
+        
         var button = UIButton()
         button.layer.borderWidth = 1;
         button.layer.borderColor = UIColor.blackColor().CGColor
@@ -40,7 +46,7 @@ class showEvent: UIViewController {
         button.setTitle("出发", forState: .Normal)
         self.view.addSubview(button)
         
-        for i in 1...5
+        for i in 1...1
         {
             var img = UIImageView(image: UIImage(named: "human_\(i).png"))
             var x = 45
@@ -49,6 +55,11 @@ class showEvent: UIViewController {
             var height = 200
             img.frame = CGRect(x: (i-1)*100+x, y: y, width: width, height: height)
             self.view.addSubview(img)
+            
+            var dd = Dropdown(frame: CGRect(x: 20, y: 100, width: 90, height: 400))
+            dd.initDropDown(20, y: 100, width: 90, height: 20,options: missionOption)
+            self.view.addSubview(dd)
+            
         }
         
         var lable = UILabel()
@@ -76,8 +87,9 @@ class showEvent: UIViewController {
         var appFrame = UIScreen.mainScreen().applicationFrame
 
         info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
-        info.frame = CGRect(x: appFrame.minX+80, y: appFrame.maxY-40, width: 500, height: 20)
-        self.view.addSubview(info)
+        
+        dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
+        
     }
     
 }

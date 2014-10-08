@@ -42,7 +42,7 @@ class DoMission: UIViewController {
         button.backgroundColor = UIColor.whiteColor()
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
         button.frame = CGRect(x: appFrame.maxX-150, y: appFrame.minY+10, width: 100, height: 20)
-        button.addTarget(self, action: "startMission", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: "nextTurn", forControlEvents: .TouchUpInside)
         button.setTitle("返回基地", forState: .Normal)
    
         var dialogBack = UIImageView(image: UIImage(named: "test.png"))
@@ -243,7 +243,8 @@ class DoMission: UIViewController {
             }
         }
     }
-    func startMission(){
+    func nextTurn(){
+        GameBasicInfo.shared.nextTurn()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     func loadScene()->[Int:Scene]?

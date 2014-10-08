@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC18601F19E5043C00AB7D87 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18601E19E5043C00AB7D87 /* Dropdown.swift */; };
 		DC6C29E819DBC07700E6A436 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6C29E719DBC07700E6A436 /* Scene.swift */; };
 		DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */; };
 		DC938F0A19DE6414002E320F /* MainBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC938F0919DE6414002E320F /* MainBase.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC18601E19E5043C00AB7D87 /* Dropdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		DC6C29E719DBC07700E6A436 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtil.swift; sourceTree = "<group>"; };
 		DC938F0919DE6414002E320F /* MainBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBase.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */,
 				DCE9860419E4A84000EC6318 /* GameUtil.swift */,
 				DC938F0919DE6414002E320F /* MainBase.swift */,
+				DC18601E19E5043C00AB7D87 /* Dropdown.swift */,
 				DCB0901519D7B0C900DB4E19 /* showEvent.swift */,
 				DCB0902E19D7CAB300DB4E19 /* DoMission.swift */,
 				DC6C29E719DBC07700E6A436 /* Scene.swift */,
@@ -358,6 +361,7 @@
 				DCB08FED19D745DE00DB4E19 /* AppDelegate.swift in Sources */,
 				DCBE400C19DA773300238919 /* FMDatabase.m in Sources */,
 				DC938F0A19DE6414002E320F /* MainBase.swift in Sources */,
+				DC18601F19E5043C00AB7D87 /* Dropdown.swift in Sources */,
 				DCBE400E19DA773300238919 /* FMDatabasePool.m in Sources */,
 				DCBE401019DA773300238919 /* FMResultSet.m in Sources */,
 				DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */,

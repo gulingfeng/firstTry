@@ -24,11 +24,14 @@ class ViewController: UIViewController {
         var newDayBack = UIImageView(image: UIImage(named: "new_day_bak.png"))
         newDayBack.frame = CGRect(x: appFrame.minX+5, y: appFrame.minY+5, width:appFrame.width-10, height: appFrame.height-10)
         self.view.addSubview(newDayBack)
+        
+        GameUtil.shared.printDebugInfo("current turn: \(GameBasicInfo.shared.currentTurn)")
         var dayLabel = UILabel()
-        dayLabel.text = "第 20 天"
+        dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
         dayLabel.frame = CGRect(x: appFrame.minX+264, y: appFrame.minY+130, width: 100, height: 20)
         self.view.addSubview(dayLabel)
-        var button = UIButton()
+        
+                var button = UIButton()
         button.layer.borderWidth = 1;
         button.layer.borderColor = UIColor.blackColor().CGColor
         button.layer.cornerRadius = 5;
