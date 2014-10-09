@@ -21,14 +21,10 @@ class ViewController: UIViewController {
         selectedOption.layer.borderColor = UIColor.blackColor().CGColor
         //selectedOption.layer.cornerRadius = 5;
         selectedOption.addTarget(self, action: "dropdownlist:", forControlEvents: .TouchUpInside)
-        self.view.addSubview(selectedOption)
+        var dropdown = ButtonDropDown(frame: basicFrame)
+        //dropdown.initOptions([("清剿僵尸",1),("打扫卫生",2),("聊天",3),("休息",4)])
+        self.view.addSubview(dropdown)
 
-        var s:Double
-        var a: Int
-        a = 5
-        s = 6.7
-        var t = s * 5
-        println(t)
         for i in 1...4
         {
             var button = UIButton()
@@ -39,7 +35,7 @@ class ViewController: UIViewController {
             button.addTarget(self, action: "selectOption:", forControlEvents: .TouchUpInside)
             button.hidden = true
             options.append(button)
-            self.view.addSubview(button)
+            //self.view.addSubview(button)
         }
     }
 
