@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DCFEF11019E5BA5600B51004 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFEF10F19E5BA5600B51004 /* AppDelegate.swift */; };
+		DCFEF11219E5BA5600B51004 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFEF11119E5BA5600B51004 /* ViewController.swift */; };
+		DCFEF11519E5BA5600B51004 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCFEF11319E5BA5600B51004 /* Main.storyboard */; };
+		DCFEF11719E5BA5600B51004 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCFEF11619E5BA5600B51004 /* Images.xcassets */; };
+		DCFEF12319E5BA5600B51004 /* ButtonDropDownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFEF12219E5BA5600B51004 /* ButtonDropDownTests.swift */; };
+		DCFEF12D19E601BB00B51004 /* ButtonDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFEF12C19E601BB00B51004 /* ButtonDropDown.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCFEF11D19E5BA5600B51004 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCFEF10219E5BA5600B51004 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCFEF10919E5BA5600B51004;
+			remoteInfo = ButtonDropDown;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DCFEF10A19E5BA5600B51004 /* ButtonDropDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButtonDropDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCFEF10E19E5BA5600B51004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCFEF10F19E5BA5600B51004 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DCFEF11119E5BA5600B51004 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DCFEF11419E5BA5600B51004 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DCFEF11619E5BA5600B51004 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DCFEF11C19E5BA5600B51004 /* ButtonDropDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ButtonDropDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCFEF12119E5BA5600B51004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCFEF12219E5BA5600B51004 /* ButtonDropDownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDropDownTests.swift; sourceTree = "<group>"; };
+		DCFEF12C19E601BB00B51004 /* ButtonDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonDropDown.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCFEF10719E5BA5600B51004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCFEF11919E5BA5600B51004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCFEF10119E5BA5600B51004 = {
+			isa = PBXGroup;
+			children = (
+				DCFEF10C19E5BA5600B51004 /* ButtonDropDown */,
+				DCFEF11F19E5BA5600B51004 /* ButtonDropDownTests */,
+				DCFEF10B19E5BA5600B51004 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCFEF10B19E5BA5600B51004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCFEF10A19E5BA5600B51004 /* ButtonDropDown.app */,
+				DCFEF11C19E5BA5600B51004 /* ButtonDropDownTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCFEF10C19E5BA5600B51004 /* ButtonDropDown */ = {
+			isa = PBXGroup;
+			children = (
+				DCFEF10F19E5BA5600B51004 /* AppDelegate.swift */,
+				DCFEF11119E5BA5600B51004 /* ViewController.swift */,
+				DCFEF12C19E601BB00B51004 /* ButtonDropDown.swift */,
+				DCFEF11319E5BA5600B51004 /* Main.storyboard */,
+				DCFEF11619E5BA5600B51004 /* Images.xcassets */,
+				DCFEF10D19E5BA5600B51004 /* Supporting Files */,
+			);
+			path = ButtonDropDown;
+			sourceTree = "<group>";
+		};
+		DCFEF10D19E5BA5600B51004 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCFEF10E19E5BA5600B51004 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCFEF11F19E5BA5600B51004 /* ButtonDropDownTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCFEF12219E5BA5600B51004 /* ButtonDropDownTests.swift */,
+				DCFEF12019E5BA5600B51004 /* Supporting Files */,
+			);
+			path = ButtonDropDownTests;
+			sourceTree = "<group>";
+		};
+		DCFEF12019E5BA5600B51004 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCFEF12119E5BA5600B51004 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCFEF10919E5BA5600B51004 /* ButtonDropDown */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCFEF12619E5BA5600B51004 /* Build configuration list for PBXNativeTarget "ButtonDropDown" */;
+			buildPhases = (
+				DCFEF10619E5BA5600B51004 /* Sources */,
+				DCFEF10719E5BA5600B51004 /* Frameworks */,
+				DCFEF10819E5BA5600B51004 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ButtonDropDown;
+			productName = ButtonDropDown;
+			productReference = DCFEF10A19E5BA5600B51004 /* ButtonDropDown.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DCFEF11B19E5BA5600B51004 /* ButtonDropDownTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCFEF12919E5BA5600B51004 /* Build configuration list for PBXNativeTarget "ButtonDropDownTests" */;
+			buildPhases = (
+				DCFEF11819E5BA5600B51004 /* Sources */,
+				DCFEF11919E5BA5600B51004 /* Frameworks */,
+				DCFEF11A19E5BA5600B51004 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCFEF11E19E5BA5600B51004 /* PBXTargetDependency */,
+			);
+			name = ButtonDropDownTests;
+			productName = ButtonDropDownTests;
+			productReference = DCFEF11C19E5BA5600B51004 /* ButtonDropDownTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCFEF10219E5BA5600B51004 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = gulingfeng;
+				TargetAttributes = {
+					DCFEF10919E5BA5600B51004 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					DCFEF11B19E5BA5600B51004 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = DCFEF10919E5BA5600B51004;
+					};
+				};
+			};
+			buildConfigurationList = DCFEF10519E5BA5600B51004 /* Build configuration list for PBXProject "ButtonDropDown" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DCFEF10119E5BA5600B51004;
+			productRefGroup = DCFEF10B19E5BA5600B51004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCFEF10919E5BA5600B51004 /* ButtonDropDown */,
+				DCFEF11B19E5BA5600B51004 /* ButtonDropDownTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCFEF10819E5BA5600B51004 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCFEF11519E5BA5600B51004 /* Main.storyboard in Resources */,
+				DCFEF11719E5BA5600B51004 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCFEF11A19E5BA5600B51004 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCFEF10619E5BA5600B51004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCFEF11219E5BA5600B51004 /* ViewController.swift in Sources */,
+				DCFEF12D19E601BB00B51004 /* ButtonDropDown.swift in Sources */,
+				DCFEF11019E5BA5600B51004 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCFEF11819E5BA5600B51004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCFEF12319E5BA5600B51004 /* ButtonDropDownTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCFEF11E19E5BA5600B51004 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCFEF10919E5BA5600B51004 /* ButtonDropDown */;
+			targetProxy = DCFEF11D19E5BA5600B51004 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DCFEF11319E5BA5600B51004 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCFEF11419E5BA5600B51004 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DCFEF12419E5BA5600B51004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DCFEF12519E5BA5600B51004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DCFEF12719E5BA5600B51004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = ButtonDropDown/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DCFEF12819E5BA5600B51004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = ButtonDropDown/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DCFEF12A19E5BA5600B51004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ButtonDropDownTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ButtonDropDown.app/ButtonDropDown";
+			};
+			name = Debug;
+		};
+		DCFEF12B19E5BA5600B51004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ButtonDropDownTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ButtonDropDown.app/ButtonDropDown";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCFEF10519E5BA5600B51004 /* Build configuration list for PBXProject "ButtonDropDown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCFEF12419E5BA5600B51004 /* Debug */,
+				DCFEF12519E5BA5600B51004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCFEF12619E5BA5600B51004 /* Build configuration list for PBXNativeTarget "ButtonDropDown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCFEF12719E5BA5600B51004 /* Debug */,
+				DCFEF12819E5BA5600B51004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DCFEF12919E5BA5600B51004 /* Build configuration list for PBXNativeTarget "ButtonDropDownTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCFEF12A19E5BA5600B51004 /* Debug */,
+				DCFEF12B19E5BA5600B51004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCFEF10219E5BA5600B51004 /* Project object */;
+}
