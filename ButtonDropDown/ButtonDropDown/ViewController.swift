@@ -23,6 +23,8 @@ class ViewController: UIViewController {
         selectedOption.addTarget(self, action: "dropdownlist:", forControlEvents: .TouchUpInside)
         var dropdown = ButtonDropDown(frame: basicFrame)
         //dropdown.initOptions([("清剿僵尸",1),("打扫卫生",2),("聊天",3),("休息",4)])
+        dropdown.addDropDownListener(self,action: "testSelector:")
+        //var a = Selector(testSelector)
         self.view.addSubview(dropdown)
 
         for i in 1...4
@@ -39,6 +41,10 @@ class ViewController: UIViewController {
         }
     }
 
+    func testSelector()
+    {
+        println("test test")
+    }
     func dropdownlist(sender:UIButton)
     {
         

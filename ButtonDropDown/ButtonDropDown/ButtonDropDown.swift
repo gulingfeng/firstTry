@@ -14,9 +14,9 @@ enum popDirectionValue: Int
     case UP = 0
     case DOWN = 1
 }
-class ButtonDropDown: UIView, UIGestureRecognizerDelegate
+class ButtonDropDown: UIView
 {
-    var selectedOption: UIButton
+    var selectedOption: DropDownButton
     var options = [UIButton]()
     var showed = false
     var popDirection = popDirectionValue.DOWN
@@ -25,30 +25,35 @@ class ButtonDropDown: UIView, UIGestureRecognizerDelegate
     var width: Double
     var height: Double
     
-    override init(frame: CGRect) {
+     override init(frame: CGRect) {
 
         self.popDirection = .DOWN
         self.minX = Double(frame.minX)
         self.minY = Double(frame.minY)
         self.width = Double(frame.width)
         self.height = Double(frame.height)
-        self.selectedOption = UIButton()
-        super.init(frame: frame)
+        self.selectedOption = DropDownButton(frame: frame)
         self.selectedOption.frame = frame
+        super.init(frame: frame)
 
         selectedOption.layer.borderWidth = 1;
         selectedOption.layer.borderColor = UIColor.blackColor().CGColor
         //self.selectedOption.addTarget(self, action: "onClickDropDown:", forControlEvents: .TouchUpInside)
         self.selectedOption.setTitle("select", forState: .Normal)
         self.selectedOption.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.selectedOption.showsTouchWhenHighlighted = true
 
-        var temp = UITapGestureRecognizer(target: self, action: "onClickDropDown")
-        temp.delegate = self
+        //var temp = UITapGestureRecognizer(target: self, action: "onClickDropDown")
+        //temp.delegate = self
         //selectedOption.addGestureRecognizer(temp)
-        self.addGestureRecognizer(temp)
-        //self.addSubview(self.selectedOption)
+        //self.addGestureRecognizer(temp)
+        self.addSubview(self.selectedOption)
     }
 
+    func addDropDownListener(listener:UIViewController,action:Selector)
+    {
+        self.selectedOption.addTarget(listener, action: "onClickDropDown:", forControlEvents: .TouchUpInside)
+    }
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool
     {
     

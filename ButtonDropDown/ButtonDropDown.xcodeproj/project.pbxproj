@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DCF0956619E743C3002F57CC /* DropDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF0956519E743C3002F57CC /* DropDownButton.swift */; };
 		DCFEF11019E5BA5600B51004 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFEF10F19E5BA5600B51004 /* AppDelegate.swift */; };
 		DCFEF11219E5BA5600B51004 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFEF11119E5BA5600B51004 /* ViewController.swift */; };
 		DCFEF11519E5BA5600B51004 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCFEF11319E5BA5600B51004 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DCF0956519E743C3002F57CC /* DropDownButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownButton.swift; sourceTree = "<group>"; };
 		DCFEF10A19E5BA5600B51004 /* ButtonDropDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButtonDropDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFEF10E19E5BA5600B51004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCFEF10F19E5BA5600B51004 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				DCFEF10F19E5BA5600B51004 /* AppDelegate.swift */,
 				DCFEF11119E5BA5600B51004 /* ViewController.swift */,
 				DCFEF12C19E601BB00B51004 /* ButtonDropDown.swift */,
+				DCF0956519E743C3002F57CC /* DropDownButton.swift */,
 				DCFEF11319E5BA5600B51004 /* Main.storyboard */,
 				DCFEF11619E5BA5600B51004 /* Images.xcassets */,
 				DCFEF10D19E5BA5600B51004 /* Supporting Files */,
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCF0956619E743C3002F57CC /* DropDownButton.swift in Sources */,
 				DCFEF11219E5BA5600B51004 /* ViewController.swift in Sources */,
 				DCFEF12D19E601BB00B51004 /* ButtonDropDown.swift in Sources */,
 				DCFEF11019E5BA5600B51004 /* AppDelegate.swift in Sources */,
@@ -399,6 +403,7 @@
 				DCFEF12819E5BA5600B51004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DCFEF12919E5BA5600B51004 /* Build configuration list for PBXNativeTarget "ButtonDropDownTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +412,7 @@
 				DCFEF12B19E5BA5600B51004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

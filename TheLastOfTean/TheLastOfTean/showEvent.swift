@@ -46,7 +46,7 @@ class showEvent: UIViewController {
         button.setTitle("出发", forState: .Normal)
         self.view.addSubview(button)
         
-        for i in 1...1
+        for i in 1...2
         {
             var img = UIImageView(image: UIImage(named: "human_\(i).png"))
             var x = 45
@@ -56,10 +56,11 @@ class showEvent: UIViewController {
             img.frame = CGRect(x: (i-1)*100+x, y: y, width: width, height: height)
             self.view.addSubview(img)
             
-            var dd = Dropdown(frame: CGRect(x: 20, y: 100, width: 90, height: 400))
-            dd.initDropDown(20, y: 100, width: 90, height: 20,options: missionOption)
+            var dd = Dropdown(frame: CGRect(x: (i-1)*100+x, y: 100, width: 90, height: 400))
+            dd.initDropDown(0, y: 100, width: 90, height: 20,options: missionOption,id: i)
             self.view.addSubview(dd)
-            
+            GameUtil.shared.printDebugInfo(dd.frame)
+            GameUtil.shared.printDebugInfo(img.frame)
         }
         
         var lable = UILabel()

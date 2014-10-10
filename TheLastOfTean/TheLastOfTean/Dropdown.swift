@@ -28,6 +28,7 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
     var tv: UITableView
     var selectedOption: UIButton
     var showed = false
+    var id = 0
     // MARK: - Table view data source
     override init(frame: CGRect) {
         basicFrame = frame
@@ -36,31 +37,32 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
         selectedOption = UIButton()
 
         super.init(frame: frame)
+        
+    }
+    
+    func initDropDown(x: Int, y: Int, width: Int, height: Int, options: [String],id:Int)
+    {
         tv.delegate = self;
         tv.dataSource = self;
         tv.backgroundColor = UIColor.grayColor()
-        tv.frame = CGRect(x: basicFrame.minX, y: CGFloat(basicFrame.minY+20), width: basicFrame.width, height: 500)
+        tv.frame = CGRect(x: x, y: y+20, width: width, height: 400)
         tv.backgroundColor = UIColor.clearColor()
         tv.opaque = false
         self.addSubview(tv)
         tv.hidden = false
-        selectedOption.frame = CGRect(x: basicFrame.minX, y: basicFrame.minY, width: basicFrame.width, height: 20)
+        selectedOption.frame = CGRect(x: x, y: y, width: width, height: 20)
         selectedOption.layer.borderWidth = 1;
         selectedOption.layer.borderColor = UIColor.blackColor().CGColor
         selectedOption.layer.cornerRadius = 5;
         selectedOption.addTarget(self, action: "dropdownlist:", forControlEvents: .TouchUpInside)
         self.addSubview(selectedOption)
-    }
-    
-    func initDropDown(x: Int, y: Int, width: Int, height: Int, options: [String])
-    {
         self.options = options
         var max = width
         for temp in options
         {
             
         }
-        
+        self.id = id
         tv.frame = CGRect(x: x, y: y+height, width: width, height: height*(options.count))
         selectedOption.frame = CGRect(x: x, y: y, width: width, height: height)
     }
@@ -99,14 +101,16 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
-        let cellId: String = "CellIdentifier"
+        let cellId: String = "CellIdentifier\(self.id)"
         var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? UITableViewCell
 
         if cell != nil
         {
             cell!.textLabel?.text = self.options[indexPath.row]
         }else{
-            cell = UITableViewCell(style: .Default, reuseIdentifier: cellId)
+            cell = UITableViewCell(style: .Value1, reuseIdentifier: cellId)
+            cell?.accessoryType = .None
+            cell?.editingAccessoryType = .None
             
             cell!.textLabel?.text = self.options[indexPath.row]
         }
