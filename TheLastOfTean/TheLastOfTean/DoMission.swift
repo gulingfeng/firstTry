@@ -232,6 +232,12 @@ class DoMission: UIViewController {
                     label.globalID = resDef.globalID
                     label.selfDelete = resDef.selfDelete
                     resource = label
+                case .webLabel:
+                    var webLabel = SceneWebLabel()
+                    
+                    webLabel.globalID = resDef.globalID
+                    webLabel.selfDelete = resDef.selfDelete
+                    resource = webLabel
                 default:
                     label = SceneLabel()
                     label.globalID = resDef.globalID

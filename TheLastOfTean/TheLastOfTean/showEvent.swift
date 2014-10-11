@@ -16,6 +16,7 @@ class showEvent: UIViewController {
     var info = UILabel()
     var dayLabel = UILabel()
     var missionOption = ["采集食物","清剿僵尸","打扫基地","休息"]
+    var scenes: [Int:Scene]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,11 @@ class showEvent: UIViewController {
         dayLabel.frame = CGRect(x: appFrame.minX+15, y: appFrame.minY+10, width: 100, height:8)
         self.view.addSubview(dayLabel)
         
+        var lable = UILabel()
+        lable.text = "----基地概况----"
+        lable.frame = CGRect(x: appFrame.maxX/2-50, y: appFrame.maxY-80, width: 200, height: 50)
+        self.view.addSubview(lable)
+        
         var button = UIButton()
         button.layer.borderWidth = 1;
         button.layer.borderColor = UIColor.blackColor().CGColor
@@ -49,27 +55,35 @@ class showEvent: UIViewController {
         for i in 1...5
         {
             var img = UIImageView(image: UIImage(named: "human_\(i).png"))
-            var x = 45
-            var y = 35
-            var width = 94
-            var height = 200
-            img.frame = CGRect(x: (i-1)*100+x, y: y, width: width, height: height)
+            var width = CGFloat(appFrame.width-10)/5
+            var x = CGFloat(5)
+            var y = CGFloat(35)
+            var height = CGFloat(appFrame.height*2/3)
+            img.frame = CGRect(x: CGFloat(Int(5)+(i-1)*Int(width)), y: y, width: width, height: height)
             self.view.addSubview(img)
-            
-            var dd = Dropdown(frame: CGRect(x: (i-1)*100+x, y: 100, width: 90, height: 400))
+            CGRectMake(x, y, width, height)
+            var dd = Dropdown(frame: CGRect(x: CGFloat(Int(5)+(i-1)*Int(width)), y: 100, width: 90, height: 400))
             dd.initDropDown(0, y: 100, width: 90, height: 20,options: missionOption,id: i)
             self.view.addSubview(dd)
             GameUtil.shared.printDebugInfo(dd.frame)
             GameUtil.shared.printDebugInfo(img.frame)
         }
         
-        var lable = UILabel()
-        lable.text = "----基地概况----"
-        lable.frame = CGRect(x: appFrame.maxX/2-50, y: appFrame.maxY-80, width: 200, height: 50)
-        self.view.addSubview(lable)
+        
         
         var events = GameUtil.shared.getAllEvent()
-        
+        if events.count>0
+        {
+            var event = events[0]
+            var sceneID = event.startSceneID
+            scenes = GameUtil.shared.loadScene()
+            //println(scene)
+            if scenes != nil && scenes!.count>0
+            {
+                var scene = scenes![6]
+                GameUtil.shared.showScene(scene!, vc: self)
+            }
+        }
         
     }
 
@@ -92,5 +106,65 @@ class showEvent: UIViewController {
         dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
         
     }
+    
+    func nextScene(sender: SceneButton)
+    {
+        //println(sender.tag)
+        println("nextScene sceneDetailGlobalID:\(sender.sceneDetailGlobalID)")
+        let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(sender.sceneDetailGlobalID!)"
+        var result = DBUtilSingleton.shared.executeUpdateSql(sql)
+        
+        var scene = scenes[sender.currentSceneID!]
+        var sceneDetail = scene?.sceneDetails
+        for obj in self.view.subviews
+        {
+            if let subview =  obj as? SceneButton
+            {
+                //println("SceneButton")
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+                
+            }else if let subview = obj as? SceneImageView{
+                //println("SceneImage")
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+            }else if let subview = obj as? SceneLabel{
+                //println("label")
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+            }else if let subview = obj as?SceneWebLabel{
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+            }
+            //println(self.view.subviews)
+        }
+        if sender.tag == -1
+        {
+            return
+        }
+        scene = scenes[sender.tag]
+        
+        if sender.tag == 5
+        {
+            var mainBase = MainBase.shared
+            mainBase.food+=10
+            mainBase.supply+=5
+        }
+        if scene?.sceneDetails.count>0
+        {
+            GameUtil.shared.showScene(scene!, vc: self)
+        }
+        
+        
+    }
+
     
 }

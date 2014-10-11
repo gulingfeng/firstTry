@@ -108,6 +108,7 @@ enum ResourceType: Int
     case image = 1;
     case label;
     case button;
+    case webLabel;
 }
 class SceneResource:Printable
 {
@@ -148,6 +149,7 @@ class SceneButton: UIButton
     var globalID: Int?
     var selfDelete: Int?
     var sceneDetailGlobalID: Int?
+    var currentSceneID: Int?
 }
 
 class SceneImageView: UIImageView
@@ -158,6 +160,13 @@ class SceneImageView: UIImageView
 
 class SceneLabel: UILabel
 {
+    var globalID: Int?
+    var selfDelete: Int?
+}
+
+class SceneWebLabel: UIWebView
+{
+    
     var globalID: Int?
     var selfDelete: Int?
 }
