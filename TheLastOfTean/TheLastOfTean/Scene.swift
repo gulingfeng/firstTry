@@ -9,6 +9,16 @@
 import Foundation
 import UIKit
 
+class Event
+{
+    var eventID: Int
+    var startSceneID: Int
+    init(eventID: Int, startSceneID: Int)
+    {
+        self.eventID = eventID
+        self.startSceneID = startSceneID
+    }
+}
 class CalcNextScene
 {
     let calcID: Int

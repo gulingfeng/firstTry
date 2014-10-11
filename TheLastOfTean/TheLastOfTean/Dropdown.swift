@@ -49,7 +49,7 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
         tv.backgroundColor = UIColor.clearColor()
         tv.opaque = false
         self.addSubview(tv)
-        tv.hidden = false
+        tv.hidden = true
         selectedOption.frame = CGRect(x: x, y: y, width: width, height: 20)
         selectedOption.layer.borderWidth = 1;
         selectedOption.layer.borderColor = UIColor.blackColor().CGColor
@@ -115,6 +115,7 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
             cell!.textLabel?.text = self.options[indexPath.row]
         }
     
+        cell?.textLabel?.font = UIFont.systemFontOfSize(10)
         return cell!
     }
     

@@ -57,6 +57,17 @@ class GameUtil
     {
         
     }
+    
+    func getAllEvent()->[Event]
+    {
+        var events = [Event]()
+        var resultSet = DBUtilSingleton.shared.executeQuerySql("select * from event")
+        while resultSet.next()
+        {
+            events.append(Event(eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id")))
+        }
+        return events
+    }
 }
 
 class GameBasicInfo

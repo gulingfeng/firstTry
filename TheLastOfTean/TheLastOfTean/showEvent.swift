@@ -46,7 +46,7 @@ class showEvent: UIViewController {
         button.setTitle("出发", forState: .Normal)
         self.view.addSubview(button)
         
-        for i in 1...2
+        for i in 1...5
         {
             var img = UIImageView(image: UIImage(named: "human_\(i).png"))
             var x = 45
@@ -68,7 +68,7 @@ class showEvent: UIViewController {
         lable.frame = CGRect(x: appFrame.maxX/2-50, y: appFrame.maxY-80, width: 200, height: 50)
         self.view.addSubview(lable)
         
-        
+        var events = GameUtil.shared.getAllEvent()
         
         
     }
