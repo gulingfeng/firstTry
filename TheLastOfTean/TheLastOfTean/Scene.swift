@@ -150,6 +150,7 @@ class SceneButton: UIButton
     var selfDelete: Int?
     var sceneDetailGlobalID: Int?
     var currentSceneID: Int?
+    var sceneViewController: SceneViewController?
 }
 
 class SceneImageView: UIImageView
@@ -170,3 +171,10 @@ class SceneWebLabel: UIWebView
     var globalID: Int?
     var selfDelete: Int?
 }
+
+
+class SceneViewController: UIViewController
+{
+    var scenes = [Int:Scene]()
+}
+    

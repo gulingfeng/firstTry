@@ -10,13 +10,12 @@ import Foundation
 
 import UIKit
 
-class showEvent: UIViewController {
+class showEvent: SceneViewController {
     
     var mainBase = MainBase.shared
     var info = UILabel()
     var dayLabel = UILabel()
     var missionOption = ["采集食物","清剿僵尸","打扫基地","休息"]
-    var scenes: [Int:Scene]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,11 +75,11 @@ class showEvent: UIViewController {
         {
             var event = events[0]
             var sceneID = event.startSceneID
-            scenes = GameUtil.shared.loadScene()
+            scenes = GameUtil.shared.loadScene()!
             //println(scene)
-            if scenes != nil && scenes!.count>0
+            if scenes.count>0
             {
-                var scene = scenes![6]
+                var scene = scenes[sceneID]
                 GameUtil.shared.showScene(scene!, vc: self)
             }
         }

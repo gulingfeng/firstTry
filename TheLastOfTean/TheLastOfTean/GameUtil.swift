@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class GameUtil
+class GameUtil: NSObject
 {
     class var shared:GameUtil {
     return Inner.instance
@@ -20,8 +20,9 @@ class GameUtil
     }
     
     var isDebug: Bool!
-    init()
+    override init()
     {
+        super.init()
         if getGameStatus("debug") == "Y"
         {
             isDebug = true
@@ -102,7 +103,7 @@ class GameUtil
         return scenesMap
         
     }
-    func showScene(scene: Scene, vc: UIViewController)
+    func showScene(scene: Scene, vc: SceneViewController)
     {
         if scene.sceneDetails.count>0
         {
@@ -127,7 +128,8 @@ class GameUtil
                     button.selfDelete = resDef.selfDelete
                     button.sceneDetailGlobalID = detail.globalID
                     button.currentSceneID = detail.sceneID
-                    button.addTarget(vc, action: "nextScene:", forControlEvents: .TouchUpInside)
+                    button.sceneViewController = vc
+                    button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
                     resource = button
                 case .image:
                     var image = SceneImageView(image: UIImage(named: resDef.content))
@@ -161,9 +163,63 @@ class GameUtil
             }
         }
     }
-    func nextScene(sender:UIButton)
+    func nextScene(sender:SceneButton)
     {
-        println("next scene in gameutil")
+        GameUtil.shared.printDebugInfo(sender.sceneViewController)
+        var vc = sender.sceneViewController!
+        var scenes = vc.scenes
+        println("nextScene sceneDetailGlobalID:\(sender.sceneDetailGlobalID)")
+        let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(sender.sceneDetailGlobalID!)"
+        var result = DBUtilSingleton.shared.executeUpdateSql(sql)
+        
+        var scene = scenes[sender.currentSceneID!]
+        var sceneDetail = scene?.sceneDetails
+        for obj in vc.view.subviews
+        {
+            if let subview =  obj as? SceneButton
+            {
+                //println("SceneButton")
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+                
+            }else if let subview = obj as? SceneImageView{
+                //println("SceneImage")
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+            }else if let subview = obj as? SceneLabel{
+                //println("label")
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+            }else if let subview = obj as?SceneWebLabel{
+                if subview.selfDelete == 1
+                {
+                    subview.removeFromSuperview()
+                }
+            }
+            //println(self.view.subviews)
+        }
+        if sender.tag == -1
+        {
+            return
+        }
+        scene = scenes[sender.tag]
+        
+        if sender.tag == 5
+        {
+            var mainBase = MainBase.shared
+            mainBase.food+=10
+            mainBase.supply+=5
+        }
+        if scene?.sceneDetails.count>0
+        {
+            GameUtil.shared.showScene(scene!, vc: vc)
+        }
     }
     func getNextSceneID(sceneDetail: SceneDetail)->Int
     {

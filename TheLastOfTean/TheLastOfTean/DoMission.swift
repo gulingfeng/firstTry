@@ -10,10 +10,9 @@ import Foundation
 
 import UIKit
 
-class DoMission: UIViewController {
+class DoMission: SceneViewController {
     
     var currentSceneID = 1
-    var scenes: [Int:Scene]!
     var mainBase = MainBase.shared
     
 
@@ -49,12 +48,12 @@ class DoMission: UIViewController {
         dialogBack.frame = CGRect(x: appFrame.minX+5, y: appFrame.maxY-60, width:appFrame.width-10, height: 50)
         dialogBack.alpha = 0.5
         //self.view.addSubview(dialogBack)
-        scenes = loadScene()
+        scenes = GameUtil.shared.loadScene()!
         //println(scene)
-        if scenes != nil && scenes.count>0
+        if scenes.count>0
         {
             var scene = scenes[1]
-            showScene(scene!)
+            GameUtil.shared.showScene(scene!,vc: self)
         }
         self.view.addSubview(button)
 
