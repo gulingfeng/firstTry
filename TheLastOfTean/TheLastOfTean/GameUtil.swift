@@ -74,7 +74,7 @@ class GameUtil: NSObject
     {
         println("start load scene")
         
-        let querySql = "select a.global_id as detail_global,b.global_id as res_global,a.touch_count as detail_touch_count,b.touch_count as res_touch_count,* from scene_detail a, scene_resource b where a.resource_id=b.global_id"
+        let querySql = "select a.global_id as detail_global,b.global_id as res_global,a.touch_count as detail_touch_count,b.touch_count as res_touch_count,* from scene_detail a, scene_resource b where a.resource_id=b.global_id order by a.sequence"
         var result = DBUtilSingleton.shared.executeQuerySql(querySql)
         var sceneDetails = [SceneDetail]()
         var scenesMap = [Int:Scene]()
@@ -110,63 +110,116 @@ class GameUtil: NSObject
             var details = scene.sceneDetails
             for detail in details
             {
-                var resource: UIView
-                var resDef = detail.resource
-                var label: SceneLabel
-                switch resDef.type
-                    {
-                case .button:
-                    var button = SceneButton()
-                    button.layer.borderWidth = 1;
-                    button.layer.borderColor = UIColor.blackColor().CGColor
-                    button.layer.cornerRadius = 5;
-                    button.backgroundColor = UIColor.whiteColor()
-                    button.setTitle(resDef.content, forState: .Normal)
-                    button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-                    button.globalID = resDef.globalID
-                    button.tag = getNextSceneID(detail)
-                    button.selfDelete = resDef.selfDelete
-                    button.sceneDetailGlobalID = detail.globalID
-                    button.currentSceneID = detail.sceneID
-                    button.sceneViewController = vc
-                    button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
-                    resource = button
-                case .image:
-                    var image = SceneImageView(image: UIImage(named: resDef.content))
-                    image.alpha = CGFloat(resDef.alpha)
-                    image.globalID = resDef.globalID
-                    image.selfDelete = resDef.selfDelete
-                    resource = image
-                case .label:
-                    label = SceneLabel()
-                    label.text = resDef.content
-                    label.globalID = resDef.globalID
-                    label.selfDelete = resDef.selfDelete
-                    resource = label
-                case .webLabel:
-                    var webLabel = SceneWebLabel()
-                    webLabel.loadHTMLString(resDef.content, baseURL: nil)
-                    webLabel.opaque = 0
-                    webLabel.backgroundColor = UIColor.clearColor()
-                    webLabel.scrollView.scrollEnabled = false
-                    webLabel.globalID = resDef.globalID
-                    webLabel.selfDelete = resDef.selfDelete
-                    resource = webLabel
+                switch detail.action
+                {
+                case .add:
+                    addNewSceneResource(detail, vc: vc)
+                case .delete:
+                    deleteOldSceneResource(detail, vc: vc)
+                case .replace:
+                    printDebugInfo("replace scene resource")
                 default:
-                    label = SceneLabel()
-                    label.globalID = resDef.globalID
-                    label.selfDelete = resDef.selfDelete
-                    label.text = "unknow type"
+                    printDebugInfo("unknow resource process")
                 }
-                var appFrame = UIScreen.mainScreen().applicationFrame
-                var x = CGFloat(appFrame.maxX*CGFloat(detail.resource.positionX/100))
-                var y = CGFloat(appFrame.maxY*CGFloat(detail.resource.positionY/100))
-                var width = CGFloat(appFrame.width*CGFloat(detail.resource.width/100))
-                var height = CGFloat(appFrame.height*CGFloat(detail.resource.height/100))
-                resource.frame = CGRect(x: x, y: y, width: width, height: height)
-                vc.view.addSubview(resource)
+                
             }
         }
+    }
+    func addNewSceneResource(detail:SceneDetail, vc: SceneViewController)
+    {
+        var label: SceneLabel
+        var resource: UIView
+        var resDef = detail.resource
+
+        switch resDef.type
+            {
+        case .button:
+            var button = SceneButton()
+            button.layer.borderWidth = 1;
+            button.layer.borderColor = UIColor.blackColor().CGColor
+            button.layer.cornerRadius = 5;
+            button.backgroundColor = UIColor.whiteColor()
+            button.setTitle(resDef.content, forState: .Normal)
+            button.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            button.globalID = resDef.globalID
+            button.tag = getNextSceneID(detail)
+            button.selfDelete = resDef.selfDelete
+            button.sceneDetailGlobalID = detail.globalID
+            button.currentSceneID = detail.sceneID
+            button.sceneViewController = vc
+            button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
+            resource = button
+        case .image:
+            var image = SceneImageView(image: UIImage(named: resDef.content))
+            image.alpha = CGFloat(resDef.alpha)
+            image.globalID = resDef.globalID
+            image.selfDelete = resDef.selfDelete
+            resource = image
+        case .label:
+            label = SceneLabel()
+            label.text = resDef.content
+            label.numberOfLines = 0
+            label.globalID = resDef.globalID
+            label.selfDelete = resDef.selfDelete
+            resource = label
+        case .webLabel:
+            var webLabel = SceneWebLabel()
+            webLabel.loadHTMLString(resDef.content, baseURL: nil)
+            webLabel.opaque = 0
+            webLabel.backgroundColor = UIColor.clearColor()
+            webLabel.scrollView.scrollEnabled = false
+            webLabel.globalID = resDef.globalID
+            webLabel.selfDelete = resDef.selfDelete
+            resource = webLabel
+        default:
+            label = SceneLabel()
+            label.globalID = resDef.globalID
+            label.selfDelete = resDef.selfDelete
+            label.text = "unknow type"
+        }
+        var appFrame = UIScreen.mainScreen().applicationFrame
+        var x = CGFloat(appFrame.maxX*CGFloat(detail.resource.positionX/100))
+        var y = CGFloat(appFrame.maxY*CGFloat(detail.resource.positionY/100))
+        var width = CGFloat(appFrame.width*CGFloat(detail.resource.width/100))
+        var height = CGFloat(appFrame.height*CGFloat(detail.resource.height/100))
+        resource.frame = CGRect(x: x, y: y, width: width, height: height)
+        vc.view.addSubview(resource)
+    }
+    func deleteOldSceneResource(detail:SceneDetail, vc: SceneViewController)
+    {
+        var resDef = detail.resource
+        var id = resDef.globalID
+        for obj in vc.view.subviews
+        {
+            if let subview =  obj as? SceneButton
+            {
+                //println("SceneButton")
+                if subview.globalID == id
+                {
+                    subview.removeFromSuperview()
+                }
+                
+            }else if let subview = obj as? SceneImageView{
+                //println("SceneImage")
+                if subview.globalID == id
+                {
+                    subview.removeFromSuperview()
+                }
+            }else if let subview = obj as? SceneLabel{
+                //println("label")
+                if subview.globalID == id
+                {
+                    subview.removeFromSuperview()
+                }
+            }else if let subview = obj as?SceneWebLabel{
+                if subview.globalID == id
+                {
+                    subview.removeFromSuperview()
+                }
+            }
+            //println(self.view.subviews)
+        }
+
     }
     func nextScene(sender:SceneButton)
     {
@@ -212,7 +265,10 @@ class GameUtil: NSObject
         if sender.tag == -1
         {
             return
+        }else if sender.tag == -2{
+            vc.dismissViewControllerAnimated(true, completion: nil)
         }
+        
         scene = scenes[sender.tag]
         
         if sender.tag == 5

@@ -27,17 +27,25 @@ class showEvent: SceneViewController {
         println("showEvent appFrame: \(appFrame)")
         println("showEvent bounds: \(UIScreen.mainScreen().bounds)")
         
-        info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
-        info.frame = CGRect(x: appFrame.minX+80, y: appFrame.maxY-40, width: 500, height: 20)
-        self.view.addSubview(info)
+        var infoBack = UIImageView(image: UIImage(named: "label_back.png"))
+        infoBack.frame = CGRect(x: appFrame.maxX*0.02, y: appFrame.maxY*0.78, width:appFrame.width*0.96, height: appFrame.height*0.20)
+        infoBack.alpha = 0.5
+        self.view.addSubview(infoBack)
         
+        info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
+        info.textAlignment = .Center
+        info.frame = CGRect(x: appFrame.maxX*0.03, y: appFrame.maxY*0.85, width: appFrame.width*0.98, height: appFrame.height*0.15)
+        self.view.addSubview(info)
+
+        println(info.font)
         dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
-        dayLabel.frame = CGRect(x: appFrame.minX+15, y: appFrame.minY+10, width: 100, height:8)
+        //dayLabel.font = UIFont.systemFontOfSize(15)
+        dayLabel.frame = CGRect(x: appFrame.maxX*0.021, y: appFrame.maxX*0.021, width: appFrame.width*0.2, height:appFrame.height*0.10)
         self.view.addSubview(dayLabel)
         
         var lable = UILabel()
         lable.text = "----基地概况----"
-        lable.frame = CGRect(x: appFrame.maxX/2-50, y: appFrame.maxY-80, width: 200, height: 50)
+        lable.frame = CGRect(x: appFrame.maxX*0.35, y: appFrame.maxY*0.78, width: appFrame.width*0.30, height: appFrame.height*0.09)
         self.view.addSubview(lable)
         
         var button = UIButton()
