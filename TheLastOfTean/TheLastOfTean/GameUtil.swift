@@ -178,10 +178,12 @@ class GameUtil: NSObject
             label.text = "unknow type"
         }
         var appFrame = UIScreen.mainScreen().applicationFrame
+        printDebugInfo("appFrame: \(appFrame)")
         var x = CGFloat(appFrame.maxX*CGFloat(detail.resource.positionX/100))
         var y = CGFloat(appFrame.maxY*CGFloat(detail.resource.positionY/100))
         var width = CGFloat(appFrame.width*CGFloat(detail.resource.width/100))
         var height = CGFloat(appFrame.height*CGFloat(detail.resource.height/100))
+        printDebugInfo("x:\(x),y:\(y),width:\(width),height\(height)")
         resource.frame = CGRect(x: x, y: y, width: width, height: height)
         vc.view.addSubview(resource)
     }

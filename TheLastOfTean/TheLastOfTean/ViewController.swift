@@ -15,12 +15,28 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         var mainBack = UIImageView(image: UIImage(named: "main_back.png"))
-        var appFrame = UIScreen.mainScreen().applicationFrame
-        mainBack.frame = CGRect(x: appFrame.minX, y: appFrame.minY, width: appFrame.width, height: appFrame.height)
+        var appFrame = self.view.bounds
+        var x: CGFloat
+        var y: CGFloat
+        var width: CGFloat
+        var height: CGFloat
+        if self.view.bounds.width > self.view.bounds.height
+        {
+            x = appFrame.minX
+            y = appFrame.minY
+            width = appFrame.width
+            height = appFrame.height
+        }else{
+            x = appFrame.minY
+            y = appFrame.minX
+            width = appFrame.height
+            height = appFrame.width
+        }
+        GameUtil.shared.printDebugInfo("new day frame:\(appFrame.minX),\(appFrame.minY),\(appFrame.width),\(appFrame.height)")
+        mainBack.frame = CGRect(x: x, y: y, width: width, height: height)
         self.view.addSubview(mainBack)
         GameUtil.shared.printDebugInfo("ViewController appframe:\(appFrame)")
         GameUtil.shared.printDebugInfo(UIScreen.mainScreen().bounds)
-        
         var newDayBack = UIImageView(image: UIImage(named: "new_day_back.png"))
         newDayBack.frame = CGRect(x: appFrame.maxX*0.01, y: appFrame.maxY*0.02, width:appFrame.width*0.98, height: appFrame.height*0.96)
         self.view.addSubview(newDayBack)
