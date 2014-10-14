@@ -15,41 +15,28 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         var mainBack = UIImageView(image: UIImage(named: "main_back.png"))
-        var appFrame = self.view.bounds
-        var x: CGFloat
-        var y: CGFloat
-        var width: CGFloat
-        var height: CGFloat
-        if self.view.bounds.width > self.view.bounds.height
-        {
-            x = appFrame.minX
-            y = appFrame.minY
-            width = appFrame.width
-            height = appFrame.height
-        }else{
-            x = appFrame.minY
-            y = appFrame.minX
-            width = appFrame.height
-            height = appFrame.width
-        }
-        GameUtil.shared.printDebugInfo("new day frame:\(appFrame.minX),\(appFrame.minY),\(appFrame.width),\(appFrame.height)")
-        mainBack.frame = CGRect(x: x, y: y, width: width, height: height)
+        var appFrame = GameUtil.shared.appFrame
+        var x = appFrame.x
+        var y = appFrame.y
+        var width = appFrame.width
+        var height = appFrame.height
+        
+        
+        mainBack.frame = CGRect(x: x*0.01, y: y*0.01, width: width*0.98, height: height*0.98)
         self.view.addSubview(mainBack)
-        GameUtil.shared.printDebugInfo("ViewController appframe:\(appFrame)")
-        GameUtil.shared.printDebugInfo(UIScreen.mainScreen().bounds)
         var newDayBack = UIImageView(image: UIImage(named: "new_day_back.png"))
-        newDayBack.frame = CGRect(x: appFrame.maxX*0.01, y: appFrame.maxY*0.02, width:appFrame.width*0.98, height: appFrame.height*0.96)
+        newDayBack.frame = CGRect(x: x*0.02, y: y*0.02, width:width*0.96, height: height*0.96)
         self.view.addSubview(newDayBack)
         
         var labelBack = UIImageView(image: UIImage(named: "label_back.png"))
-        labelBack.frame = CGRect(x: appFrame.maxX*0.01, y: appFrame.maxY*0.35, width:appFrame.width*0.98, height: appFrame.height*0.30)
+        labelBack.frame = CGRect(x: x*0.02, y: y*0.35, width:width*0.96, height: appFrame.height*0.30)
         labelBack.alpha = 0.5
         self.view.addSubview(labelBack)
         
         GameUtil.shared.printDebugInfo("current turn: \(GameBasicInfo.shared.currentTurn)")
         var dayLabel = UILabel()
         dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
-        dayLabel.frame = CGRect(x: appFrame.maxX*0.45, y: appFrame.maxY*0.40, width: appFrame.width*0.2, height: appFrame.height*0.1)
+        dayLabel.frame = CGRect(x: x*0.45, y:y*0.40, width: width*0.2, height: height*0.1)
         self.view.addSubview(dayLabel)
         
         var button = UIButton()
@@ -58,7 +45,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 5;
         button.backgroundColor = UIColor.whiteColor()
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.frame = CGRect(x: appFrame.maxX*0.45, y: appFrame.maxY*0.70, width: appFrame.width*0.10, height: appFrame.height*0.05)
+        button.frame = CGRect(x: x*0.45, y: y*0.70, width: width*0.10, height: height*0.05)
         button.addTarget(self, action: "showEventPage", forControlEvents: .TouchUpInside)
         button.setTitle("开始", forState: .Normal)
         

@@ -20,6 +20,8 @@ class GameUtil: NSObject
     }
     
     var isDebug: Bool!
+    var appFrame: AppFrame!
+    
     override init()
     {
         super.init()
@@ -28,6 +30,13 @@ class GameUtil: NSObject
             isDebug = true
         }else{
             isDebug = false
+        }
+        var tempFrame = UIScreen.mainScreen().bounds
+        if tempFrame.width > tempFrame.height
+        {
+            appFrame = AppFrame(x: tempFrame.maxX,y: tempFrame.maxY,width: tempFrame.width,height: tempFrame.height)
+        }else{
+            appFrame = AppFrame(x: tempFrame.maxY,y: tempFrame.maxX,width: tempFrame.height,height: tempFrame.width)
         }
     }
     func updateGameStatus(name:String, value:String)->Bool?
@@ -84,7 +93,7 @@ class GameUtil: NSObject
             var resource = SceneResource(globalID: result.longForColumn("res_global"), type: result.longForColumn("type"), content: result.stringForColumn("content"), positionX: result.doubleForColumn("position_x"), positionY: result.doubleForColumn("position_y") , width: result.doubleForColumn("width") , height: result.doubleForColumn("height") , alpha: result.doubleForColumn("alpha") , countTouch: result.boolForColumn("count_touch"), touchCount: result.longForColumn("res_touch_count") , selfDelete: result.longForColumn("self_delete"))
             
             var sceneDetail = SceneDetail(globalID: result.longForColumn("detail_global"), sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextScene: result.longForColumn("next_scene"), nextSceneType: result.stringForColumn("next_scene_type"), rewardGroup: result.longForColumn("reward_group"), touchCount: result.longForColumn("detail_touch_count"))
-            
+            sceneDetail.recordTouch = result.longForColumn("record_touch")
             var temp = scenesMap[sceneDetail.sceneID]
             if (temp != nil)
             {
@@ -142,10 +151,13 @@ class GameUtil: NSObject
             button.setTitle(resDef.content, forState: .Normal)
             button.setTitleColor(UIColor.blueColor(), forState: .Normal)
             button.globalID = resDef.globalID
-            button.tag = getNextSceneID(detail)
+            //button.tag = getNextSceneID(detail)
             button.selfDelete = resDef.selfDelete
             button.sceneDetailGlobalID = detail.globalID
             button.currentSceneID = detail.sceneID
+            button.nextSceneType = detail.nextSceneType
+            button.nextScene = detail.nextScene
+            button.recordTouch = detail.recordTouch
             button.sceneViewController = vc
             button.addTarget(self, action: "nextScene:", forControlEvents: .TouchUpInside)
             resource = button
@@ -178,12 +190,10 @@ class GameUtil: NSObject
             label.text = "unknow type"
         }
         var appFrame = UIScreen.mainScreen().applicationFrame
-        printDebugInfo("appFrame: \(appFrame)")
         var x = CGFloat(appFrame.maxX*CGFloat(detail.resource.positionX/100))
         var y = CGFloat(appFrame.maxY*CGFloat(detail.resource.positionY/100))
         var width = CGFloat(appFrame.width*CGFloat(detail.resource.width/100))
         var height = CGFloat(appFrame.height*CGFloat(detail.resource.height/100))
-        printDebugInfo("x:\(x),y:\(y),width:\(width),height\(height)")
         resource.frame = CGRect(x: x, y: y, width: width, height: height)
         vc.view.addSubview(resource)
     }
@@ -225,12 +235,12 @@ class GameUtil: NSObject
     }
     func nextScene(sender:SceneButton)
     {
-        GameUtil.shared.printDebugInfo(sender.sceneViewController)
         var vc = sender.sceneViewController!
         var scenes = vc.scenes
         println("nextScene sceneDetailGlobalID:\(sender.sceneDetailGlobalID)")
-        let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(sender.sceneDetailGlobalID!)"
-        var result = DBUtilSingleton.shared.executeUpdateSql(sql)
+        //let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(sender.sceneDetailGlobalID!)"
+        var result = getNextSceneID(sender.globalID!, nextScene: sender.nextScene!, nextSceneType: sender.nextSceneType!, recordTouch: sender.recordTouch!)
+        //DBUtilSingleton.shared.executeUpdateSql(sql)
         
         var scene = scenes[sender.currentSceneID!]
         var sceneDetail = scene?.sceneDetails
@@ -264,16 +274,16 @@ class GameUtil: NSObject
             }
             //println(self.view.subviews)
         }
-        if sender.tag == -1
+        if result == -1
         {
             return
-        }else if sender.tag == -2{
+        }else if result == -2{
             vc.dismissViewControllerAnimated(true, completion: nil)
         }
         
-        scene = scenes[sender.tag]
+        scene = scenes[result]
         
-        if sender.tag == 5
+        if result == 5
         {
             var mainBase = MainBase.shared
             mainBase.food+=10
@@ -283,6 +293,81 @@ class GameUtil: NSObject
         {
             GameUtil.shared.showScene(scene!, vc: vc)
         }
+    }
+    func getNextSceneID(resourceGlobalID:Int,nextScene:Int,nextSceneType: NextSceneType,recordTouch:Int)->Int
+    {
+        let db = DBUtilSingleton.shared.connection!
+        
+        var result = 0
+
+        switch nextSceneType
+            {
+        case .sceneID:
+            result = nextScene
+            println("directly:\(result)")
+            return result
+        case .calcSceneID:
+            
+            var touchCount = 0
+            var sql = "select * from scene_detail where global_id=\(resourceGlobalID)"
+            var tempResult = DBUtilSingleton.shared.executeQuerySql(sql)
+            if tempResult.next()
+            {
+                touchCount = tempResult.longForColumn("touch_count")
+            }
+            println("touchCount:\(touchCount)")
+            
+            let random = arc4random_uniform(100)+1
+            
+            var isReset = false
+            let querySql = "select * from calc_scene_id where calc_id=\(nextScene)"
+            var resultSet = DBUtilSingleton.shared.executeQuerySql(querySql)
+            var temp = 0 as UInt32
+            var resultSceneID = 0
+            while resultSet.next()
+            {
+                var calcID = resultSet.longForColumn("calc_id")
+                var sceneID = resultSet.longForColumn("scene_id")
+                var probability = resultSet.longForColumn("probability")
+                var probabilityAdj = resultSet.longForColumn("probability_adj")
+                var resetCount = resultSet.boolForColumn("reset_count")
+                
+                var finalProbability = probability + probabilityAdj*touchCount
+                if finalProbability<0
+                {
+                    finalProbability = 0
+                }
+                println("finalProbability: \(finalProbability)")
+            
+                if random > temp && random <= temp + finalProbability
+                {
+                    result = sceneID
+                    if resetCount
+                    {
+                        isReset = true
+                        DBUtilSingleton.shared.executeUpdateSql("update scene_detail set touch_count=0 where global_id=\(resourceGlobalID)")
+                    }
+                    break
+                }else{
+                    temp = temp+finalProbability
+                }
+                
+            }
+            if (recordTouch == 1 && !isReset)
+            {
+                let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(resourceGlobalID)"
+                var result = DBUtilSingleton.shared.executeUpdateSql(sql)
+            }
+            
+            
+        default:
+            result = 0
+        }
+        
+        printDebugInfo("random:\(result)")
+       
+        
+        return result
     }
     func getNextSceneID(sceneDetail: SceneDetail)->Int
     {
@@ -367,6 +452,20 @@ class GameUtil: NSObject
     
 }
 
+class AppFrame
+{
+    var x: CGFloat
+    var y: CGFloat
+    var width: CGFloat
+    var height: CGFloat
+    init(x:CGFloat,y:CGFloat,width:CGFloat,height:CGFloat)
+    {
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+    }
+}
 class GameBasicInfo
 {
     class var shared:GameBasicInfo {

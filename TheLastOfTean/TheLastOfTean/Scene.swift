@@ -80,6 +80,7 @@ class SceneDetail: Printable
     let rewardGroup: Int
     var nextSceneType: NextSceneType?
     var touchCount: Int
+    var recordTouch = 0
     var description: String { get
                                 {
                                     return "sceneID:\(sceneID),action:\(action),nextSceneID:\(nextScene),nextSceneType:\(nextSceneType),rewardGroup:\(rewardGroup),resource:\(resource),touchCount:\(touchCount) "
@@ -152,6 +153,9 @@ class SceneButton: UIButton
     var sceneDetailGlobalID: Int?
     var currentSceneID: Int?
     var sceneViewController: SceneViewController?
+    var nextSceneType: NextSceneType?
+    var nextScene: Int?
+    var recordTouch: Int?
 }
 
 class SceneImageView: UIImageView
