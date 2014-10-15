@@ -40,7 +40,7 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func initDropDown(x: Int, y: Int, width: Int, height: Int, options: [String],id:Int)
+    func initDropDown(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, options: [String],id:Int)
     {
         tv.delegate = self;
         tv.dataSource = self;
@@ -63,7 +63,7 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
             
         }
         self.id = id
-        tv.frame = CGRect(x: x, y: y+height, width: width, height: height*(options.count))
+        tv.frame = CGRect(x: CGFloat(x), y: CGFloat(y+height), width: width, height: CGFloat(height*CGFloat(options.count)))
         selectedOption.frame = CGRect(x: x, y: y, width: width, height: height)
     }
 

@@ -21,31 +21,31 @@ class showEvent: SceneViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         var mainBack = UIImageView(image: UIImage(named: "main_back.png"))
-        var appFrame = UIScreen.mainScreen().applicationFrame
-        mainBack.frame = CGRect(x: appFrame.minX, y: appFrame.minY, width: appFrame.width, height: appFrame.height)
+        var appFrame = GameUtil.shared.appFrame
+        mainBack.frame = CGRect(x: appFrame.x*0.01, y: appFrame.y*0.01, width: appFrame.width*0.98, height: appFrame.height*0.98)
         self.view.addSubview(mainBack)
         println("showEvent appFrame: \(appFrame)")
         println("showEvent bounds: \(UIScreen.mainScreen().bounds)")
         
         var infoBack = UIImageView(image: UIImage(named: "label_back.png"))
-        infoBack.frame = CGRect(x: appFrame.maxX*0.02, y: appFrame.maxY*0.78, width:appFrame.width*0.96, height: appFrame.height*0.20)
+        infoBack.frame = CGRect(x: appFrame.x*0.02, y: appFrame.y*0.78, width:appFrame.width*0.96, height: appFrame.height*0.20)
         infoBack.alpha = 0.5
         self.view.addSubview(infoBack)
         
         info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
         info.textAlignment = .Center
-        info.frame = CGRect(x: appFrame.maxX*0.03, y: appFrame.maxY*0.85, width: appFrame.width*0.98, height: appFrame.height*0.15)
+        info.frame = CGRect(x: appFrame.x*0.03, y: appFrame.y*0.85, width: appFrame.width*0.98, height: appFrame.height*0.15)
         self.view.addSubview(info)
 
         println(info.font)
         dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
         //dayLabel.font = UIFont.systemFontOfSize(15)
-        dayLabel.frame = CGRect(x: appFrame.maxX*0.021, y: appFrame.maxX*0.021, width: appFrame.width*0.2, height:appFrame.height*0.10)
+        dayLabel.frame = CGRect(x: appFrame.x*0.021, y: appFrame.y*0.021, width: appFrame.width*0.2, height:appFrame.height*0.10)
         self.view.addSubview(dayLabel)
         
         var lable = UILabel()
         lable.text = "----基地概况----"
-        lable.frame = CGRect(x: appFrame.maxX*0.35, y: appFrame.maxY*0.78, width: appFrame.width*0.30, height: appFrame.height*0.09)
+        lable.frame = CGRect(x: appFrame.x*0.35, y: appFrame.y*0.78, width: appFrame.width*0.30, height: appFrame.height*0.09)
         self.view.addSubview(lable)
         
         var button = UIButton()
@@ -54,7 +54,7 @@ class showEvent: SceneViewController {
         button.layer.cornerRadius = 5;
         button.backgroundColor = UIColor.whiteColor()
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.frame = CGRect(x: appFrame.maxX-100, y: appFrame.minY+10, width: 60, height: 20)
+        button.frame = CGRect(x: appFrame.x*0.90, y: appFrame.y*0.03, width: appFrame.width*0.05, height: appFrame.height*0.05)
         button.addTarget(self, action: "startMission", forControlEvents: .TouchUpInside)
         button.setTitle("出发", forState: .Normal)
         self.view.addSubview(button)
@@ -62,15 +62,14 @@ class showEvent: SceneViewController {
         for i in 1...5
         {
             var img = UIImageView(image: UIImage(named: "human_\(i).png"))
-            var width = CGFloat(appFrame.width-10)/5
-            var x = CGFloat(5)
-            var y = CGFloat(35)
+            var x = appFrame.x*0.02
+            var width = CGFloat(appFrame.width)/5-appFrame.x*0.01
+            var y = appFrame.y*0.1
             var height = CGFloat(appFrame.height*2/3)
-            img.frame = CGRect(x: CGFloat(Int(5)+(i-1)*Int(width)), y: y, width: width, height: height)
+            img.frame = CGRect(x: CGFloat(x+CGFloat(i-1)*width), y: y, width: width, height: height)
             self.view.addSubview(img)
-            CGRectMake(x, y, width, height)
-            var dd = Dropdown(frame: CGRect(x: CGFloat(Int(5)+(i-1)*Int(width)), y: 100, width: 90, height: 400))
-            dd.initDropDown(0, y: 100, width: 90, height: 20,options: missionOption,id: i)
+            var dd = Dropdown(frame: CGRect(x: CGFloat(x+CGFloat(i-1)*width), y: appFrame.y*0.6, width: width, height: appFrame.height*0.4))
+            dd.initDropDown(CGFloat(0), y: y, width: width, height: appFrame.height*0.05,options: missionOption,id: i)
             self.view.addSubview(dd)
             GameUtil.shared.printDebugInfo(dd.frame)
             GameUtil.shared.printDebugInfo(img.frame)

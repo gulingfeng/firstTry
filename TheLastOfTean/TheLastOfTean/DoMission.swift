@@ -55,7 +55,7 @@ class DoMission: SceneViewController {
             var scene = scenes[1]
             GameUtil.shared.showScene(scene!,vc: self)
         }
-        self.view.addSubview(button)
+        //self.view.addSubview(button)
 
     }
     
