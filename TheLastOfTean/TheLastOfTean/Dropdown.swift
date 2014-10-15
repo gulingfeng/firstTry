@@ -69,7 +69,6 @@ class Dropdown : UIView, UITableViewDelegate, UITableViewDataSource {
 
     func dropdownlist(sender: UIButton)
     {
-        println("show")
         if showed
         {
             showed = false

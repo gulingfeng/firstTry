@@ -31,18 +31,7 @@ class showEvent: SceneViewController {
         infoBack.alpha = 0.5
         self.view.addSubview(infoBack)
         var mainBase = GameUtil.shared.loadMainBase()
-        var text = ""
-        if mainBase.objs.count>0
-        {
-            for obj in mainBase.objs
-            {
-                var desc = obj.objType.desc
-                var value = obj.value
-                text = text + desc + ":" + String(value)
-            }
-        }
-        //info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
-        info.text = text
+
         info.textAlignment = .Center
         info.frame = CGRect(x: appFrame.x*0.03, y: appFrame.y*0.85, width: appFrame.width*0.98, height: appFrame.height*0.15)
         self.view.addSubview(info)
@@ -64,7 +53,7 @@ class showEvent: SceneViewController {
         button.layer.cornerRadius = 5;
         button.backgroundColor = UIColor.whiteColor()
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.frame = CGRect(x: appFrame.x*0.90, y: appFrame.y*0.03, width: appFrame.width*0.05, height: appFrame.height*0.05)
+        button.frame = CGRect(x: appFrame.x*0.90, y: appFrame.y*0.03, width: appFrame.width*0.10, height: appFrame.height*0.05)
         button.addTarget(self, action: "startMission", forControlEvents: .TouchUpInside)
         button.setTitle("出发", forState: .Normal)
         self.view.addSubview(button)
