@@ -16,9 +16,11 @@ class MainBase
     var defend = 0
     var security = 0
     var health = 0
-    var character = 0
+    var character = [Character]()
     var touchRecord =  [Int:SceneDetail]()
 
+    var objs = [MainBaseObj]()
+    
     class var shared:MainBase {
         return Inner.instance
     }
@@ -27,4 +29,48 @@ class MainBase
         static var instance = MainBase()
     }
     
+}
+
+class ObjectType
+{
+    var typeID:Int
+    var desc:String
+    
+    init(typeID:Int,desc:String)
+    {
+        self.typeID = typeID
+        self.desc = desc
+    }
+}
+class MainBaseObj
+{
+    var objType: ObjectType
+    var objID: Int
+    var value: Int
+    
+    init(objType:ObjectType,objID:Int,value:Int)
+    {
+        self.objID = objID
+        self.objType = objType
+        self.value = value
+    }
+}
+class Character
+{
+    var id: Int
+    var name: String
+    var health: Int
+    var loyalty: Int
+    var power: Int
+    var image: String
+    
+    init(id:Int, name:String, health: Int, loyalty: Int, power: Int, image: String)
+    {
+        self.id = id
+        self.name = name
+        self.health = health
+        self.loyalty = loyalty
+        self.power = power
+        self.image = image
+    }
 }

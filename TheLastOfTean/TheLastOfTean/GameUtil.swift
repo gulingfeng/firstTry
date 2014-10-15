@@ -449,6 +449,33 @@ class GameUtil: NSObject
         return result
     }
     
+    func loadCharacter()->[Character]
+    {
+        var character = [Character]()
+        let sql = "select * from character"
+        var result = DBUtilSingleton.shared.executeQuerySql(sql)
+        while result.next()
+        {
+            character.append(Character(id: result.longForColumn("character_id"), name: result.stringForColumn("name"), health: result.longForColumn("health"), loyalty: result.longForColumn("loyalty"), power: result.longForColumn("power"), image: result.stringForColumn("image")))
+        }
+        return character
+    }
+    
+    func loadMainBase()->MainBase
+    {
+        var mainBaseObjs = [MainBaseObj]()
+        let sql = "select * from object_type a,main_base_object b where a.type=b.object_type"
+        var result = DBUtilSingleton.shared.executeQuerySql(sql)
+        while result.next()
+        {
+            var objType = ObjectType(typeID: result.longForColumn("type"), desc: result.stringForColumn("desc"))
+            mainBaseObjs.append(MainBaseObj(objType: objType, objID: result.longForColumn("object_id"), value: result.longForColumn("value")))
+        }
+        var character = loadCharacter()
+        MainBase.shared.character = character
+        MainBase.shared.objs = mainBaseObjs
+        return MainBase.shared
+    }
     
 }
 

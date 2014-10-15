@@ -12,7 +12,6 @@ import UIKit
 
 class showEvent: SceneViewController {
     
-    var mainBase = MainBase.shared
     var info = UILabel()
     var dayLabel = UILabel()
     var missionOption = ["采集食物","清剿僵尸","打扫基地","休息"]
@@ -31,8 +30,19 @@ class showEvent: SceneViewController {
         infoBack.frame = CGRect(x: appFrame.maxX*0.02, y: appFrame.maxY*0.78, width:appFrame.width*0.96, height: appFrame.height*0.20)
         infoBack.alpha = 0.5
         self.view.addSubview(infoBack)
-        
-        info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
+        var mainBase = GameUtil.shared.loadMainBase()
+        var text = ""
+        if mainBase.objs.count>0
+        {
+            for obj in mainBase.objs
+            {
+                var desc = obj.objType.desc
+                var value = obj.value
+                text = text + desc + ":" + String(value)
+            }
+        }
+        //info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
+        info.text = text
         info.textAlignment = .Center
         info.frame = CGRect(x: appFrame.maxX*0.03, y: appFrame.maxY*0.85, width: appFrame.width*0.98, height: appFrame.height*0.15)
         self.view.addSubview(info)
@@ -106,9 +116,20 @@ class showEvent: SceneViewController {
     
     override func viewWillAppear(animated: Bool){
         super.viewWillAppear(animated)
-        var appFrame = UIScreen.mainScreen().applicationFrame
+        var appFrame = GameUtil.shared.appFrame
 
-        info.text = "食物: \(mainBase.food)  物资: \(mainBase.supply)  防御: \(mainBase.defend)  安全: \(mainBase.security)  卫生: \(mainBase.health)  幸存者: \(mainBase.character)"
+        var mainBase = MainBase.shared
+        var text = ""
+        if mainBase.objs.count>0
+        {
+            for obj in mainBase.objs
+            {
+                var desc = obj.objType.desc
+                var value = obj.value
+                text = text + desc + ":" + String(value) + " "
+            }
+        }
+        info.text = text
         
         dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
         
