@@ -196,6 +196,27 @@ class GameUtil: NSObject
         var height = CGFloat(appFrame.height*CGFloat(detail.resource.height/100))
         resource.frame = CGRect(x: x, y: y, width: width, height: height)
         vc.view.addSubview(resource)
+        
+        if detail.rewardGroup > 0
+        {
+            var rewards = getReward(detail.rewardGroup)
+            for reward in rewards
+            {
+                var type = RewardType.fromRaw(reward.rewardType)!
+                switch type
+                {
+                case .MainBaseObj:
+                    printDebugInfo(reward)
+                    let sql = "update main_base_object set value=value\(reward.value) where object_id=\(reward.objectID)"
+                    DBUtilSingleton.shared.executeUpdateSql(sql)
+                case .CharacterStatus:
+                    println("character status")
+                default:
+                    println("in reward default")
+                    
+                }
+            }
+        }
     }
     func deleteOldSceneResource(detail:SceneDetail, vc: SceneViewController)
     {
@@ -475,6 +496,18 @@ class GameUtil: NSObject
         MainBase.shared.character = character
         MainBase.shared.objs = mainBaseObjs
         return MainBase.shared
+    }
+    
+    func getReward(groupID: Int)->[Reward]
+    {
+        var rewards = [Reward]()
+        let sql = "select * from reward_group where group_id=\(groupID)"
+        var result = DBUtilSingleton.shared.executeQuerySql(sql)
+        while result.next()
+        {
+            rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"),value: result.longForColumn("value")))
+        }
+        return rewards
     }
     
 }

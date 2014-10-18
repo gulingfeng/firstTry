@@ -106,7 +106,7 @@ class showEvent: SceneViewController {
         super.viewWillAppear(animated)
         var appFrame = GameUtil.shared.appFrame
 
-        var mainBase = MainBase.shared
+        var mainBase = GameUtil.shared.loadMainBase()
         var text = ""
         if mainBase.objs.count>0
         {

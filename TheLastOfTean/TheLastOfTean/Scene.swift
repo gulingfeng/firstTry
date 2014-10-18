@@ -182,4 +182,28 @@ class SceneViewController: UIViewController
 {
     var scenes = [Int:Scene]()
 }
-    
+
+class Reward: Printable
+{
+    var groupID: Int
+    var rewardType: Int
+    var objectID: Int
+    var value: Int
+    init(groupID:Int, rewardType:Int, objectID:Int, value:Int)
+    {
+        self.groupID = groupID
+        self.rewardType = rewardType
+        self.objectID = objectID
+        self.value = value
+    }
+    var description: String { get
+    {
+        return "reward groupID:\(groupID), type:\(rewardType), objectID:\(objectID), value:\(value)"
+        }
+    }
+}
+enum RewardType: Int
+{
+    case MainBaseObj = 1;
+    case CharacterStatus;
+}
