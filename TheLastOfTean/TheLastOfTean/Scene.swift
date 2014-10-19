@@ -188,12 +188,14 @@ class Reward: Printable
     var groupID: Int
     var rewardType: Int
     var objectID: Int
+    var objectProperty: Int
     var value: Int
-    init(groupID:Int, rewardType:Int, objectID:Int, value:Int)
+    init(groupID:Int, rewardType:Int, objectID:Int, objectProperty: Int, value:Int)
     {
         self.groupID = groupID
         self.rewardType = rewardType
         self.objectID = objectID
+        self.objectProperty = objectProperty
         self.value = value
     }
     var description: String { get
@@ -207,3 +209,11 @@ enum RewardType: Int
     case MainBaseObj = 1;
     case CharacterStatus;
 }
+enum CharacterProperty: Int
+{
+    case power = 1;
+    case intelligence;
+    case health;
+    case loyalty;
+}
+

@@ -139,7 +139,68 @@ class GameUtil: NSObject
         var label: SceneLabel
         var resource: UIView
         var resDef = detail.resource
+        var rewardText = ""
+        var hasReward = false
+        var t = [(Int,Int)]()
+        var map = [Int:[(Int,Int)]]()
 
+        if detail.rewardGroup > 0
+        {
+            var rewards = getReward(detail.rewardGroup)
+            hasReward = true
+            for reward in rewards
+            {
+                var type = RewardType.fromRaw(reward.rewardType)!
+                switch type
+                    {
+                case .MainBaseObj:
+                    printDebugInfo(reward)
+                    var change = reward.value>=0 ? "+\(reward.value)":"\(reward.value)"
+                    let sql = "update main_base_object set value=value\(change) where object_id=\(reward.objectID)"
+                    DBUtilSingleton.shared.executeUpdateSql(sql)
+                    let textSql = "select * from object_type a, main_base_object b where a.type=b.object_type and b.object_id=\(reward.objectID)"
+                    let temp = DBUtilSingleton.shared.executeQuerySql(textSql)
+                    if temp.next()
+                    {
+                        rewardText = rewardText + temp.stringForColumn("desc") + ":\(reward.value) "
+                    }
+                case .CharacterStatus:
+                    var character = reward.objectID
+                    var property = reward.objectProperty
+                    var value = reward.value
+                    var temp = map[character]
+                    if temp != nil
+                    {
+                        temp?.append((property,value))
+                    }else{
+                        map[character] = [(property,value)]
+                    }
+                    
+                    let sql = "select * from character_property a where property_id=\(reward.objectProperty)"
+                    let characterSql = "select * from character where character_id=\(reward.objectID)"
+                    var result = DBUtilSingleton.shared.executeQuerySql(characterSql)
+                    if result.next()
+                    {
+                        rewardText = result.stringForColumn("name") + " "
+                    }
+                    result = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if result.next()
+                    {
+                        var desc = result.stringForColumn("desc")
+                        desc = reward.value>=0 ? "\(desc)=\(desc)+\(reward.value)":"\(desc)=\(desc)\(reward.value)"
+                        let updateSql = "update character set \(desc) where character_id=\(reward.objectID)"
+                        DBUtilSingleton.shared.executeUpdateSql(updateSql)
+                        var guiDesc = result.stringForColumn("gui_desc")
+                        rewardText = rewardText + "\(guiDesc):" + (reward.value>=0 ? "+\(reward.value)":"\(reward.value)")
+                    }
+                    printDebugInfo(rewardText)
+                default:
+                    println("in reward default")
+                    
+                }
+            }
+        }
+        
         switch resDef.type
             {
         case .button:
@@ -151,7 +212,6 @@ class GameUtil: NSObject
             button.setTitle(resDef.content, forState: .Normal)
             button.setTitleColor(UIColor.blueColor(), forState: .Normal)
             button.globalID = resDef.globalID
-            //button.tag = getNextSceneID(detail)
             button.selfDelete = resDef.selfDelete
             button.sceneDetailGlobalID = detail.globalID
             button.currentSceneID = detail.sceneID
@@ -170,13 +230,22 @@ class GameUtil: NSObject
         case .label:
             label = SceneLabel()
             label.text = resDef.content
+            if hasReward
+            {
+                label.text = label.text! + "\r" + rewardText
+            }
             label.numberOfLines = 0
             label.globalID = resDef.globalID
             label.selfDelete = resDef.selfDelete
             resource = label
         case .webLabel:
             var webLabel = SceneWebLabel()
-            webLabel.loadHTMLString(resDef.content, baseURL: nil)
+            var text = resDef.content
+            if hasReward
+            {
+                text = text + "<br>" + rewardText
+            }
+            webLabel.loadHTMLString(text, baseURL: nil)
             webLabel.opaque = 0
             webLabel.backgroundColor = UIColor.clearColor()
             webLabel.scrollView.scrollEnabled = false
@@ -197,26 +266,7 @@ class GameUtil: NSObject
         resource.frame = CGRect(x: x, y: y, width: width, height: height)
         vc.view.addSubview(resource)
         
-        if detail.rewardGroup > 0
-        {
-            var rewards = getReward(detail.rewardGroup)
-            for reward in rewards
-            {
-                var type = RewardType.fromRaw(reward.rewardType)!
-                switch type
-                {
-                case .MainBaseObj:
-                    printDebugInfo(reward)
-                    let sql = "update main_base_object set value=value\(reward.value) where object_id=\(reward.objectID)"
-                    DBUtilSingleton.shared.executeUpdateSql(sql)
-                case .CharacterStatus:
-                    println("character status")
-                default:
-                    println("in reward default")
-                    
-                }
-            }
-        }
+        
     }
     func deleteOldSceneResource(detail:SceneDetail, vc: SceneViewController)
     {
@@ -505,7 +555,7 @@ class GameUtil: NSObject
         var result = DBUtilSingleton.shared.executeQuerySql(sql)
         while result.next()
         {
-            rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"),value: result.longForColumn("value")))
+            rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: result.longForColumn("value")))
         }
         return rewards
     }
