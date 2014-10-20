@@ -172,33 +172,48 @@ class GameUtil: NSObject
                     if temp != nil
                     {
                         temp?.append((property,value))
+                        map[character] = temp
                     }else{
                         map[character] = [(property,value)]
                     }
                     
                     let sql = "select * from character_property a where property_id=\(reward.objectProperty)"
-                    let characterSql = "select * from character where character_id=\(reward.objectID)"
-                    var result = DBUtilSingleton.shared.executeQuerySql(characterSql)
+                    var result = DBUtilSingleton.shared.executeQuerySql(sql)
                     if result.next()
                     {
-                        rewardText = result.stringForColumn("name") + " "
-                    }
-                    result = DBUtilSingleton.shared.executeQuerySql(sql)
-                    if result.next()
-                    {
-                        var desc = result.stringForColumn("desc")
+                        var desc = "value"
                         desc = reward.value>=0 ? "\(desc)=\(desc)+\(reward.value)":"\(desc)=\(desc)\(reward.value)"
-                        let updateSql = "update character set \(desc) where character_id=\(reward.objectID)"
+                        let updateSql = "update character set \(desc) where character_id=\(reward.objectID) and property_id=\(property)"
                         DBUtilSingleton.shared.executeUpdateSql(updateSql)
-                        var guiDesc = result.stringForColumn("gui_desc")
-                        rewardText = rewardText + "\(guiDesc):" + (reward.value>=0 ? "+\(reward.value)":"\(reward.value)")
                     }
-                    printDebugInfo(rewardText)
                 default:
                     println("in reward default")
                     
                 }
             }
+            
+            for id in map.keys
+            {
+                var tempResult = DBUtilSingleton.shared.executeQuerySql("select value from character where character_id=\(id) and property_id=1")
+                if tempResult.next()
+                {
+                    rewardText = rewardText + tempResult.stringForColumn("value") + " "
+                }
+                var obj = map[id]!
+                for i in 0 ..< obj.count
+                {
+                    var property = obj[i].0
+                    var value = obj[i].1
+                    tempResult = DBUtilSingleton.shared.executeQuerySql("select gui_desc from character_property where property_id=\(property)")
+                    if tempResult.next()
+                    {
+                        rewardText = rewardText + tempResult.stringForColumn("gui_desc")
+                    }
+                    rewardText = rewardText + (value>=0 ? "+\(value)":"\(value)") + " "
+                }
+            }
+            printDebugInfo(rewardText)
+
         }
         
         switch resDef.type
@@ -527,7 +542,7 @@ class GameUtil: NSObject
         var result = DBUtilSingleton.shared.executeQuerySql(sql)
         while result.next()
         {
-            character.append(Character(id: result.longForColumn("character_id"), name: result.stringForColumn("name"), health: result.longForColumn("health"), loyalty: result.longForColumn("loyalty"), power: result.longForColumn("power"), image: result.stringForColumn("image")))
+            //character.append(Character(id: result.longForColumn("character_id"), name: result.stringForColumn("name"), health: result.longForColumn("health"), loyalty: result.longForColumn("loyalty"), power: result.longForColumn("power"), image: result.stringForColumn("image")))
         }
         return character
     }

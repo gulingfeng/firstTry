@@ -15,6 +15,7 @@ class showEvent: SceneViewController {
     var info = UILabel()
     var dayLabel = UILabel()
     var missionOption = ["采集食物","清剿僵尸","打扫基地","休息"]
+    var propertys = [SceneWebLabel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,32 @@ class showEvent: SceneViewController {
             var height = CGFloat(appFrame.height*2/3)
             img.frame = CGRect(x: CGFloat(x+CGFloat(i-1)*width), y: y, width: width, height: height)
             self.view.addSubview(img)
+            var button = UIButton()
+            button.frame = CGRect(x: CGFloat(x+CGFloat(i-1)*width), y: y, width: width/2, height: height/10)
+            button.setTitle("属性", forState: .Normal)
+            button.tag = i
+            button.addTarget(self, action: "showProperty:", forControlEvents: .TouchUpInside)
+            self.view.addSubview(button)
+            var propertyView = SceneWebLabel()
+            var text = "<font size='2' color='red'>"
+            var result = DBUtilSingleton.shared.executeQuerySql("select * from character a,character_property b where character_id=\(i) and a.property_id=b.property_id and a.property_id!=2")
+            while result.next()
+            {
+                let desc = result.stringForColumn("gui_desc")
+                let value = result.stringForColumn("value")
+                text = text + desc + ":" + value + "<br>"
+            }
+            text = text + "</font>"
+            propertyView.loadHTMLString(text, baseURL: nil)
+            propertyView.frame = CGRect(x: CGFloat(x+CGFloat(i-1)*width), y: y+height/10, width: width, height: height)
+            propertyView.opaque = 0
+            propertyView.backgroundColor = UIColor.clearColor()
+            propertyView.scrollView.scrollEnabled = false
+            propertyView.globalID = i + 10000
+            propertyView.hidden = true
+            propertys.append(propertyView)
+            self.view.addSubview(propertyView)
+            GameUtil.shared.printDebugInfo(text)
             var dd = Dropdown(frame: CGRect(x: CGFloat(x+CGFloat(i-1)*width), y: appFrame.y*0.6, width: width, height: appFrame.height*0.4))
             dd.initDropDown(CGFloat(0), y: y, width: width, height: appFrame.height*0.05,options: missionOption,id: i)
             self.view.addSubview(dd)
@@ -92,6 +119,19 @@ class showEvent: SceneViewController {
         
     }
 
+    func showProperty(sender:UIButton)
+    {
+        for obj in self.view.subviews
+        {
+            if let subview = obj as?SceneWebLabel{
+                if subview.globalID == sender.tag + 10000
+                {
+                    subview.hidden = !subview.hidden
+                    return
+                }
+            }
+        }
+    }
     func startMission(){
         var doMission = DoMission()
         self.presentViewController(doMission, animated: true, completion: nil)
@@ -121,6 +161,20 @@ class showEvent: SceneViewController {
         
         dayLabel.text = "第 \(GameBasicInfo.shared.currentTurn) 天"
         
+        for i in 1...5
+        {
+            var propertyView = propertys[i-1]
+            var text = "<font size='2' color='red'>"
+            var result = DBUtilSingleton.shared.executeQuerySql("select * from character a,character_property b where character_id=\(i) and a.property_id=b.property_id and a.property_id!=2")
+            while result.next()
+            {
+                let desc = result.stringForColumn("gui_desc")
+                let value = result.stringForColumn("value")
+                text = text + desc + ":" + value + "<br>"
+            }
+            text = text + "</font>"
+            propertyView.loadHTMLString(text, baseURL: nil)
+        }
     }
     
     
