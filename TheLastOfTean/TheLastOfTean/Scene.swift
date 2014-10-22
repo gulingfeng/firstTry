@@ -208,6 +208,7 @@ enum RewardType: Int
 {
     case MainBaseObj = 1;
     case CharacterStatus;
+    case Item;
 }
 enum CharacterProperty: Int
 {

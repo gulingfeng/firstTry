@@ -570,7 +570,28 @@ class GameUtil: NSObject
         var result = DBUtilSingleton.shared.executeQuerySql(sql)
         while result.next()
         {
-            rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: result.longForColumn("value")))
+            var max = result.longForColumn("max_probability")
+            var min = result.longForColumn("min_probability")
+            var temp = max+1-min
+            var rewardType = RewardType.fromRaw(result.longForColumn("reward_type"))
+            var value = min
+            switch rewardType!
+            {
+                case .CharacterStatus,.MainBaseObj:
+                    var random = arc4random_uniform(UInt32(temp))
+                    value = value + Int(random)
+                    rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: Int(value)))
+                case .Item:
+                    var random = arc4random_uniform(100)+1
+                    if UInt32(max)<=random
+                    {
+                        rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: 1))
+                    }
+                default:
+                    printDebugInfo("reward type is unknow")
+            }
+            
+            
         }
         return rewards
     }
