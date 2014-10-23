@@ -141,6 +141,8 @@ class GameUtil: NSObject
         var resDef = detail.resource
         var rewardText = ""
         var hasReward = false
+        var hasItemReward = false
+        var itemText = ""
         var t = [(Int,Int)]()
         var map = [Int:[(Int,Int)]]()
 
@@ -152,42 +154,56 @@ class GameUtil: NSObject
             {
                 var type = RewardType.fromRaw(reward.rewardType)!
                 switch type
-                    {
-                case .MainBaseObj:
-                    printDebugInfo(reward)
-                    var change = reward.value>=0 ? "+\(reward.value)":"\(reward.value)"
-                    let sql = "update main_base_object set value=value\(change) where object_id=\(reward.objectID)"
-                    DBUtilSingleton.shared.executeUpdateSql(sql)
-                    let textSql = "select * from object_type a, main_base_object b where a.type=b.object_type and b.object_id=\(reward.objectID)"
-                    let temp = DBUtilSingleton.shared.executeQuerySql(textSql)
-                    if temp.next()
-                    {
-                        rewardText = rewardText + temp.stringForColumn("desc") + ":\(reward.value) "
-                    }
-                case .CharacterStatus:
-                    var character = reward.objectID
-                    var property = reward.objectProperty
-                    var value = reward.value
-                    var temp = map[character]
-                    if temp != nil
-                    {
-                        temp?.append((property,value))
-                        map[character] = temp
-                    }else{
-                        map[character] = [(property,value)]
-                    }
+                {
+                    case .MainBaseObj:
+                        printDebugInfo(reward)
+                        var change = reward.value>=0 ? "+\(reward.value)":"\(reward.value)"
+                        let sql = "update main_base_object set value=value\(change) where object_id=\(reward.objectID)"
+                        DBUtilSingleton.shared.executeUpdateSql(sql)
+                        let textSql = "select * from object_type a, main_base_object b where a.type=b.object_type and b.object_id=\(reward.objectID)"
+                        let temp = DBUtilSingleton.shared.executeQuerySql(textSql)
+                        if temp.next()
+                        {
+                            rewardText = rewardText + temp.stringForColumn("desc") + ":\(reward.value) "
+                        }
+                    case .CharacterStatus:
+                        var character = reward.objectID
+                        var property = reward.objectProperty
+                        var value = reward.value
+                        var temp = map[character]
+                        if temp != nil
+                        {
+                            temp?.append((property,value))
+                            map[character] = temp
+                        }else{
+                            map[character] = [(property,value)]
+                        }
+                        
+                        let sql = "select * from character_property a where property_id=\(reward.objectProperty)"
+                        var result = DBUtilSingleton.shared.executeQuerySql(sql)
+                        if result.next()
+                        {
+                            var desc = "value"
+                            desc = reward.value>=0 ? "\(desc)=\(desc)+\(reward.value)":"\(desc)=\(desc)\(reward.value)"
+                            let updateSql = "update character set \(desc) where character_id=\(reward.objectID) and property_id=\(property)"
+                            DBUtilSingleton.shared.executeUpdateSql(updateSql)
+                        }
+                    case .Item:
+                        hasItemReward = true
+                        var sql="select * from item where item_id=\(reward.value)"
+                        var itemResult = DBUtilSingleton.shared.executeQuerySql(sql)
+                        if itemResult.next()
+                        {
+                            if itemText == ""
+                            {
+                                itemText = itemText + itemResult.stringForColumn("desc")
+                            }else{
+                                itemText = itemText + "," + itemResult.stringForColumn("desc")
+                            }
+                        }
                     
-                    let sql = "select * from character_property a where property_id=\(reward.objectProperty)"
-                    var result = DBUtilSingleton.shared.executeQuerySql(sql)
-                    if result.next()
-                    {
-                        var desc = "value"
-                        desc = reward.value>=0 ? "\(desc)=\(desc)+\(reward.value)":"\(desc)=\(desc)\(reward.value)"
-                        let updateSql = "update character set \(desc) where character_id=\(reward.objectID) and property_id=\(property)"
-                        DBUtilSingleton.shared.executeUpdateSql(updateSql)
-                    }
-                default:
-                    println("in reward default")
+                    default:
+                        println("in reward default")
                     
                 }
             }
@@ -211,6 +227,10 @@ class GameUtil: NSObject
                     }
                     rewardText = rewardText + (value>=0 ? "+\(value)":"\(value)") + " "
                 }
+            }
+            if hasItemReward
+            {
+                rewardText = rewardText + " 道具：" + itemText
             }
             printDebugInfo(rewardText)
 
@@ -566,26 +586,42 @@ class GameUtil: NSObject
     func getReward(groupID: Int)->[Reward]
     {
         var rewards = [Reward]()
-        let sql = "select * from reward_group where group_id=\(groupID)"
+        var sql = "select * from reward_group where group_id=\(groupID)"
         var result = DBUtilSingleton.shared.executeQuerySql(sql)
         while result.next()
         {
-            var max = result.longForColumn("max_probability")
-            var min = result.longForColumn("min_probability")
+            var max = result.longForColumn("max_value")>=0 ? result.longForColumn("max_value"):-1*result.longForColumn("max_value")
+            var min = result.longForColumn("min_value")>=0 ? result.longForColumn("min_value"):-1*result.longForColumn("min_value")
             var temp = max+1-min
             var rewardType = RewardType.fromRaw(result.longForColumn("reward_type"))
+            var objID = result.longForColumn("object_id")
             var value = min
+            var random = arc4random_uniform(UInt32(temp))
+            value = value + Int(random)
+            if result.longForColumn("min_value")<0
+            {
+                value = -1*value
+            }
             switch rewardType!
             {
                 case .CharacterStatus,.MainBaseObj:
-                    var random = arc4random_uniform(UInt32(temp))
-                    value = value + Int(random)
                     rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: Int(value)))
                 case .Item:
-                    var random = arc4random_uniform(100)+1
-                    if UInt32(max)<=random
+                    if value>0
                     {
-                        rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: 1))
+                        var items = [Item]()
+                        sql="select a.item_id,b.desc from reward_item_group a,item b where item_group_id=\(objID) and a.item_id=b.item_id"
+                        var itemResult = DBUtilSingleton.shared.executeQuerySql(sql)
+                        while itemResult.next()
+                        {
+                            items.append(Item(itemID: itemResult.longForColumn("item_id"), desc: itemResult.stringForColumn("desc")))
+                        }
+                        for i in 1...value
+                        {
+                            random = arc4random_uniform(UInt32(items.count))
+                            let item = items[Int(random)]
+                            rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: item.itemID))
+                        }
                     }
                 default:
                     printDebugInfo("reward type is unknow")
@@ -593,6 +629,7 @@ class GameUtil: NSObject
             
             
         }
+        printDebugInfo(rewards)
         return rewards
     }
     

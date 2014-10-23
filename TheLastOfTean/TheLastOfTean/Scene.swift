@@ -217,4 +217,14 @@ enum CharacterProperty: Int
     case health;
     case loyalty;
 }
+class Item
+{
+    var itemID:Int
+    var desc:String
+    init(itemID:Int, desc:String)
+    {
+        self.itemID = itemID
+        self.desc = desc
+    }
+}
 
