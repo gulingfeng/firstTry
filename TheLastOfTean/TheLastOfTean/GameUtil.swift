@@ -610,11 +610,11 @@ class GameUtil: NSObject
                     if value>0
                     {
                         var items = [Item]()
-                        sql="select a.item_id,b.desc from reward_item_group a,item b where item_group_id=\(objID) and a.item_id=b.item_id"
+                        sql="select a.item_id,b.value from reward_item_group a,item b where item_group_id=\(objID) and a.item_id=b.item_id and b.property='desc'"
                         var itemResult = DBUtilSingleton.shared.executeQuerySql(sql)
                         while itemResult.next()
                         {
-                            items.append(Item(itemID: itemResult.longForColumn("item_id"), desc: itemResult.stringForColumn("desc")))
+                            items.append(Item(itemID: itemResult.longForColumn("item_id"), desc: itemResult.stringForColumn("value")))
                         }
                         for i in 1...value
                         {
