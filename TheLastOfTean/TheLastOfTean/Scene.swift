@@ -11,12 +11,20 @@ import UIKit
 
 class Event
 {
+    var eventType: Int
     var eventID: Int
     var startSceneID: Int
-    init(eventID: Int, startSceneID: Int)
+    var triggerType: Int
+    var triggerValue: String
+    var probability: Int
+    init(eventType:Int, eventID: Int, startSceneID: Int,triggerType:Int, triggerValue:String,probability:Int)
     {
+        self.eventType = eventType
         self.eventID = eventID
         self.startSceneID = startSceneID
+        self.triggerType = triggerType
+        self.triggerValue = triggerValue
+        self.probability = probability
     }
 }
 class CalcNextScene
