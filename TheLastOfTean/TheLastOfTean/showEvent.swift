@@ -101,22 +101,6 @@ class showEvent: SceneViewController {
             GameUtil.shared.printDebugInfo(img.frame)
         }
         
-        
-        
-        var events = GameUtil.shared.getAllEvent()
-        if events.count>0
-        {
-            var event = events[0]
-            var sceneID = event.startSceneID
-            scenes = GameUtil.shared.loadScene()!
-            //println(scene)
-            if scenes.count>0
-            {
-                var scene = scenes[sceneID]
-                GameUtil.shared.showScene(scene!, vc: self)
-            }
-        }
-        
     }
 
     func showProperty(sender:UIButton)
@@ -174,6 +158,18 @@ class showEvent: SceneViewController {
             }
             text = text + "</font>"
             propertyView.loadHTMLString(text, baseURL: nil)
+        }
+        var event = GameUtil.shared.getRandomEvent(EventType.MainBase)
+        if event != nil
+        {
+            var sceneID = event!.startSceneID
+            scenes = GameUtil.shared.loadScene()!
+            //println(scene)
+            if scenes.count>0
+            {
+                var scene = scenes[sceneID]
+                GameUtil.shared.showScene(scene!, vc: self)
+            }
         }
     }
     

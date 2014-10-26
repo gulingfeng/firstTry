@@ -633,20 +633,53 @@ class GameUtil: NSObject
         return rewards
     }
     
-    func getEventByType(eventType:Int)
+    func getEventByType(eventType:EventType)->[Event]
     {
         var events = [Event]()
-        var sql = "select * from event where event_type=\(eventType)"
+        var sql = "select * from event where event_type=\(eventType.toRaw())"
         var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
         while resultSet.next()
         {
             events.append(Event(eventType:resultSet.longForColumn("event_type"),eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id"),triggerType:resultSet.longForColumn("trigger_type"),triggerValue: resultSet.stringForColumn("trigger_value"),probability: resultSet.longForColumn("probability")))
         }
+        return events
     }
-    func getRandomEvent(eventTriggerType:Int)
+    func getRandomEvent(eventType:EventType)->Event?
     {
-        var events = GameUtil.shared.getAllEvent()
-        var random = arc4random_uniform(100)
+        
+        var events = getEventByType(eventType)
+        //var type = EventType.fromRaw(eventType)!
+        switch eventType
+        {
+            case .MainBase:
+                for event in events
+                {
+                    
+                    var random = arc4random_uniform(100)+1
+                    var sql = "select * from event a,main_base_object b where a.event_id=\(event.eventID) and  a.trigger_type=b.object_type and b.value\(event.triggerValue) and a.probability>=\(random)"
+                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if resultSet.next()
+                    {
+                        return event
+                    }
+                }
+            case .Character:
+                for event in events
+                {
+                    
+                    var random = arc4random_uniform(100)+1
+                    var sql = "select * from event a,character b where a.trigger_type=b.property_id and a.memeber_id=b.character_id and b.value\(event.triggerValue) and a.probability>=\(random)"
+                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if resultSet.next()
+                    {
+                        return event
+                    }
+                }
+            case .Mission:
+                printDebugInfo("mission event")
+        }
+        return nil
+        
     }
     
 }

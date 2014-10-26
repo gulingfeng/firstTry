@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Event
+class Event: NilLiteralConvertible
 {
     var eventType: Int
     var eventID: Int
@@ -17,7 +17,7 @@ class Event
     var triggerType: Int
     var triggerValue: String
     var probability: Int
-    init(eventType:Int, eventID: Int, startSceneID: Int,triggerType:Int, triggerValue:String,probability:Int)
+    required init(eventType:Int, eventID: Int, startSceneID: Int,triggerType:Int, triggerValue:String,probability:Int)
     {
         self.eventType = eventType
         self.eventID = eventID
@@ -26,6 +26,21 @@ class Event
         self.triggerValue = triggerValue
         self.probability = probability
     }
+    /*
+    required init()
+    {
+        self.triggerValue = ""
+        self.eventID = 0
+        self.eventType = 0
+        self.probability = 0
+        self.startSceneID = 0
+        self.triggerType = 0
+    }*/
+    class func convertFromNilLiteral() -> Self
+    {
+        return self(eventType: 0, eventID: 0, startSceneID: 0, triggerType: 0, triggerValue: "", probability: 0)
+    }
+
 }
 class CalcNextScene
 {
@@ -235,4 +250,9 @@ class Item
         self.desc = desc
     }
 }
-
+enum EventType: Int
+{
+    case MainBase = 1;
+    case Character;
+    case Mission;
+}
