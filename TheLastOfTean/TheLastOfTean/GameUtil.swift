@@ -75,7 +75,7 @@ class GameUtil: NSObject
         var resultSet = DBUtilSingleton.shared.executeQuerySql("select * from event")
         while resultSet.next()
         {
-            events.append(Event(eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id")))
+            events.append(Event(eventType:resultSet.longForColumn("event_type"),eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id"),triggerType:resultSet.longForColumn("trigger_type"),triggerValue: resultSet.stringForColumn("trigger_value"),probability: resultSet.longForColumn("probability")))
         }
         return events
     }
@@ -631,6 +631,22 @@ class GameUtil: NSObject
         }
         printDebugInfo(rewards)
         return rewards
+    }
+    
+    func getEventByType(eventType:Int)
+    {
+        var events = [Event]()
+        var sql = "select * from event where event_type=\(eventType)"
+        var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+        while resultSet.next()
+        {
+            events.append(Event(eventType:resultSet.longForColumn("event_type"),eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id"),triggerType:resultSet.longForColumn("trigger_type"),triggerValue: resultSet.stringForColumn("trigger_value"),probability: resultSet.longForColumn("probability")))
+        }
+    }
+    func getRandomEvent(eventTriggerType:Int)
+    {
+        var events = GameUtil.shared.getAllEvent()
+        var random = arc4random_uniform(100)
     }
     
 }
