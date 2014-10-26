@@ -48,7 +48,7 @@ class DoMission: SceneViewController {
         dialogBack.frame = CGRect(x: appFrame.minX+5, y: appFrame.maxY-60, width:appFrame.width-10, height: 50)
         dialogBack.alpha = 0.5
         //self.view.addSubview(dialogBack)
-        scenes = GameUtil.shared.loadScene()!
+        //scenes = GameUtil.shared.allScenes
         //println(scene)
         if scenes.count>0
         {

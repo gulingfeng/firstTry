@@ -21,10 +21,12 @@ class GameUtil: NSObject
     
     var isDebug: Bool!
     var appFrame: AppFrame!
-    
+    var allScenes = [Int:Scene]()
     override init()
     {
         super.init()
+        allScenes = loadScene()!
+
         if getGameStatus("debug") == "Y"
         {
             isDebug = true
@@ -342,7 +344,7 @@ class GameUtil: NSObject
     func nextScene(sender:SceneButton)
     {
         var vc = sender.sceneViewController!
-        var scenes = vc.scenes
+        var scenes = allScenes
         println("nextScene sceneDetailGlobalID:\(sender.sceneDetailGlobalID)")
         //let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(sender.sceneDetailGlobalID!)"
         var result = getNextSceneID(sender.globalID!, nextScene: sender.nextScene!, nextSceneType: sender.nextSceneType!, recordTouch: sender.recordTouch!)
@@ -402,8 +404,6 @@ class GameUtil: NSObject
     }
     func getNextSceneID(resourceGlobalID:Int,nextScene:Int,nextSceneType: NextSceneType,recordTouch:Int)->Int
     {
-        let db = DBUtilSingleton.shared.connection!
-        
         var result = 0
 
         switch nextSceneType

@@ -203,7 +203,7 @@ class SceneWebLabel: UIWebView
 
 class SceneViewController: UIViewController
 {
-    var scenes = [Int:Scene]()
+    var scenes = GameUtil.shared.allScenes
 }
 
 class Reward: Printable

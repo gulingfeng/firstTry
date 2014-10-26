@@ -163,7 +163,7 @@ class showEvent: SceneViewController {
         if event != nil
         {
             var sceneID = event!.startSceneID
-            scenes = GameUtil.shared.loadScene()!
+            //scenes = GameUtil.shared.loadScene()!
             //println(scene)
             if scenes.count>0
             {
