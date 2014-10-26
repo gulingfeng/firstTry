@@ -190,15 +190,15 @@ class GameUtil: NSObject
                         }
                     case .Item:
                         hasItemReward = true
-                        var sql="select * from item where item_id=\(reward.value)"
+                        var sql="select * from item where item_id=\(reward.value) and property='desc'"
                         var itemResult = DBUtilSingleton.shared.executeQuerySql(sql)
                         if itemResult.next()
                         {
                             if itemText == ""
                             {
-                                itemText = itemText + itemResult.stringForColumn("desc")
+                                itemText = itemText + itemResult.stringForColumn("value")
                             }else{
-                                itemText = itemText + "," + itemResult.stringForColumn("desc")
+                                itemText = itemText + "," + itemResult.stringForColumn("value")
                             }
                         }
                     
