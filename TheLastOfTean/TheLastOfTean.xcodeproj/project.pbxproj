@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC0A450919FDB66700A7DEC6 /* backpack_z.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0A450819FDB66700A7DEC6 /* backpack_z.png */; };
 		DC18601F19E5043C00AB7D87 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18601E19E5043C00AB7D87 /* Dropdown.swift */; };
 		DC6C29E819DBC07700E6A436 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6C29E719DBC07700E6A436 /* Scene.swift */; };
 		DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC0A450819FDB66700A7DEC6 /* backpack_z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backpack_z.png; path = ../event/backpack_z.png; sourceTree = "<group>"; };
 		DC18601E19E5043C00AB7D87 /* Dropdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		DC6C29E719DBC07700E6A436 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtil.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				DCB0903319D7CFF900DB4E19 /* mission_back.jpg */,
+				DC0A450819FDB66700A7DEC6 /* backpack_z.png */,
 				DCB0903519D7D61F00DB4E19 /* test.png */,
 			);
 			path = misson;
@@ -329,6 +332,7 @@
 				DCB0902219D7B1FA00DB4E19 /* border.png in Resources */,
 				DCA1CFE619EB16780055AF57 /* label_back.png in Resources */,
 				DCB0902C19D7B81A00DB4E19 /* human_4.png in Resources */,
+				DC0A450919FDB66700A7DEC6 /* backpack_z.png in Resources */,
 				DCB0902B19D7B81A00DB4E19 /* human_3.png in Resources */,
 				DCBE401519DA79BE00238919 /* TheLastOfTeam.sqlite in Resources */,
 				DCA1CFE819EB17160055AF57 /* new_day_back.png in Resources */,

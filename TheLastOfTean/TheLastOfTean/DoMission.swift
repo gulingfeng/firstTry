@@ -50,12 +50,21 @@ class DoMission: SceneViewController {
         //self.view.addSubview(dialogBack)
         //scenes = GameUtil.shared.allScenes
         //println(scene)
-        if scenes.count>0
+        /*if scenes.count>0
         {
             var scene = scenes[1]
             GameUtil.shared.showScene(scene!,vc: self)
-        }
+        }*/
         //self.view.addSubview(button)
+        var sceneID = 7
+
+        var event = GameUtil.shared.getRandomEvent(EventType.Mission)
+        if event != nil
+        {
+            sceneID = event!.startSceneID
+        }
+        var scene = scenes[sceneID]
+        GameUtil.shared.showScene(scene!, vc: self)
 
     }
     

@@ -676,7 +676,17 @@ class GameUtil: NSObject
                     }
                 }
             case .Mission:
-                printDebugInfo("mission event")
+                for event in events
+                {
+                    
+                    var random = arc4random_uniform(100)+1
+                    var sql = "select * from event where event_id=\(event.eventID) and probability>=\(random)"
+                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if resultSet.next()
+                    {
+                        return event
+                    }
+                }
         }
         return nil
         
