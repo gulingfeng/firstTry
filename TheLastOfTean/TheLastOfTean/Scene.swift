@@ -256,3 +256,8 @@ enum EventType: Int
     case Character;
     case Mission;
 }
+enum CombinType: Int
+{
+    case NotCombinable = 0;
+    case Combinable = 1;
+}

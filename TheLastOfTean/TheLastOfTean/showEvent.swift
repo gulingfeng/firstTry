@@ -159,7 +159,9 @@ class showEvent: SceneViewController {
             text = text + "</font>"
             propertyView.loadHTMLString(text, baseURL: nil)
         }
-        var event = GameUtil.shared.getRandomEvent(EventType.MainBase)
+        var types = [EventType.MainBase,EventType.Character]
+        GameUtil.shared.initEventList(types)
+        var event = GameUtil.shared.getEventFromList()
         if event != nil
         {
             var sceneID = event!.startSceneID

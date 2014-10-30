@@ -22,6 +22,7 @@ class GameUtil: NSObject
     var isDebug: Bool!
     var appFrame: AppFrame!
     var allScenes = [Int:Scene]()
+    var eventList = [Event]()
     override init()
     {
         super.init()
@@ -384,7 +385,13 @@ class GameUtil: NSObject
         }
         if result == -1
         {
-            return
+            var event = getEventFromList()
+            if event != nil
+            {
+                result = event!.startSceneID
+            }else{
+                return
+            }
         }else if result == -2{
             vc.dismissViewControllerAnimated(true, completion: nil)
         }
@@ -644,6 +651,80 @@ class GameUtil: NSObject
         }
         return events
     }
+    func initEventList(eventTypes:[EventType])
+    {
+        var sql = ""
+        for eventType in eventTypes
+        {
+            var events = getEvent(eventType, combinType: .Combinable)
+            switch eventType
+            {
+            case .MainBase:
+                for event in events
+                {
+                    
+                    var random = arc4random_uniform(100)+1
+                    sql = "select * from event a,main_base_object b where a.event_id=\(event.eventID) and  a.trigger_type=b.object_type and b.value\(event.triggerValue) and a.probability>=\(random)"
+                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if resultSet.next()
+                    {
+                        eventList.append(event)
+                    }
+                }
+            case .Character:
+                for event in events
+                {
+                    
+                    var random = arc4random_uniform(100)+1
+                    sql = "select * from event a,character b where a.trigger_type=b.property_id and a.memeber_id=b.character_id and b.value\(event.triggerValue) and a.probability>=\(random)"
+                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if resultSet.next()
+                    {
+                        eventList.append(event)
+                    }
+                }
+            case .Mission:
+                for event in events
+                {
+                    
+                    var random = arc4random_uniform(100)+1
+                    sql = "select * from event where event_id=\(event.eventID) and probability>=\(random)"
+                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if resultSet.next()
+                    {
+                        eventList.append(event)
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func getEvent(eventType:EventType, combinType:CombinType) -> [Event]
+    {
+        var events = [Event]()
+        var sql = "select * from event where event_type=\(eventType.toRaw()) and combinable=\(combinType.toRaw()) and (repeatable=1 or (repeatable!=1 and happened_count<1))"
+        var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
+        while resultSet.next()
+        {
+            events.append(Event(eventType:resultSet.longForColumn("event_type"),eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id"),triggerType:resultSet.longForColumn("trigger_type"),triggerValue: resultSet.stringForColumn("trigger_value"),probability: resultSet.longForColumn("probability")))
+        }
+        return events
+    }
+    
+    func getEventFromList()->Event?
+    {
+        if !eventList.isEmpty
+        {
+            var event = eventList[0]
+            eventList.removeAtIndex(0)
+            return event
+        }else{
+            return nil
+        }
+    }
+
+    
     func getRandomEvent(eventType:EventType)->Event?
     {
         
