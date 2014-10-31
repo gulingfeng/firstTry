@@ -118,8 +118,7 @@ class showEvent: SceneViewController {
     }
     func startMission(){
         var doMission = DoMission()
-        self.presentViewController(doMission, animated: true, completion: nil)
-        
+        self.presentViewController(doMission, animated: true, completion: nil)        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

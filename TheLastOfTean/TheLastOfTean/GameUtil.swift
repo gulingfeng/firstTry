@@ -654,9 +654,10 @@ class GameUtil: NSObject
     func initEventList(eventTypes:[EventType])
     {
         var sql = ""
+        var events = [Event]()
         for eventType in eventTypes
         {
-            var events = getEvent(eventType, combinType: .Combinable)
+            events = getCombinableEvent(eventType)
             switch eventType
             {
             case .MainBase:
@@ -697,6 +698,12 @@ class GameUtil: NSObject
                 }
             }
         }
+        var event = getNotCombinableEvent(.Mission)
+        if event != nil
+        {
+            printDebugInfo("event id:\(event?.eventID)")
+            events.append(event!)
+        }
         
     }
     
@@ -710,6 +717,28 @@ class GameUtil: NSObject
             events.append(Event(eventType:resultSet.longForColumn("event_type"),eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id"),triggerType:resultSet.longForColumn("trigger_type"),triggerValue: resultSet.stringForColumn("trigger_value"),probability: resultSet.longForColumn("probability")))
         }
         return events
+    }
+    
+    func getCombinableEvent(eventType:EventType)->[Event]
+    {
+        return getEvent(eventType, combinType: .Combinable)
+    }
+    
+    func getNotCombinableEvent(eventType:EventType)->Event?
+    {
+        var events = getEvent(eventType, combinType: .NotCombinable)
+        for i in 0..<events.count
+        {
+            var seed = Int(arc4random_uniform(UInt32(events.count-i)))
+            var event = events[seed]
+            var random = Int(arc4random_uniform(100)+1)
+            if random<event.probability
+            {
+                return event
+            }
+            events[seed] = events[events.count-i-1]
+        }
+        return nil
     }
     
     func getEventFromList()->Event?

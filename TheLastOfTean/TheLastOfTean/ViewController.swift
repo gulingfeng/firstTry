@@ -50,6 +50,7 @@ class ViewController: UIViewController {
         button.setTitle("开始", forState: .Normal)
         
         self.view.addSubview(button)
+                
     }
 
     func showEventPage()
