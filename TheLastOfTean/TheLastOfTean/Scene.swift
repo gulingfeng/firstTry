@@ -255,6 +255,7 @@ enum EventType: Int
     case MainBase = 1;
     case Character;
     case Mission;
+    case Item;
 }
 enum CombinType: Int
 {
