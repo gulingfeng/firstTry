@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Event: NilLiteralConvertible
+class Event: NilLiteralConvertible,Printable
 {
     var eventType: Int
     var eventID: Int
@@ -17,6 +17,11 @@ class Event: NilLiteralConvertible
     var triggerType: Int
     var triggerValue: String
     var probability: Int
+    var description: String { get
+    {
+        return "eventID:\(eventID)"
+        }
+    }
     required init(eventType:Int, eventID: Int, startSceneID: Int,triggerType:Int, triggerValue:String,probability:Int)
     {
         self.eventType = eventType
@@ -26,6 +31,7 @@ class Event: NilLiteralConvertible
         self.triggerValue = triggerValue
         self.probability = probability
     }
+    
     /*
     required init()
     {
@@ -255,10 +261,16 @@ enum EventType: Int
     case MainBase = 1;
     case Character;
     case Mission;
-    case Item;
 }
 enum CombinType: Int
 {
     case NotCombinable = 0;
     case Combinable = 1;
 }
+enum EventConditionType:Int
+{
+    case MainBase = 1;
+    case Character;
+    case Item;
+}
+

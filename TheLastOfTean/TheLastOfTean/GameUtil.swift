@@ -22,7 +22,7 @@ class GameUtil: NSObject
     var isDebug: Bool!
     var appFrame: AppFrame!
     var allScenes = [Int:Scene]()
-    var eventList = [Event]()
+    var eventList = NSMutableArray(array: [Event]())
     override init()
     {
         super.init()
@@ -658,7 +658,9 @@ class GameUtil: NSObject
         for eventType in eventTypes
         {
             events = getCombinableEvent(eventType)
-            switch eventType
+            printDebugInfo(events)
+            eventList.addObjectsFromArray(events)
+            /*switch eventType
             {
             case .MainBase:
                 for event in events
@@ -696,13 +698,13 @@ class GameUtil: NSObject
                         eventList.append(event)
                     }
                 }
-            }
+            }*/
         }
         var event = getNotCombinableEvent(.Mission)
         if event != nil
         {
             printDebugInfo("event id:\(event?.eventID)")
-            events.append(event!)
+            eventList.addObject(event!)
         }
         
     }
@@ -721,7 +723,46 @@ class GameUtil: NSObject
     
     func getCombinableEvent(eventType:EventType)->[Event]
     {
-        return getEvent(eventType, combinType: .Combinable)
+        var events = getEvent(eventType, combinType: .Combinable)
+        var result = [Event]()
+        for event in events
+        {
+            var random = Int(arc4random_uniform(100)+1)
+            if random<=event.probability
+            {
+                var id = event.eventID
+                var sql = "select * from event_condition where event_id=\(id)"
+                var condition = DBUtilSingleton.shared.executeQuerySql(sql)
+                var pass = true
+                while condition.next()
+                {
+                    var conditionType = EventConditionType.fromRaw(condition.longForColumn("condition_type"))!
+                    var conditionObjID = condition.longForColumn("condition_obj_id")
+                    var conditionValue = condition.stringForColumn("condition_value")
+                    var conditionPropertyID = condition.longForColumn("condition_property_id")
+                    switch conditionType
+                    {
+                        case .MainBase:
+                            sql = "select * from main_base_object where object_id=\(conditionObjID) and value\(conditionValue)"
+                        case .Character:
+                            sql = "select * from character where character_id=\(conditionObjID) and property_id=\(conditionPropertyID) and value\(conditionValue)"
+                        case .Item:
+                            sql = "select * from item where object_id=\(conditionObjID) and value\(conditionValue)"
+                    }
+                    var temp = DBUtilSingleton.shared.executeQuerySql(sql)
+                    if !temp.next()
+                    {
+                        pass = false
+                        break
+                    }
+                }
+                if pass
+                {
+                    result.append(event)
+                }
+            }
+        }
+        return result
     }
     
     func getNotCombinableEvent(eventType:EventType)->Event?
@@ -732,7 +773,7 @@ class GameUtil: NSObject
             var seed = Int(arc4random_uniform(UInt32(events.count-i)))
             var event = events[seed]
             var random = Int(arc4random_uniform(100)+1)
-            if random<event.probability
+            if random<=event.probability
             {
                 return event
             }
@@ -743,10 +784,10 @@ class GameUtil: NSObject
     
     func getEventFromList()->Event?
     {
-        if !eventList.isEmpty
+        if eventList.count>0
         {
-            var event = eventList[0]
-            eventList.removeAtIndex(0)
+            var event = eventList[0] as Event
+            eventList.removeObjectAtIndex(0)
             return event
         }else{
             return nil
