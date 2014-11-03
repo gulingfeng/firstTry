@@ -14,21 +14,17 @@ class Event: NilLiteralConvertible,Printable
     var eventType: Int
     var eventID: Int
     var startSceneID: Int
-    var triggerType: Int
-    var triggerValue: String
     var probability: Int
     var description: String { get
     {
         return "eventID:\(eventID)"
         }
     }
-    required init(eventType:Int, eventID: Int, startSceneID: Int,triggerType:Int, triggerValue:String,probability:Int)
+    required init(eventType:Int, eventID: Int, startSceneID: Int,probability:Int)
     {
         self.eventType = eventType
         self.eventID = eventID
         self.startSceneID = startSceneID
-        self.triggerType = triggerType
-        self.triggerValue = triggerValue
         self.probability = probability
     }
     
@@ -44,7 +40,7 @@ class Event: NilLiteralConvertible,Printable
     }*/
     class func convertFromNilLiteral() -> Self
     {
-        return self(eventType: 0, eventID: 0, startSceneID: 0, triggerType: 0, triggerValue: "", probability: 0)
+        return self(eventType: 0, eventID: 0, startSceneID: 0, probability: 0)
     }
 
 }
@@ -269,8 +265,9 @@ enum CombinType: Int
 }
 enum EventConditionType:Int
 {
-    case MainBase = 1;
-    case Character;
+    case MainBaseProperty = 1;
+    case CertainCharacterProperty;
+    case AnyCharacterProperty;
     case Item;
 }
 

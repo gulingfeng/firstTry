@@ -58,13 +58,21 @@ class DoMission: SceneViewController {
         //self.view.addSubview(button)
         var sceneID = 7
 
-        var event = GameUtil.shared.getRandomEvent(EventType.Mission)
+        var eventTypes = [EventType.Mission]
+        GameUtil.shared.initEventList(eventTypes)
+        var event = GameUtil.shared.getEventFromList()
         if event != nil
         {
-            sceneID = event!.startSceneID
+            var sceneID = event!.startSceneID
+            //scenes = GameUtil.shared.loadScene()!
+            //println(scene)
+            if scenes.count>0
+            {
+                var scene = scenes[sceneID]
+                GameUtil.shared.showScene(scene!, vc: self)
+            }
         }
-        var scene = scenes[sceneID]
-        GameUtil.shared.showScene(scene!, vc: self)
+
 
     }
     
