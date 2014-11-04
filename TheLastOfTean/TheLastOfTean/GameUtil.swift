@@ -193,7 +193,7 @@ class GameUtil: NSObject
                         }
                     case .Item:
                         hasItemReward = true
-                        var sql="select * from item where item_id=\(reward.value) and property='desc'"
+                        var sql="select * from item where item_id=\(reward.value) and property=\(EventPropertyType.Desc.toRaw())"
                         var itemResult = DBUtilSingleton.shared.executeQuerySql(sql)
                         if itemResult.next()
                         {
@@ -617,7 +617,7 @@ class GameUtil: NSObject
                     if value>0
                     {
                         var items = [Item]()
-                        sql="select a.item_id,b.value from reward_item_group a,item b where item_group_id=\(objID) and a.item_id=b.item_id and b.property='desc'"
+                        sql="select a.item_id,b.value from reward_item_group a,item b where item_group_id=\(objID) and a.item_id=b.item_id and b.property=\(EventPropertyType.Desc.toRaw())"
                         var itemResult = DBUtilSingleton.shared.executeQuerySql(sql)
                         while itemResult.next()
                         {
@@ -747,7 +747,7 @@ class GameUtil: NSObject
                         case .CertainCharacterProperty:
                             sql = "select * from character where character_id=\(conditionObjID) and property_id=\(conditionPropertyID) and value\(conditionValue)"
                         case .Item:
-                            sql = "select * from item where item_id=\(conditionObjID) and inventory\(conditionValue)"
+                            sql = "select * from item where item_id=\(conditionObjID) and property=\(EventPropertyType.Inventory.toRaw()) and value\(conditionValue)"
                         case .AnyCharacterProperty:
                             sql = "select * from character where property_id=\(conditionPropertyID) and value\(conditionValue)"
                     }
@@ -797,6 +797,17 @@ class GameUtil: NSObject
         }else{
             return nil
         }
+    }
+    
+    func updateEventHappenedCount(eventID:Int, count:Int)
+    {
+        let sql = "update event set happened_count=happened+1 where event_id=\(eventID)"
+        DBUtilSingleton.shared.executeUpdateSql(sql)
+    }
+    
+    func updateItemInventory(itemID:Int,count:Int)
+    {
+        let sql = "update item set value=value+1 where item_id=\(itemID) and property=\(4)"
     }
     
 }

@@ -252,6 +252,13 @@ class Item
         self.desc = desc
     }
 }
+enum EventPropertyType:Int
+{
+    case PropertyType=1;
+    case Desc;
+    case CharacterPropertyID;
+    case Inventory;
+}
 enum EventType: Int
 {
     case MainBase = 1;
