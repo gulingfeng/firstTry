@@ -63,16 +63,16 @@ class DoMission: SceneViewController {
         var event = GameUtil.shared.getEventFromList()
         if event != nil
         {
-            var sceneID = event!.startSceneID
+            sceneID = event!.startSceneID
             //scenes = GameUtil.shared.loadScene()!
             //println(scene)
-            if scenes.count>0
-            {
-                var scene = scenes[sceneID]
-                GameUtil.shared.showScene(scene!, vc: self)
-            }
+            
         }
-
+        if scenes.count>0
+        {
+            var scene = scenes[sceneID]
+            GameUtil.shared.showScene(scene!, vc: self)
+        }
 
     }
     

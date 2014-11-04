@@ -23,6 +23,7 @@ class GameUtil: NSObject
     var appFrame: AppFrame!
     var allScenes = [Int:Scene]()
     var eventList = NSMutableArray(array: [Event]())
+    var currentEventID = 0
     override init()
     {
         super.init()
@@ -393,7 +394,13 @@ class GameUtil: NSObject
                 return
             }
         }else if result == -2{
-            vc.dismissViewControllerAnimated(true, completion: nil)
+            var event = getEventFromList()
+            if event != nil
+            {
+                result = event!.startSceneID
+            }else{
+                vc.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
         
         scene = scenes[result]
@@ -653,66 +660,30 @@ class GameUtil: NSObject
     }
     func initEventList(eventTypes:[EventType])
     {
+        currentEventID = 0
         var sql = ""
         var events = [Event]()
         for eventType in eventTypes
         {
             events = getCombinableEvent(eventType)
-            printDebugInfo(events)
             eventList.addObjectsFromArray(events)
-            /*switch eventType
-            {
-            case .MainBase:
-                for event in events
-                {
-                    
-                    var random = arc4random_uniform(100)+1
-                    sql = "select * from event a,main_base_object b where a.event_id=\(event.eventID) and  a.trigger_type=b.object_type and b.value\(event.triggerValue) and a.probability>=\(random)"
-                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
-                    if resultSet.next()
-                    {
-                        eventList.append(event)
-                    }
-                }
-            case .Character:
-                for event in events
-                {
-                    
-                    var random = arc4random_uniform(100)+1
-                    sql = "select * from event a,character b where a.trigger_type=b.property_id and a.memeber_id=b.character_id and b.value\(event.triggerValue) and a.probability>=\(random)"
-                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
-                    if resultSet.next()
-                    {
-                        eventList.append(event)
-                    }
-                }
-            case .Mission:
-                for event in events
-                {
-                    
-                    var random = arc4random_uniform(100)+1
-                    sql = "select * from event where event_id=\(event.eventID) and probability>=\(random)"
-                    var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
-                    if resultSet.next()
-                    {
-                        eventList.append(event)
-                    }
-                }
-            }*/
         }
         var event = getNotCombinableEvent(eventTypes)
         if event != nil
         {
-            printDebugInfo("event id:\(event?.eventID)")
             eventList.addObject(event!)
         }
         
     }
     
-    func getEvent(eventType:EventType, combinType:CombinType) -> [Event]
+    func getEvent(eventType:EventType, combinType:CombinType,probability:Int=0) -> [Event]
     {
         var events = [Event]()
         var sql = "select * from event where event_type=\(eventType.toRaw()) and combinable=\(combinType.toRaw()) and (repeatable=1 or (repeatable!=1 and happened_count<1))"
+        if probability==100
+        {
+            sql = sql + " and probability=100 "
+        }
         var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
         while resultSet.next()
         {
@@ -730,35 +701,7 @@ class GameUtil: NSObject
             var random = Int(arc4random_uniform(100)+1)
             if random<=event.probability
             {
-                var id = event.eventID
-                var sql = "select * from event_condition where event_id=\(id)"
-                var condition = DBUtilSingleton.shared.executeQuerySql(sql)
-                var pass = true
-                while condition.next()
-                {
-                    var conditionType = EventConditionType.fromRaw(condition.longForColumn("condition_type"))!
-                    var conditionObjID = condition.longForColumn("condition_obj_id")
-                    var conditionValue = condition.stringForColumn("condition_value")
-                    var conditionPropertyID = condition.longForColumn("condition_property_id")
-                    switch conditionType
-                    {
-                        case .MainBaseProperty:
-                            sql = "select * from main_base_object where object_id=\(conditionObjID) and value\(conditionValue)"
-                        case .CertainCharacterProperty:
-                            sql = "select * from character where character_id=\(conditionObjID) and property_id=\(conditionPropertyID) and value\(conditionValue)"
-                        case .Item:
-                            sql = "select * from item where item_id=\(conditionObjID) and property=\(EventPropertyType.Inventory.toRaw()) and value\(conditionValue)"
-                        case .AnyCharacterProperty:
-                            sql = "select * from character where property_id=\(conditionPropertyID) and value\(conditionValue)"
-                    }
-                    var temp = DBUtilSingleton.shared.executeQuerySql(sql)
-                    if !temp.next()
-                    {
-                        pass = false
-                        break
-                    }
-                }
-                if pass
+                if checkEventCondition(event)
                 {
                     result.append(event)
                 }
@@ -771,6 +714,18 @@ class GameUtil: NSObject
     {
         for eventType in eventTypes
         {
+            var events = getEvent(eventType, combinType: .NotCombinable,probability: 100)
+            for i in 0..<events.count
+            {
+                var event = events[0]
+                if checkEventCondition(event)
+                {
+                    return event
+                }
+            }
+        }
+        for eventType in eventTypes
+        {
             var events = getEvent(eventType, combinType: .NotCombinable)
             for i in 0..<events.count
             {
@@ -779,7 +734,10 @@ class GameUtil: NSObject
                 var random = Int(arc4random_uniform(100)+1)
                 if random<=event.probability
                 {
-                    return event
+                    if checkEventCondition(event)
+                    {
+                        return event
+                    }
                 }
                 events[seed] = events[events.count-i-1]
             }
@@ -787,27 +745,67 @@ class GameUtil: NSObject
         return nil
     }
     
+    func checkEventCondition(event:Event)->Bool
+    {
+        var id = event.eventID
+        var sql = "select * from event_condition where event_id=\(id)"
+        var condition = DBUtilSingleton.shared.executeQuerySql(sql)
+        var pass = true
+        while condition.next()
+        {
+            var conditionType = EventConditionType.fromRaw(condition.longForColumn("condition_type"))!
+            var conditionObjID = condition.longForColumn("condition_obj_id")
+            var conditionValue = condition.stringForColumn("condition_value")
+            var conditionPropertyID = condition.longForColumn("condition_property_id")
+            switch conditionType
+                {
+            case .MainBaseProperty:
+                sql = "select * from main_base_object where object_id=\(conditionObjID) and value\(conditionValue)"
+            case .CertainCharacterProperty:
+                sql = "select * from character where character_id=\(conditionObjID) and property_id=\(conditionPropertyID) and value\(conditionValue)"
+            case .Item:
+                sql = "select * from item where item_id=\(conditionObjID) and property=\(EventPropertyType.Inventory.toRaw()) and value\(conditionValue)"
+            case .AnyCharacterProperty:
+                sql = "select * from character where property_id=\(conditionPropertyID) and value\(conditionValue)"
+            }
+            var temp = DBUtilSingleton.shared.executeQuerySql(sql)
+            if !temp.next()
+            {
+                pass = false
+                break
+            }
+        }
+        
+        return pass
+    }
+    
     func getEventFromList()->Event?
     {
+        if currentEventID != 0
+        {
+            updateEventHappenedCount(currentEventID, count: 1)
+        }
         if eventList.count>0
         {
             var event = eventList[0] as Event
             eventList.removeObjectAtIndex(0)
+            currentEventID = event.eventID
             return event
         }else{
+            currentEventID = 0
             return nil
         }
     }
     
     func updateEventHappenedCount(eventID:Int, count:Int)
     {
-        let sql = "update event set happened_count=happened+1 where event_id=\(eventID)"
+        let sql = "update event set happened_count=happened_count+1 where event_id=\(eventID)"
         DBUtilSingleton.shared.executeUpdateSql(sql)
     }
     
     func updateItemInventory(itemID:Int,count:Int)
     {
-        let sql = "update item set value=value+1 where item_id=\(itemID) and property=\(4)"
+        let sql = "update item set value=value+1 where item_id=\(itemID) and property=\(EventPropertyType.Inventory.toRaw())"
     }
     
 }
