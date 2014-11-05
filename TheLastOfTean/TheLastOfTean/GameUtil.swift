@@ -405,12 +405,6 @@ class GameUtil: NSObject
         
         scene = scenes[result]
         
-        if result == 5
-        {
-            var mainBase = MainBase.shared
-            mainBase.food+=10
-            mainBase.supply+=5
-        }
         if scene?.sceneDetails.count>0
         {
             GameUtil.shared.showScene(scene!, vc: vc)
@@ -489,85 +483,6 @@ class GameUtil: NSObject
         
         return result
     }
-    func getNextSceneID(sceneDetail: SceneDetail)->Int
-    {
-        let db = DBUtilSingleton.shared.connection!
-        
-        var result = 0
-        if (sceneDetail.nextSceneType != nil)
-        {
-            switch sceneDetail.nextSceneType!
-                {
-            case .sceneID:
-                result = sceneDetail.nextScene
-                println("directly:\(result)")
-                return result
-            case .calcSceneID:
-                
-                var touchCount = 0
-                var sql = "select * from scene_detail where global_id=\(sceneDetail.globalID)"
-                var tempResult = DBUtilSingleton.shared.executeQuerySql(sql)
-                if tempResult.next()
-                {
-                    touchCount = tempResult.longForColumn("touch_count")
-                }
-                println("touchCount:\(touchCount)")
-                
-                let random = arc4random_uniform(100)+1
-                
-                let querySql = "select * from calc_scene_id where calc_id=\(sceneDetail.nextScene)"
-                var resultSet = DBUtilSingleton.shared.executeQuerySql(querySql)
-                var temp = 0 as UInt32
-                var resultSceneID = 0
-                while resultSet.next()
-                {
-                    var calcID = resultSet.longForColumn("calc_id")
-                    var sceneID = resultSet.longForColumn("scene_id")
-                    var probability = resultSet.longForColumn("probability")
-                    var probabilityAdj = resultSet.longForColumn("probability_adj")
-                    var resetCount = resultSet.boolForColumn("reset_count")
-                    
-                    var finalProbability = probability + probabilityAdj*touchCount
-                    if finalProbability<0
-                    {
-                        finalProbability = 0
-                    }
-                    println("finalProbability: \(finalProbability)")
-                    
-                    if random > temp && random <= temp + finalProbability
-                    {
-                        result = sceneID
-                        if resetCount
-                        {
-                            DBUtilSingleton.shared.executeUpdateSql("update scene_detail set touch_count=0 where global_id=\(sceneDetail.globalID)")
-                        }
-                        break
-                    }else{
-                        temp = temp+finalProbability
-                    }
-                    
-                }
-                
-                
-            default:
-                result = 0
-            }
-        }
-        println("random:\(result)")
-        if result == 2
-        {
-            DBUtilSingleton.shared.count2++
-        }else if result == 4
-        {
-            DBUtilSingleton.shared.count4++
-        }else if result == 5
-        {
-            DBUtilSingleton.shared.count5++
-        }
-        println("count2:\(DBUtilSingleton.shared.count2) count4:\(DBUtilSingleton.shared.count4) count5:\(DBUtilSingleton.shared.count5)")
-
-        return result
-    }
     
     func loadCharacter()->[Character]
     {
@@ -635,6 +550,7 @@ class GameUtil: NSObject
                             random = arc4random_uniform(UInt32(items.count))
                             let item = items[Int(random)]
                             rewards.append(Reward(groupID: result.longForColumn("group_id"),rewardType: result.longForColumn("reward_type"),objectID: result.longForColumn("object_id"), objectProperty: result.longForColumn("object_property"), value: item.itemID))
+                            updateItemInventory(item.itemID, count: 1)
                         }
                     }
                 default:
@@ -647,17 +563,6 @@ class GameUtil: NSObject
         return rewards
     }
     
-    func getEventByType(eventType:EventType)->[Event]
-    {
-        var events = [Event]()
-        var sql = "select * from event where event_type=\(eventType.toRaw())"
-        var resultSet = DBUtilSingleton.shared.executeQuerySql(sql)
-        while resultSet.next()
-        {
-            events.append(Event(eventType:resultSet.longForColumn("event_type"),eventID: resultSet.longForColumn("event_id"),startSceneID: resultSet.longForColumn("start_scene_id"),probability: resultSet.longForColumn("probability")))
-        }
-        return events
-    }
     func initEventList(eventTypes:[EventType])
     {
         currentEventID = 0
@@ -805,7 +710,8 @@ class GameUtil: NSObject
     
     func updateItemInventory(itemID:Int,count:Int)
     {
-        let sql = "update item set value=value+1 where item_id=\(itemID) and property=\(EventPropertyType.Inventory.toRaw())"
+        let sql = "update item set value=value+\(count) where item_id=\(itemID) and property=\(EventPropertyType.Inventory.toRaw())"
+        DBUtilSingleton.shared.executeUpdateSql(sql)
     }
     
 }
