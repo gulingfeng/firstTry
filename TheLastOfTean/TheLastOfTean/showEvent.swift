@@ -16,7 +16,7 @@ class showEvent: SceneViewController {
     var dayLabel = UILabel()
     var missionOption = ["采集食物","清剿僵尸","打扫基地","休息"]
     var propertys = [SceneWebLabel]()
-
+    var actionButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -48,16 +48,16 @@ class showEvent: SceneViewController {
         lable.frame = CGRect(x: appFrame.x*0.35, y: appFrame.y*0.78, width: appFrame.width*0.30, height: appFrame.height*0.09)
         self.view.addSubview(lable)
         
-        var button = UIButton()
-        button.layer.borderWidth = 1;
-        button.layer.borderColor = UIColor.blackColor().CGColor
-        button.layer.cornerRadius = 5;
-        button.backgroundColor = UIColor.whiteColor()
-        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.frame = CGRect(x: appFrame.x*0.90, y: appFrame.y*0.03, width: appFrame.width*0.10, height: appFrame.height*0.05)
-        button.addTarget(self, action: "startMission", forControlEvents: .TouchUpInside)
-        button.setTitle("出发", forState: .Normal)
-        self.view.addSubview(button)
+        
+        actionButton.layer.borderWidth = 1;
+        actionButton.layer.borderColor = UIColor.blackColor().CGColor
+        actionButton.layer.cornerRadius = 5;
+        actionButton.backgroundColor = UIColor.whiteColor()
+        actionButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        actionButton.frame = CGRect(x: appFrame.x*0.90, y: appFrame.y*0.03, width: appFrame.width*0.10, height: appFrame.height*0.05)
+        actionButton.addTarget(self, action: "startAction", forControlEvents: .TouchUpInside)
+        actionButton.setTitle("出发", forState: .Normal)
+        self.view.addSubview(actionButton)
         
         for i in 1...5
         {
@@ -116,9 +116,21 @@ class showEvent: SceneViewController {
             }
         }
     }
-    func startMission(){
-        var doMission = DoMission()
-        self.presentViewController(doMission, animated: true, completion: nil)        
+    func startAction(){
+        switch GameBasicInfo.shared.gameStage
+        {
+            case .DayStart:
+                var doMission = DoMission()
+                self.presentViewController(doMission, animated: true, completion: nil)
+            case .MissionEnd:
+                var missionEnd = MissionEnd()
+                self.presentViewController(missionEnd, animated: true, completion: nil)
+            case .DayEnd:
+                self.dismissViewControllerAnimated(false, completion: nil)
+            default:
+                self.dismissViewControllerAnimated(false, completion: nil)
+        }
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -127,8 +139,32 @@ class showEvent: SceneViewController {
     
     override func viewWillAppear(animated: Bool){
         super.viewWillAppear(animated)
-        var appFrame = GameUtil.shared.appFrame
 
+        switch GameBasicInfo.shared.gameStage
+        {
+            case .DayStart:
+                dayStart()
+            case .MissionEnd:
+                missionEnd()
+            case .DayEnd:
+                self.dismissViewControllerAnimated(false, completion: nil)
+            default:
+                self.dismissViewControllerAnimated(false, completion: nil)
+        }
+        
+        
+    }
+    
+    func missionEnd()
+    {
+        GameUtil.shared.calculateMissionResult()
+        actionButton.setTitle("结束", forState: .Normal)
+    }
+    
+    func dayStart()
+    {
+        var appFrame = GameUtil.shared.appFrame
+        
         var mainBase = GameUtil.shared.loadMainBase()
         var text = ""
         if mainBase.objs.count>0

@@ -384,24 +384,31 @@ class GameUtil: NSObject
             }
             //println(self.view.subviews)
         }
-        if result == -1
+        
+        if result < 0
         {
             var event = getEventFromList()
             if event != nil
             {
                 result = event!.startSceneID
             }else{
-                return
-            }
-        }else if result == -2{
-            var event = getEventFromList()
-            if event != nil
-            {
-                result = event!.startSceneID
-            }else{
-                vc.dismissViewControllerAnimated(true, completion: nil)
+                var sceneEndType = SceneEndType.fromRaw(result)!
+                switch sceneEndType
+                {
+                    case .EventEnd:
+                        return
+                    case .MissionEnd:
+                        GameBasicInfo.shared.gameStage = SceneEndType.MissionEnd
+                        vc.dismissViewControllerAnimated(true, completion: nil)
+                    case .DayEnd:
+                        GameBasicInfo.shared.gameStage = SceneEndType.DayEnd
+                        vc.dismissViewControllerAnimated(true, completion: nil)
+                    default:
+                        vc.dismissViewControllerAnimated(true, completion: nil)
+                }
             }
         }
+        
         
         scene = scenes[result]
         
@@ -714,6 +721,10 @@ class GameUtil: NSObject
         DBUtilSingleton.shared.executeUpdateSql(sql)
     }
     
+    func calculateMissionResult()
+    {
+        printDebugInfo("calc mission result")
+    }
 }
 
 class AppFrame
@@ -743,6 +754,9 @@ class GameBasicInfo
     
     let totalTurn:Int
     var currentTurn:Int
+    var gameStage = SceneEndType.DayStart
+    var missionEnd = false
+    var dayEnd = false
     init()
     {
         var result = DBUtilSingleton.shared.executeQuerySql("select value from game_status where name='total_turn'")

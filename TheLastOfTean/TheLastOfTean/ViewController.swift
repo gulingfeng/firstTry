@@ -55,6 +55,7 @@ class ViewController: UIViewController {
 
     func showEventPage()
     {
+        GameBasicInfo.shared.gameStage = SceneEndType.DayStart
         var vc = showEvent()
         self.presentViewController(vc, animated: true, completion: nil)
     }

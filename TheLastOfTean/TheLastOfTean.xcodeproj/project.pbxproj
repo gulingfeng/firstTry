@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DC0A450919FDB66700A7DEC6 /* backpack_z.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0A450819FDB66700A7DEC6 /* backpack_z.png */; };
 		DC18601F19E5043C00AB7D87 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18601E19E5043C00AB7D87 /* Dropdown.swift */; };
+		DC3684E11A0B4CD4003435C5 /* MissionEnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3684E01A0B4CD4003435C5 /* MissionEnd.swift */; };
 		DC6C29E819DBC07700E6A436 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6C29E719DBC07700E6A436 /* Scene.swift */; };
 		DC7BA0D819DB2AB900ECBA22 /* DBUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */; };
 		DC938F0A19DE6414002E320F /* MainBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC938F0919DE6414002E320F /* MainBase.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		DC0A450819FDB66700A7DEC6 /* backpack_z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backpack_z.png; path = ../event/backpack_z.png; sourceTree = "<group>"; };
 		DC18601E19E5043C00AB7D87 /* Dropdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
+		DC3684E01A0B4CD4003435C5 /* MissionEnd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionEnd.swift; sourceTree = "<group>"; };
 		DC6C29E719DBC07700E6A436 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		DC7BA0D719DB2AB900ECBA22 /* DBUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtil.swift; sourceTree = "<group>"; };
 		DC938F0919DE6414002E320F /* MainBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBase.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				DCE9860419E4A84000EC6318 /* GameUtil.swift */,
 				DC938F0919DE6414002E320F /* MainBase.swift */,
 				DC18601E19E5043C00AB7D87 /* Dropdown.swift */,
+				DC3684E01A0B4CD4003435C5 /* MissionEnd.swift */,
 				DCB0901519D7B0C900DB4E19 /* showEvent.swift */,
 				DCB0902E19D7CAB300DB4E19 /* DoMission.swift */,
 				DC6C29E719DBC07700E6A436 /* Scene.swift */,
@@ -368,6 +371,7 @@
 				DCB0901619D7B0C900DB4E19 /* showEvent.swift in Sources */,
 				DCB08FED19D745DE00DB4E19 /* AppDelegate.swift in Sources */,
 				DCBE400C19DA773300238919 /* FMDatabase.m in Sources */,
+				DC3684E11A0B4CD4003435C5 /* MissionEnd.swift in Sources */,
 				DC938F0A19DE6414002E320F /* MainBase.swift in Sources */,
 				DC18601F19E5043C00AB7D87 /* Dropdown.swift in Sources */,
 				DCBE400E19DA773300238919 /* FMDatabasePool.m in Sources */,

@@ -277,4 +277,10 @@ enum EventConditionType:Int
     case AnyCharacterProperty;
     case Item;
 }
-
+enum SceneEndType:Int
+{
+    case DayStart = 0;
+    case EventEnd = -1;
+    case MissionEnd = -2;
+    case DayEnd = -3;
+}
