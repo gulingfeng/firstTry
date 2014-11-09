@@ -125,6 +125,7 @@ class showEvent: SceneViewController {
             case .MissionEnd:
                 var missionEnd = MissionEnd()
                 self.presentViewController(missionEnd, animated: true, completion: nil)
+                self.view.removeFromSuperview()
             case .DayEnd:
                 self.dismissViewControllerAnimated(false, completion: nil)
             default:

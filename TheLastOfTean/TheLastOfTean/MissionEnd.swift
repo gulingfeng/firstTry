@@ -14,7 +14,6 @@ class MissionEnd: SceneViewController {
     
     var info = UILabel()
     var dayLabel = UILabel()
-    var missionOption = ["采集食物","清剿僵尸","打扫基地","休息"]
     var propertys = [SceneWebLabel]()
     var actionButton = UIButton()
     override func viewDidLoad() {
@@ -50,15 +49,22 @@ class MissionEnd: SceneViewController {
         actionButton.backgroundColor = UIColor.whiteColor()
         actionButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
         actionButton.frame = CGRect(x: appFrame.x*0.90, y: appFrame.y*0.03, width: appFrame.width*0.10, height: appFrame.height*0.05)
-        actionButton.addTarget(self, action: "startAction", forControlEvents: .TouchUpInside)
-        actionButton.setTitle("出发", forState: .Normal)
+        actionButton.addTarget(self, action: "endDay", forControlEvents: .TouchUpInside)
+        actionButton.setTitle("休息", forState: .Normal)
         self.view.addSubview(actionButton)
         
                 
     }
     
     
-    
+    func endDay()
+    {
+        //self.view.removeFromSuperview()
+        GameBasicInfo.shared.currentTurn++
+        var dayStart = ViewController()
+        self.presentViewController(dayStart, animated: true, completion: nil)
+        self.view.removeFromSuperview()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
