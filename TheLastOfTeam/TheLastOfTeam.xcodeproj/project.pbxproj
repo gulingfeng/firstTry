@@ -1,0 +1,577 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DC1ACDBE1A11D22300336D20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDBD1A11D22300336D20 /* AppDelegate.swift */; };
+		DC1ACDC01A11D22300336D20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDBF1A11D22300336D20 /* ViewController.swift */; };
+		DC1ACDC31A11D22300336D20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDC11A11D22300336D20 /* Main.storyboard */; };
+		DC1ACDC51A11D22300336D20 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDC41A11D22300336D20 /* Images.xcassets */; };
+		DC1ACDD11A11D22300336D20 /* TheLastOfTeamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDD01A11D22300336D20 /* TheLastOfTeamTests.swift */; };
+		DC1ACDE61A11D2EC00336D20 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDDC1A11D2EC00336D20 /* FMDatabase.m */; };
+		DC1ACDE71A11D2EC00336D20 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDDE1A11D2EC00336D20 /* FMDatabaseAdditions.m */; };
+		DC1ACDE81A11D2EC00336D20 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDE01A11D2EC00336D20 /* FMDatabasePool.m */; };
+		DC1ACDE91A11D2EC00336D20 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDE21A11D2EC00336D20 /* FMDatabaseQueue.m */; };
+		DC1ACDEA1A11D2EC00336D20 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDE51A11D2EC00336D20 /* FMResultSet.m */; };
+		DC1ACDEC1A11D33100336D20 /* TheLastOfTeam.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDEB1A11D33100336D20 /* TheLastOfTeam.sqlite */; };
+		DC1ACDEE1A11D35000336D20 /* DBUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDED1A11D35000336D20 /* DBUtil.swift */; };
+		DC1ACDF01A11D35C00336D20 /* GameUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDEF1A11D35C00336D20 /* GameUtil.swift */; };
+		DC1ACDF21A11D37300336D20 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDF11A11D37300336D20 /* Scene.swift */; };
+		DC1ACDF41A11D39900336D20 /* MainBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDF31A11D39900336D20 /* MainBase.swift */; };
+		DC1ACDFD1A11D3A600336D20 /* backpack_z.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDF61A11D3A600336D20 /* backpack_z.png */; };
+		DC1ACDFE1A11D3A600336D20 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDF71A11D3A600336D20 /* border.png */; };
+		DC1ACDFF1A11D3A600336D20 /* human_1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDF81A11D3A600336D20 /* human_1.png */; };
+		DC1ACE001A11D3A600336D20 /* human_2.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDF91A11D3A600336D20 /* human_2.png */; };
+		DC1ACE011A11D3A600336D20 /* human_3.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDFA1A11D3A600336D20 /* human_3.png */; };
+		DC1ACE021A11D3A600336D20 /* human_4.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDFB1A11D3A600336D20 /* human_4.png */; };
+		DC1ACE031A11D3A600336D20 /* human_5.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACDFC1A11D3A600336D20 /* human_5.png */; };
+		DC1ACE0E1A11D3BC00336D20 /* main_back.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACE051A11D3BC00336D20 /* main_back.png */; };
+		DC1ACE0F1A11D3BC00336D20 /* main_back_fire.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACE061A11D3BC00336D20 /* main_back_fire.png */; };
+		DC1ACE101A11D3BC00336D20 /* main_back_status.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACE071A11D3BC00336D20 /* main_back_status.png */; };
+		DC1ACE111A11D3BC00336D20 /* mission_back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACE091A11D3BC00336D20 /* mission_back.jpg */; };
+		DC1ACE121A11D3BC00336D20 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACE0A1A11D3BC00336D20 /* test.png */; };
+		DC1ACE131A11D3BC00336D20 /* label_back.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACE0C1A11D3BC00336D20 /* label_back.png */; };
+		DC1ACE141A11D3BC00336D20 /* new_day_back.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACE0D1A11D3BC00336D20 /* new_day_back.png */; };
+		DC1ACE161A11D3D300336D20 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACE151A11D3D300336D20 /* Dropdown.swift */; };
+		DC1ACE191A11D41200336D20 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC1ACE181A11D41200336D20 /* libsqlite3.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DC1ACDCB1A11D22300336D20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC1ACDB01A11D22300336D20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC1ACDB71A11D22300336D20;
+			remoteInfo = TheLastOfTeam;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DC1ACDB81A11D22300336D20 /* TheLastOfTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastOfTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC1ACDBC1A11D22300336D20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC1ACDBD1A11D22300336D20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DC1ACDBF1A11D22300336D20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DC1ACDC21A11D22300336D20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DC1ACDC41A11D22300336D20 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DC1ACDCA1A11D22300336D20 /* TheLastOfTeamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheLastOfTeamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC1ACDCF1A11D22300336D20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC1ACDD01A11D22300336D20 /* TheLastOfTeamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheLastOfTeamTests.swift; sourceTree = "<group>"; };
+		DC1ACDDB1A11D2EC00336D20 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		DC1ACDDC1A11D2EC00336D20 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		DC1ACDDD1A11D2EC00336D20 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		DC1ACDDE1A11D2EC00336D20 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		DC1ACDDF1A11D2EC00336D20 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		DC1ACDE01A11D2EC00336D20 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		DC1ACDE11A11D2EC00336D20 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		DC1ACDE21A11D2EC00336D20 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		DC1ACDE31A11D2EC00336D20 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		DC1ACDE41A11D2EC00336D20 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		DC1ACDE51A11D2EC00336D20 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		DC1ACDEB1A11D33100336D20 /* TheLastOfTeam.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TheLastOfTeam.sqlite; sourceTree = "<group>"; };
+		DC1ACDED1A11D35000336D20 /* DBUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtil.swift; sourceTree = "<group>"; };
+		DC1ACDEF1A11D35C00336D20 /* GameUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUtil.swift; sourceTree = "<group>"; };
+		DC1ACDF11A11D37300336D20 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		DC1ACDF31A11D39900336D20 /* MainBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBase.swift; sourceTree = "<group>"; };
+		DC1ACDF61A11D3A600336D20 /* backpack_z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backpack_z.png; sourceTree = "<group>"; };
+		DC1ACDF71A11D3A600336D20 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
+		DC1ACDF81A11D3A600336D20 /* human_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_1.png; sourceTree = "<group>"; };
+		DC1ACDF91A11D3A600336D20 /* human_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_2.png; sourceTree = "<group>"; };
+		DC1ACDFA1A11D3A600336D20 /* human_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_3.png; sourceTree = "<group>"; };
+		DC1ACDFB1A11D3A600336D20 /* human_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_4.png; sourceTree = "<group>"; };
+		DC1ACDFC1A11D3A600336D20 /* human_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = human_5.png; sourceTree = "<group>"; };
+		DC1ACE051A11D3BC00336D20 /* main_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_back.png; sourceTree = "<group>"; };
+		DC1ACE061A11D3BC00336D20 /* main_back_fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_back_fire.png; sourceTree = "<group>"; };
+		DC1ACE071A11D3BC00336D20 /* main_back_status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_back_status.png; sourceTree = "<group>"; };
+		DC1ACE091A11D3BC00336D20 /* mission_back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mission_back.jpg; sourceTree = "<group>"; };
+		DC1ACE0A1A11D3BC00336D20 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		DC1ACE0C1A11D3BC00336D20 /* label_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = label_back.png; sourceTree = "<group>"; };
+		DC1ACE0D1A11D3BC00336D20 /* new_day_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_day_back.png; sourceTree = "<group>"; };
+		DC1ACE151A11D3D300336D20 /* Dropdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
+		DC1ACE171A11D3E500336D20 /* FMDB-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDB-Bridging-Header.h"; sourceTree = "<group>"; };
+		DC1ACE181A11D41200336D20 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC1ACDB51A11D22300336D20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1ACE191A11D41200336D20 /* libsqlite3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC1ACDC71A11D22300336D20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DC1ACDAF1A11D22300336D20 = {
+			isa = PBXGroup;
+			children = (
+				DC1ACE181A11D41200336D20 /* libsqlite3.dylib */,
+				DC1ACDBA1A11D22300336D20 /* TheLastOfTeam */,
+				DC1ACDCD1A11D22300336D20 /* TheLastOfTeamTests */,
+				DC1ACDB91A11D22300336D20 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DC1ACDB91A11D22300336D20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACDB81A11D22300336D20 /* TheLastOfTeam.app */,
+				DC1ACDCA1A11D22300336D20 /* TheLastOfTeamTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC1ACDBA1A11D22300336D20 /* TheLastOfTeam */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACDDA1A11D2EC00336D20 /* FMDB */,
+				DC1ACDBD1A11D22300336D20 /* AppDelegate.swift */,
+				DC1ACE151A11D3D300336D20 /* Dropdown.swift */,
+				DC1ACDED1A11D35000336D20 /* DBUtil.swift */,
+				DC1ACDEF1A11D35C00336D20 /* GameUtil.swift */,
+				DC1ACDBF1A11D22300336D20 /* ViewController.swift */,
+				DC1ACDF31A11D39900336D20 /* MainBase.swift */,
+				DC1ACDF11A11D37300336D20 /* Scene.swift */,
+				DC1ACE171A11D3E500336D20 /* FMDB-Bridging-Header.h */,
+				DC1ACDEB1A11D33100336D20 /* TheLastOfTeam.sqlite */,
+				DC1ACE041A11D3BC00336D20 /* mainbase_pic */,
+				DC1ACE081A11D3BC00336D20 /* misson */,
+				DC1ACE0B1A11D3BC00336D20 /* newday */,
+				DC1ACDF51A11D3A600336D20 /* event */,
+				DC1ACDC11A11D22300336D20 /* Main.storyboard */,
+				DC1ACDC41A11D22300336D20 /* Images.xcassets */,
+				DC1ACDBB1A11D22300336D20 /* Supporting Files */,
+			);
+			path = TheLastOfTeam;
+			sourceTree = "<group>";
+		};
+		DC1ACDBB1A11D22300336D20 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACDBC1A11D22300336D20 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DC1ACDCD1A11D22300336D20 /* TheLastOfTeamTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACDD01A11D22300336D20 /* TheLastOfTeamTests.swift */,
+				DC1ACDCE1A11D22300336D20 /* Supporting Files */,
+			);
+			path = TheLastOfTeamTests;
+			sourceTree = "<group>";
+		};
+		DC1ACDCE1A11D22300336D20 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACDCF1A11D22300336D20 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DC1ACDDA1A11D2EC00336D20 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACDDB1A11D2EC00336D20 /* FMDatabase.h */,
+				DC1ACDDC1A11D2EC00336D20 /* FMDatabase.m */,
+				DC1ACDDD1A11D2EC00336D20 /* FMDatabaseAdditions.h */,
+				DC1ACDDE1A11D2EC00336D20 /* FMDatabaseAdditions.m */,
+				DC1ACDDF1A11D2EC00336D20 /* FMDatabasePool.h */,
+				DC1ACDE01A11D2EC00336D20 /* FMDatabasePool.m */,
+				DC1ACDE11A11D2EC00336D20 /* FMDatabaseQueue.h */,
+				DC1ACDE21A11D2EC00336D20 /* FMDatabaseQueue.m */,
+				DC1ACDE31A11D2EC00336D20 /* FMDB.h */,
+				DC1ACDE41A11D2EC00336D20 /* FMResultSet.h */,
+				DC1ACDE51A11D2EC00336D20 /* FMResultSet.m */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		DC1ACDF51A11D3A600336D20 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACDF61A11D3A600336D20 /* backpack_z.png */,
+				DC1ACDF71A11D3A600336D20 /* border.png */,
+				DC1ACDF81A11D3A600336D20 /* human_1.png */,
+				DC1ACDF91A11D3A600336D20 /* human_2.png */,
+				DC1ACDFA1A11D3A600336D20 /* human_3.png */,
+				DC1ACDFB1A11D3A600336D20 /* human_4.png */,
+				DC1ACDFC1A11D3A600336D20 /* human_5.png */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
+		DC1ACE041A11D3BC00336D20 /* mainbase_pic */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACE051A11D3BC00336D20 /* main_back.png */,
+				DC1ACE061A11D3BC00336D20 /* main_back_fire.png */,
+				DC1ACE071A11D3BC00336D20 /* main_back_status.png */,
+			);
+			path = mainbase_pic;
+			sourceTree = "<group>";
+		};
+		DC1ACE081A11D3BC00336D20 /* misson */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACE091A11D3BC00336D20 /* mission_back.jpg */,
+				DC1ACE0A1A11D3BC00336D20 /* test.png */,
+			);
+			path = misson;
+			sourceTree = "<group>";
+		};
+		DC1ACE0B1A11D3BC00336D20 /* newday */ = {
+			isa = PBXGroup;
+			children = (
+				DC1ACE0C1A11D3BC00336D20 /* label_back.png */,
+				DC1ACE0D1A11D3BC00336D20 /* new_day_back.png */,
+			);
+			path = newday;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC1ACDB71A11D22300336D20 /* TheLastOfTeam */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC1ACDD41A11D22300336D20 /* Build configuration list for PBXNativeTarget "TheLastOfTeam" */;
+			buildPhases = (
+				DC1ACDB41A11D22300336D20 /* Sources */,
+				DC1ACDB51A11D22300336D20 /* Frameworks */,
+				DC1ACDB61A11D22300336D20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TheLastOfTeam;
+			productName = TheLastOfTeam;
+			productReference = DC1ACDB81A11D22300336D20 /* TheLastOfTeam.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DC1ACDC91A11D22300336D20 /* TheLastOfTeamTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC1ACDD71A11D22300336D20 /* Build configuration list for PBXNativeTarget "TheLastOfTeamTests" */;
+			buildPhases = (
+				DC1ACDC61A11D22300336D20 /* Sources */,
+				DC1ACDC71A11D22300336D20 /* Frameworks */,
+				DC1ACDC81A11D22300336D20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC1ACDCC1A11D22300336D20 /* PBXTargetDependency */,
+			);
+			name = TheLastOfTeamTests;
+			productName = TheLastOfTeamTests;
+			productReference = DC1ACDCA1A11D22300336D20 /* TheLastOfTeamTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC1ACDB01A11D22300336D20 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = gulingfeng;
+				TargetAttributes = {
+					DC1ACDB71A11D22300336D20 = {
+						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = Z69WJW2AGX;
+					};
+					DC1ACDC91A11D22300336D20 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = DC1ACDB71A11D22300336D20;
+					};
+				};
+			};
+			buildConfigurationList = DC1ACDB31A11D22300336D20 /* Build configuration list for PBXProject "TheLastOfTeam" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DC1ACDAF1A11D22300336D20;
+			productRefGroup = DC1ACDB91A11D22300336D20 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC1ACDB71A11D22300336D20 /* TheLastOfTeam */,
+				DC1ACDC91A11D22300336D20 /* TheLastOfTeamTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC1ACDB61A11D22300336D20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1ACDEC1A11D33100336D20 /* TheLastOfTeam.sqlite in Resources */,
+				DC1ACE131A11D3BC00336D20 /* label_back.png in Resources */,
+				DC1ACE011A11D3A600336D20 /* human_3.png in Resources */,
+				DC1ACDC31A11D22300336D20 /* Main.storyboard in Resources */,
+				DC1ACE111A11D3BC00336D20 /* mission_back.jpg in Resources */,
+				DC1ACE141A11D3BC00336D20 /* new_day_back.png in Resources */,
+				DC1ACE0E1A11D3BC00336D20 /* main_back.png in Resources */,
+				DC1ACDFD1A11D3A600336D20 /* backpack_z.png in Resources */,
+				DC1ACE001A11D3A600336D20 /* human_2.png in Resources */,
+				DC1ACDC51A11D22300336D20 /* Images.xcassets in Resources */,
+				DC1ACE0F1A11D3BC00336D20 /* main_back_fire.png in Resources */,
+				DC1ACE101A11D3BC00336D20 /* main_back_status.png in Resources */,
+				DC1ACDFE1A11D3A600336D20 /* border.png in Resources */,
+				DC1ACE121A11D3BC00336D20 /* test.png in Resources */,
+				DC1ACDFF1A11D3A600336D20 /* human_1.png in Resources */,
+				DC1ACE021A11D3A600336D20 /* human_4.png in Resources */,
+				DC1ACE031A11D3A600336D20 /* human_5.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC1ACDC81A11D22300336D20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC1ACDB41A11D22300336D20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1ACDE61A11D2EC00336D20 /* FMDatabase.m in Sources */,
+				DC1ACDC01A11D22300336D20 /* ViewController.swift in Sources */,
+				DC1ACDF21A11D37300336D20 /* Scene.swift in Sources */,
+				DC1ACDF01A11D35C00336D20 /* GameUtil.swift in Sources */,
+				DC1ACDEA1A11D2EC00336D20 /* FMResultSet.m in Sources */,
+				DC1ACDF41A11D39900336D20 /* MainBase.swift in Sources */,
+				DC1ACDEE1A11D35000336D20 /* DBUtil.swift in Sources */,
+				DC1ACDE81A11D2EC00336D20 /* FMDatabasePool.m in Sources */,
+				DC1ACDBE1A11D22300336D20 /* AppDelegate.swift in Sources */,
+				DC1ACDE71A11D2EC00336D20 /* FMDatabaseAdditions.m in Sources */,
+				DC1ACE161A11D3D300336D20 /* Dropdown.swift in Sources */,
+				DC1ACDE91A11D2EC00336D20 /* FMDatabaseQueue.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC1ACDC61A11D22300336D20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1ACDD11A11D22300336D20 /* TheLastOfTeamTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC1ACDCC1A11D22300336D20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC1ACDB71A11D22300336D20 /* TheLastOfTeam */;
+			targetProxy = DC1ACDCB1A11D22300336D20 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DC1ACDC11A11D22300336D20 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC1ACDC21A11D22300336D20 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DC1ACDD21A11D22300336D20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC1ACDD31A11D22300336D20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC1ACDD51A11D22300336D20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = TheLastOfTeam/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TheLastOfTeam/FMDB-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		DC1ACDD61A11D22300336D20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = TheLastOfTeam/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TheLastOfTeam/FMDB-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		DC1ACDD81A11D22300336D20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TheLastOfTeamTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheLastOfTeam.app/TheLastOfTeam";
+			};
+			name = Debug;
+		};
+		DC1ACDD91A11D22300336D20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TheLastOfTeamTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheLastOfTeam.app/TheLastOfTeam";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC1ACDB31A11D22300336D20 /* Build configuration list for PBXProject "TheLastOfTeam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC1ACDD21A11D22300336D20 /* Debug */,
+				DC1ACDD31A11D22300336D20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC1ACDD41A11D22300336D20 /* Build configuration list for PBXNativeTarget "TheLastOfTeam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC1ACDD51A11D22300336D20 /* Debug */,
+				DC1ACDD61A11D22300336D20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DC1ACDD71A11D22300336D20 /* Build configuration list for PBXNativeTarget "TheLastOfTeamTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC1ACDD81A11D22300336D20 /* Debug */,
+				DC1ACDD91A11D22300336D20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC1ACDB01A11D22300336D20 /* Project object */;
+}
