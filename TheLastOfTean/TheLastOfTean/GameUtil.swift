@@ -422,67 +422,68 @@ class GameUtil: NSObject
         var result = 0
 
         switch nextSceneType
-            {
-        case .sceneID:
-            result = nextScene
-            println("directly:\(result)")
-            return result
-        case .calcSceneID:
-            
-            var touchCount = 0
-            var sql = "select * from scene_detail where global_id=\(resourceGlobalID)"
-            var tempResult = DBUtilSingleton.shared.executeQuerySql(sql)
-            if tempResult.next()
-            {
-                touchCount = tempResult.longForColumn("touch_count")
-            }
-            println("touchCount:\(touchCount)")
-            
-            let random = arc4random_uniform(100)+1
-            
-            var isReset = false
-            let querySql = "select * from calc_scene_id where calc_id=\(nextScene)"
-            var resultSet = DBUtilSingleton.shared.executeQuerySql(querySql)
-            var temp = 0 as UInt32
-            var resultSceneID = 0
-            while resultSet.next()
-            {
-                var calcID = resultSet.longForColumn("calc_id")
-                var sceneID = resultSet.longForColumn("scene_id")
-                var probability = resultSet.longForColumn("probability")
-                var probabilityAdj = resultSet.longForColumn("probability_adj")
-                var resetCount = resultSet.boolForColumn("reset_count")
+        {
+            case .sceneID:
+                result = nextScene
+                println("directly:\(result)")
+                return result
+            case .calcSceneID:
                 
-                var finalProbability = probability + probabilityAdj*touchCount
-                if finalProbability<0
+                var touchCount = 0
+                var sql = "select * from scene_detail where global_id=\(resourceGlobalID)"
+                var tempResult = DBUtilSingleton.shared.executeQuerySql(sql)
+                if tempResult.next()
                 {
-                    finalProbability = 0
+                    touchCount = tempResult.longForColumn("touch_count")
                 }
-                println("finalProbability: \(finalProbability)")
-            
-                if random > temp && random <= temp + finalProbability
+                println("touchCount:\(touchCount)")
+                
+                let random = arc4random_uniform(100)+1
+                
+                var isReset = false
+                let querySql = "select * from calc_scene_id where calc_id=\(nextScene)"
+                var resultSet = DBUtilSingleton.shared.executeQuerySql(querySql)
+                var temp = 0 as UInt32
+                var resultSceneID = 0
+                while resultSet.next()
                 {
-                    result = sceneID
-                    if resetCount
+                    var calcID = resultSet.longForColumn("calc_id")
+                    var sceneID = resultSet.longForColumn("scene_id")
+                    var probability = resultSet.longForColumn("probability")
+                    var probabilityAdj = resultSet.longForColumn("probability_adj")
+                    var resetCount = resultSet.boolForColumn("reset_count")
+                    
+                    var finalProbability = probability + probabilityAdj*touchCount
+                    if finalProbability<0
                     {
-                        isReset = true
-                        DBUtilSingleton.shared.executeUpdateSql("update scene_detail set touch_count=0 where global_id=\(resourceGlobalID)")
+                        finalProbability = 0
                     }
-                    break
-                }else{
-                    temp = temp+finalProbability
+                    println("finalProbability: \(finalProbability)")
+                
+                    if random > temp && random <= temp + finalProbability
+                    {
+                        result = sceneID
+                        if resetCount
+                        {
+                            isReset = true
+                            DBUtilSingleton.shared.executeUpdateSql("update scene_detail set touch_count=0 where global_id=\(resourceGlobalID)")
+                        }
+                        break
+                    }else{
+                        temp = temp+finalProbability
+                    }
+                    
+                }
+                if (recordTouch == 1 && !isReset)
+                {
+                    let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(resourceGlobalID)"
+                    var result = DBUtilSingleton.shared.executeUpdateSql(sql)
                 }
                 
-            }
-            if (recordTouch == 1 && !isReset)
-            {
-                let sql = "update scene_detail set touch_count=ifnull(touch_count,0)+1 where global_id = \(resourceGlobalID)"
-                var result = DBUtilSingleton.shared.executeUpdateSql(sql)
-            }
-            
-            
-        default:
-            result = 0
+            case .eventType:
+                printDebugInfo("event type next scene")
+            default:
+                result = 0
         }
         
         printDebugInfo("random:\(result)")

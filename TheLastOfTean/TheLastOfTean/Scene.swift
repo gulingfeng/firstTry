@@ -72,6 +72,7 @@ enum NextSceneType: String
 {
     case sceneID = "scene_id"
     case calcSceneID = "calc_id"
+    case eventType = "event_type"
 }
 class Scene: Printable
 {
@@ -264,6 +265,7 @@ enum EventType: Int
     case MainBase = 1;
     case Character;
     case Mission;
+    case Chat;
 }
 enum CombinType: Int
 {

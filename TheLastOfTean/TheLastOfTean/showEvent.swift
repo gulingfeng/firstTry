@@ -54,10 +54,13 @@ class showEvent: SceneViewController {
         actionButton.layer.cornerRadius = 5;
         actionButton.backgroundColor = UIColor.whiteColor()
         actionButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        actionButton.frame = CGRect(x: appFrame.x*0.90, y: appFrame.y*0.03, width: appFrame.width*0.10, height: appFrame.height*0.05)
+        actionButton.frame = CGRect(x: appFrame.x*0.85, y: appFrame.y*0.03, width: appFrame.width*0.10, height: appFrame.height*0.05)
         actionButton.addTarget(self, action: "startAction", forControlEvents: .TouchUpInside)
         actionButton.setTitle("出发", forState: .Normal)
         self.view.addSubview(actionButton)
+        
+        //var sc = scenes[14]!
+        //GameUtil.shared.showScene(sc, vc: self)
         
         for i in 1...5
         {
