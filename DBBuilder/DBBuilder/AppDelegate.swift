@@ -54,7 +54,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 println(result.stringForColumn("name"))
             
             }
-            ///
+            ///test
             var tableName = TableNameListTree()
             tableNameList.setDataSource(tableName)
 
