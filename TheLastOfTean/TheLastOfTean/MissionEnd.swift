@@ -127,7 +127,7 @@ class MissionEnd: SceneViewController {
         GameBasicInfo.shared.currentTurn++
         var dayStart = ViewController()
         self.presentViewController(dayStart, animated: true, completion: nil)
-        self.view.removeFromSuperview()
+        //self.view.removeFromSuperview()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

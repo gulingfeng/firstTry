@@ -99,6 +99,7 @@ class GameUtil: NSObject
             
             var sceneDetail = SceneDetail(globalID: result.longForColumn("detail_global"), sceneID: result.longForColumn("scene_id"), resource: resource, action: result.stringForColumn("action"), nextScene: result.longForColumn("next_scene"), nextSceneType: result.stringForColumn("next_scene_type"), rewardGroup: result.longForColumn("reward_group"), touchCount: result.longForColumn("detail_touch_count"))
             sceneDetail.recordTouch = result.longForColumn("record_touch")
+            sceneDetail.maxEnemy = result.longForColumn("max_enemy")
             var temp = scenesMap[sceneDetail.sceneID]
             if (temp != nil)
             {
@@ -139,6 +140,22 @@ class GameUtil: NSObject
             }
         }
     }
+    func finghtEnemy(detail:SceneDetail) -> String
+    {
+        if detail.maxEnemy>0
+        {
+            let random = arc4random_uniform(UInt32(detail.maxEnemy))+1
+            var power = 100
+            for i in 0..<GameUtil.shared.missionCharacter.count
+            {
+                power = power + 100
+            }
+            
+            return "消灭\(random)个僵尸"
+
+        }
+        return ""
+    }
     func addNewSceneResource(detail:SceneDetail, vc: SceneViewController)
     {
         var label: SceneLabel
@@ -150,6 +167,8 @@ class GameUtil: NSObject
         var itemText = ""
         var t = [(Int,Int)]()
         var map = [Int:[(Int,Int)]]()
+        var fightText = finghtEnemy(detail)
+        
 
         if detail.rewardGroup > 0
         {
@@ -270,6 +289,10 @@ class GameUtil: NSObject
         case .label:
             label = SceneLabel()
             label.text = resDef.content
+            if fightText != ""
+            {
+                label.text = label.text! + "\r" + fightText
+            }
             if hasReward
             {
                 label.text = label.text! + "\r" + rewardText
@@ -281,6 +304,10 @@ class GameUtil: NSObject
         case .webLabel:
             var webLabel = SceneWebLabel()
             var text = resDef.content
+            if fightText != ""
+            {
+                text = text + "\r" + fightText
+            }
             if hasReward
             {
                 text = text + "<br>" + rewardText
@@ -496,11 +523,14 @@ class GameUtil: NSObject
     func loadCharacter()->[Character]
     {
         var character = [Character]()
-        let sql = "select * from character"
+        let sql = "select distinct character_id from character"
         var result = DBUtilSingleton.shared.executeQuerySql(sql)
         while result.next()
         {
-            //character.append(Character(id: result.longForColumn("character_id"), name: result.stringForColumn("name"), health: result.longForColumn("health"), loyalty: result.longForColumn("loyalty"), power: result.longForColumn("power"), image: result.stringForColumn("image")))
+            character.append(Character(id: result.longForColumn("character_id")))
+            //var property = Property(propertyID: i)
+            //property.stringValue = value
+            //character.propertyList.append(property)
         }
         return character
     }

@@ -58,20 +58,21 @@ class MainBaseObj
 class Character
 {
     var id: Int
-    //var property = []
-    var name: String
-    var health: Int
-    var loyalty: Int
-    var power: Int
-    var image: String
+    var propertyList = [Property]()
     
-    init(id:Int, name:String, health: Int, loyalty: Int, power: Int, image: String)
+    init(id:Int)
     {
         self.id = id
-        self.name = name
-        self.health = health
-        self.loyalty = loyalty
-        self.power = power
-        self.image = image
+    }
+}
+class Property
+{
+    var propertyID:Int
+    var intValue:Int?
+    var stringValue:String?
+    var floatValue:Float64?
+    init(propertyID:Int)
+    {
+        self.propertyID = propertyID
     }
 }

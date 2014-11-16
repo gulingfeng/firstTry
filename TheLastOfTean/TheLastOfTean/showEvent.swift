@@ -64,7 +64,6 @@ class showEvent: SceneViewController {
         
         for i in 1...5
         {
-            //var character = Character(id: i, name: <#String#>, health: <#Int#>, loyalty: <#Int#>, power: <#Int#>, image: <#String#>)
             var img = UIImageView(image: UIImage(named: "human_\(i).png"))
             var x = appFrame.x*0.02
             var width = CGFloat(appFrame.width)/5-appFrame.x*0.01
@@ -104,7 +103,6 @@ class showEvent: SceneViewController {
             GameUtil.shared.printDebugInfo(dd.frame)
             GameUtil.shared.printDebugInfo(img.frame)
         }
-        
     }
 
     func showProperty(sender:UIButton)
@@ -124,13 +122,13 @@ class showEvent: SceneViewController {
         switch GameBasicInfo.shared.gameStage
         {
             case .DayStart:
-                //GameUtil.shared.missionCharacter =
+                GameUtil.shared.missionCharacter = [MainBase.shared.character[0],MainBase.shared.character[2]]
                 var doMission = DoMission()
                 self.presentViewController(doMission, animated: true, completion: nil)
             case .MissionEnd:
                 var missionEnd = MissionEnd()
                 self.presentViewController(missionEnd, animated: true, completion: nil)
-                self.view.removeFromSuperview()
+                //self.view.removeFromSuperview()
             case .DayEnd:
                 self.dismissViewControllerAnimated(false, completion: nil)
             default:
@@ -190,7 +188,7 @@ class showEvent: SceneViewController {
         {
             var propertyView = propertys[i-1]
             var text = "<font size='2' color='red'>"
-            var result = DBUtilSingleton.shared.executeQuerySql("select * from character a,character_property b where character_id=\(i) and a.property_id=b.property_id and a.property_id!=2")
+            var result = DBUtilSingleton.shared.executeQuerySql("select * from character a,character_property b where character_id=\(i) and a.property_id=b.property_id and a.display=1")
             while result.next()
             {
                 let desc = result.stringForColumn("gui_desc")

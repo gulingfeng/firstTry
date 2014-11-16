@@ -107,6 +107,7 @@ class SceneDetail: Printable
     var nextSceneType: NextSceneType?
     var touchCount: Int
     var recordTouch = 0
+    var maxEnemy = 0
     var description: String { get
                                 {
                                     return "sceneID:\(sceneID),action:\(action),nextSceneID:\(nextScene),nextSceneType:\(nextSceneType),rewardGroup:\(rewardGroup),resource:\(resource),touchCount:\(touchCount) "
