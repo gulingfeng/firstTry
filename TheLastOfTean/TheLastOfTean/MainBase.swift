@@ -58,6 +58,7 @@ class MainBaseObj
 class Character
 {
     var id: Int
+    //var property = []
     var name: String
     var health: Int
     var loyalty: Int

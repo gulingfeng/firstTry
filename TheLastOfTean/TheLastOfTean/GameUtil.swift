@@ -24,6 +24,7 @@ class GameUtil: NSObject
     var allScenes = [Int:Scene]()
     var eventList = NSMutableArray(array: [Event]())
     var currentEventID = 0
+    var missionCharacter = [Character]()
     override init()
     {
         super.init()

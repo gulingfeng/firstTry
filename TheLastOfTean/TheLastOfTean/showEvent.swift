@@ -64,6 +64,7 @@ class showEvent: SceneViewController {
         
         for i in 1...5
         {
+            //var character = Character(id: i, name: <#String#>, health: <#Int#>, loyalty: <#Int#>, power: <#Int#>, image: <#String#>)
             var img = UIImageView(image: UIImage(named: "human_\(i).png"))
             var x = appFrame.x*0.02
             var width = CGFloat(appFrame.width)/5-appFrame.x*0.01
@@ -123,6 +124,7 @@ class showEvent: SceneViewController {
         switch GameBasicInfo.shared.gameStage
         {
             case .DayStart:
+                //GameUtil.shared.missionCharacter =
                 var doMission = DoMission()
                 self.presentViewController(doMission, animated: true, completion: nil)
             case .MissionEnd:
