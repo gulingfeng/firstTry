@@ -47,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
          }
 
         //DBUtilSingleton.shared.connection?.executeQuery("select * from ", withArgumentsInArray: nil)
+        
     }
     
     @IBAction func connectDB(sender: NSButton) {
