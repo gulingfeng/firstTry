@@ -12,6 +12,12 @@
 		DC1ACD971A117D7100336D20 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACD961A117D7100336D20 /* Images.xcassets */; };
 		DC1ACD9A1A117D7100336D20 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC1ACD981A117D7100336D20 /* MainMenu.xib */; };
 		DC1ACDA61A117D7100336D20 /* DBBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1ACDA51A117D7100336D20 /* DBBuilderTests.swift */; };
+		DC1D6F911A2FD5F30099F8D1 /* submit.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1D6F901A2FD5F30099F8D1 /* submit.png */; };
+		DC1D6F931A2FD5FE0099F8D1 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1D6F921A2FD5FE0099F8D1 /* cancel.png */; };
+		DC2830111A2E8F5B00863859 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2830101A2E8F5B00863859 /* delete.png */; };
+		DC2830131A2E8FEB00863859 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2830121A2E8FEB00863859 /* edit.png */; };
+		DC4731AA1A2D3B35009D8446 /* MyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4731A91A2D3B35009D8446 /* MyItemView.swift */; };
+		DC48E09D1A2E81DB00413880 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = DC48E09C1A2E81DB00413880 /* add.png */; };
 		DC9D857A1A12B91700319CAC /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9D85701A12B91700319CAC /* FMDatabase.m */; };
 		DC9D857B1A12B91700319CAC /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9D85721A12B91700319CAC /* FMDatabaseAdditions.m */; };
 		DC9D857C1A12B91700319CAC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9D85741A12B91700319CAC /* FMDatabasePool.m */; };
@@ -20,7 +26,8 @@
 		DC9D85811A12B92C00319CAC /* DBUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D85801A12B92C00319CAC /* DBUtil.swift */; };
 		DC9D85831A12B94100319CAC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9D85821A12B94100319CAC /* libsqlite3.dylib */; };
 		DC9D85851A12B9B900319CAC /* TheLastOfTeam.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DC9D85841A12B9B900319CAC /* TheLastOfTeam.sqlite */; };
-		DCA2262E1A156B1E006678E1 /* TableNameDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA2262D1A156B1E006678E1 /* TableNameDataSource.swift */; };
+		DCB1E5141A23CFCE00D543BF /* TableHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB1E5131A23CFCE00D543BF /* TableHead.swift */; };
+		DCB1E51A1A2448D600D543BF /* TableInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB1E5191A2448D600D543BF /* TableInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +50,12 @@
 		DC1ACD9F1A117D7100336D20 /* DBBuilderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DBBuilderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC1ACDA41A117D7100336D20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC1ACDA51A117D7100336D20 /* DBBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBBuilderTests.swift; sourceTree = "<group>"; };
+		DC1D6F901A2FD5F30099F8D1 /* submit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submit.png; sourceTree = "<group>"; };
+		DC1D6F921A2FD5FE0099F8D1 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
+		DC2830101A2E8F5B00863859 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		DC2830121A2E8FEB00863859 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		DC4731A91A2D3B35009D8446 /* MyItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemView.swift; sourceTree = "<group>"; };
+		DC48E09C1A2E81DB00413880 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		DC9D856F1A12B91700319CAC /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		DC9D85701A12B91700319CAC /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		DC9D85711A12B91700319CAC /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -58,7 +71,8 @@
 		DC9D85801A12B92C00319CAC /* DBUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtil.swift; sourceTree = "<group>"; };
 		DC9D85821A12B94100319CAC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		DC9D85841A12B9B900319CAC /* TheLastOfTeam.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TheLastOfTeam.sqlite; sourceTree = "<group>"; };
-		DCA2262D1A156B1E006678E1 /* TableNameDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableNameDataSource.swift; sourceTree = "<group>"; };
+		DCB1E5131A23CFCE00D543BF /* TableHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHead.swift; sourceTree = "<group>"; };
+		DCB1E5191A2448D600D543BF /* TableInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,12 +118,14 @@
 			children = (
 				DC9D856E1A12B91700319CAC /* FMDB */,
 				DC1ACD941A117D7100336D20 /* AppDelegate.swift */,
+				DCB1E5131A23CFCE00D543BF /* TableHead.swift */,
+				DCB1E5191A2448D600D543BF /* TableInfo.swift */,
 				DC9D85801A12B92C00319CAC /* DBUtil.swift */,
 				DC9D85841A12B9B900319CAC /* TheLastOfTeam.sqlite */,
 				DC1ACD961A117D7100336D20 /* Images.xcassets */,
 				DC1ACD981A117D7100336D20 /* MainMenu.xib */,
 				DC1ACD901A117D7100336D20 /* Supporting Files */,
-				DCA2262D1A156B1E006678E1 /* TableNameDataSource.swift */,
+				DC4731A91A2D3B35009D8446 /* MyItemView.swift */,
 			);
 			path = DBBuilder;
 			sourceTree = "<group>";
@@ -117,6 +133,11 @@
 		DC1ACD901A117D7100336D20 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DC1D6F921A2FD5FE0099F8D1 /* cancel.png */,
+				DC1D6F901A2FD5F30099F8D1 /* submit.png */,
+				DC2830121A2E8FEB00863859 /* edit.png */,
+				DC2830101A2E8F5B00863859 /* delete.png */,
+				DC48E09C1A2E81DB00413880 /* add.png */,
 				DC9D857F1A12B92300319CAC /* FMDB-Bridging-Header.h */,
 				DC1ACD911A117D7100336D20 /* Info.plist */,
 				DC1ACD921A117D7100336D20 /* main.swift */,
@@ -240,8 +261,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC9D85851A12B9B900319CAC /* TheLastOfTeam.sqlite in Resources */,
+				DC1D6F911A2FD5F30099F8D1 /* submit.png in Resources */,
 				DC1ACD971A117D7100336D20 /* Images.xcassets in Resources */,
+				DC1D6F931A2FD5FE0099F8D1 /* cancel.png in Resources */,
 				DC1ACD9A1A117D7100336D20 /* MainMenu.xib in Resources */,
+				DC2830111A2E8F5B00863859 /* delete.png in Resources */,
+				DC48E09D1A2E81DB00413880 /* add.png in Resources */,
+				DC2830131A2E8FEB00863859 /* edit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,9 +286,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC9D857A1A12B91700319CAC /* FMDatabase.m in Sources */,
-				DCA2262E1A156B1E006678E1 /* TableNameDataSource.swift in Sources */,
 				DC1ACD951A117D7100336D20 /* AppDelegate.swift in Sources */,
+				DCB1E51A1A2448D600D543BF /* TableInfo.swift in Sources */,
+				DC4731AA1A2D3B35009D8446 /* MyItemView.swift in Sources */,
 				DC9D857E1A12B91700319CAC /* FMResultSet.m in Sources */,
+				DCB1E5141A23CFCE00D543BF /* TableHead.swift in Sources */,
 				DC9D85811A12B92C00319CAC /* DBUtil.swift in Sources */,
 				DC9D857C1A12B91700319CAC /* FMDatabasePool.m in Sources */,
 				DC1ACD931A117D7100336D20 /* main.swift in Sources */,
