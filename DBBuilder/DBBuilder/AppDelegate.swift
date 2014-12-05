@@ -29,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
     var tableName: String = "" //选择数据表名称
     var rowsCount: Int32 = 0 //记录总数
     var columnCount: Int32 = 0 //列数
+    var arrayColumnName = [String]() //列名数组
     var currentIndex: Int = 0 //选择记录在Array Controller中的索引
     var currentRowId: Int = 0 //选择记录的rowid
     enum actionTypes{  //操作类型
@@ -111,12 +112,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
     
     //连接数据文件 读取所有数据表名称 并添加至TableView视图中
     @IBAction func connectDB(sender: NSButton) {
+        
         if (DBUtilSingleton.shared.dbFilePath != ""){
-            isConnected = true
             
-            DBUtilSingleton.shared.connectDB()
+            DBUtilSingleton.shared.connectDB() //连接数据文件
             
-            var sqlSelectAllTableName = "select name from sqlite_master where type='table' order by name" //"PRAGMA table_info(item)"//
+            var sqlSelectAllTableName = "select name from sqlite_master where type='table' order by name"
             var result = DBUtilSingleton.shared.executeQuerySql(sqlSelectAllTableName)
     
             while result.next(){
@@ -124,20 +125,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
             
             }
             result.close()
+
+            tableNameView.setDataSource(self) //设置为TableView数据源
             
-            //treeNode = NSArray(array: ["aaa","bbb"])
-            //treeNode = ["aaa","bbb"]
-            tableNameView.setDataSource(self)
-            
-            setButton()
+            isConnected = true
         }
         else{
-            isConnected = false
             
-            //弹出警告框
-            alertViewPopped(isConnected, message: "请选择数据文件！")
+            isConnected = false
+            alertViewPopped(isConnected, message: "请选择数据文件！") //弹出警告框
             
         }
+        
+        setButton() //设置按钮
     }
     
   
@@ -161,12 +161,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
         var selectedTableIndex = tableNameView.selectedRow
         var selectedTableName = ""
         if (selectedTableIndex > -1) {
+            
             isTableSelected = true
             isRowSelected = false
             tableName = treeNode[selectedTableIndex]
             showTableHeadInfo(tableName)   //显示数据表头
             showTableDetailInfo(tableName) //显示数据表详细内容
-            setButton()
+            setButton() //设置按钮
         }
     }
     
@@ -178,16 +179,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
         //先清除
         tableHeads.removeAllObjects()
         arrayController.rearrangeObjects()
+        arrayColumnName.removeAll(keepCapacity: false)
               
         //后添加
         var sqlSelectTableHead = "PRAGMA table_info(\(tableName))"//
         var result = DBUtilSingleton.shared.executeQuerySql(sqlSelectTableHead)
         
-        columnCount = 0
+        columnCount = 0 //数据表列数
         while result.next(){
             var tableHead: TableHead = TableHead()
-            tableHead.columnName = result.stringForColumn("name")
+            var strName = result.stringForColumn("name")
+            tableHead.columnName = strName
             arrayController.addObject(tableHead)
+            arrayColumnName.append(strName) //列名数组
             columnCount++
         }
         result.close()
@@ -196,16 +200,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
     //创建Item View所有控件
     func createItemView(){
         
-        //选择箭头按钮 tooltip为index
+        //选择箭头按钮 tooltip为index of Array Controller
         var selectButton: NSButton = NSButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         selectButton.bezelStyle = NSBezelStyle.DisclosureBezelStyle
         selectButton.title = ""
         selectButton.target = self
         selectButton.bind("toolTip", toObject: tableInfoCollectionViewItem, withKeyPath: "representedObject.column\(0)", options: nil)
-        selectButton.action = "selectOneItem:"
+        selectButton.action = "selectRow:"
         tableInfoView.addSubview(selectButton)
 
-        //10个输入框
+        //11个输入框 第一个隐藏显示 从第二个开始显示
         //for var i=0; i<Int(result.columnCount()); i++
         for var i=1; i<TableInfo.numberOfColumn; i++
         {
@@ -243,6 +247,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
         resultRowsCount.close()
         
         createItemView() //创建Item View所有控件
+        
         //后添加
         if(rowsCount>0){
         
@@ -280,10 +285,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
         }
     }
     
-    //选择记录
-    @IBAction func selectOneItem(sender: NSButton) {
+    //选择一条记录
+    @IBAction func selectRow(sender: NSButton) {
        
         isRowSelected = true
+        currentAction = actionTypes.Edit //编辑操作
         
         //先取消之前选择的记录
         var selectedViewItem: MyItemView = MyItemView()
@@ -299,7 +305,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
         selectedViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
         selectedViewItem.setSelected(true)
 
-        setButton()
+        setButton() //设置按钮
     }
     
     //弹出相应警告对话框
@@ -323,124 +329,148 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
     //添加记录
     @IBAction func addAction(sender: NSButton) {
 
-        currentAction = actionTypes.Add
+        currentAction = actionTypes.Add //添加操作
+        deleteButton.enabled = false //添加时不可删除
         
         //判断数据文件是否已连接 是否已选择表
         //if (alertViewPopped(isConnected, message: "请连接数据文件！") && alertViewPopped(isTableSelected, message: "请选择数据表！")){
          
-            var itemDetail: TableInfo = TableInfo()
-            itemDetail.column0 = String(rowsCount) //Index of ArrayController
-            infoArrayController.addObject(itemDetail)
+        var itemDetail: TableInfo = TableInfo()
+        itemDetail.column0 = String(rowsCount) //Index of ArrayController为现有行数
+        infoArrayController.addObject(itemDetail)
             
-            //先取消之前选择的记录
-            var selectedViewItem: MyItemView = MyItemView()
-            selectedViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
-            selectedViewItem.setSelected(false)
+        //先取消之前选择的记录
+        var selectedViewItem: MyItemView = MyItemView()
+        selectedViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
+        selectedViewItem.setSelected(false)
             
-            //再设定现在选择的记录
-            currentIndex = Int(rowsCount)
-            infoArrayController.setSelectionIndex(currentIndex)
-            selectedViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
-            selectedViewItem.setSelected(true)
-            
+        //再设定现在选择的记录
+        currentIndex = Int(rowsCount)
+        infoArrayController.setSelectionIndex(currentIndex)
+        selectedViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
+        selectedViewItem.setSelected(true)
+
         //}
-        
-        deleteButton.enabled = false //添加时不可删除
     }
     
     
-    //删除操作
+    //删除记录
     @IBAction func deleteAction(sender: NSButton) {
         
-        currentAction = actionTypes.Delete
+        currentAction = actionTypes.Delete //删除操作
         
         //判断数据文件是否已连接 是否已选择表 是否已选择行
         //if (alertViewPopped(isConnected, message: "请连接数据文件！") && alertViewPopped(isTableSelected, message: "请选择数据表！") && alertViewPopped(isRowSelected, message: "请选择一行数据！")){
             
-            //弹出删除确认
-            var alertView:NSAlert = NSAlert()
-            alertView.informativeText = "确认"
-            alertView.messageText = "确定删除该记录吗？"
-            alertView.addButtonWithTitle("确定")
-            alertView.addButtonWithTitle("取消")
-            alertView.alertStyle = NSAlertStyle.WarningAlertStyle
+        //弹出删除确认
+        var alertView:NSAlert = NSAlert()
+        alertView.informativeText = "确认"
+        alertView.messageText = "确定删除该记录吗？"
+        alertView.addButtonWithTitle("确定")
+        alertView.addButtonWithTitle("取消")
+        alertView.alertStyle = NSAlertStyle.WarningAlertStyle
             
-            if (alertView.runModal() == NSAlertFirstButtonReturn){ //确认删除
+        if (alertView.runModal() == NSAlertFirstButtonReturn){ //确认删除
                 
-                var strSql = "delete from \(tableName) where rowid=\(currentRowId)"
-                println(strSql)
-                var result = DBUtilSingleton.shared.executeUpdateSql(strSql)
-                if (result != nil)
-                {
-                    showTableDetailInfo(tableName) //刷新显示
-                    isRowSelected = false
-                    setButton()
-                }
+            var strSql = "delete from \(tableName) where rowid=\(currentRowId)"
+            var result = DBUtilSingleton.shared.executeUpdateSql(strSql)
+            if (result == true)
+            {
+                showTableDetailInfo(tableName) //刷新显示
+                isRowSelected = false
+                setButton()
             }
+        }
         //}
         
         currentAction = actionTypes.None
     }
     
-    //提交操作
+    //提交（添加和编辑）
     @IBAction func submitAction(sender: NSButton) {
         
-        var selectedViewItem: MyItemView = MyItemView()
-        selectedViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
+        //现在操作的Item View
+        var currentViewItem: MyItemView = MyItemView()
+        currentViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
         
         var strSql = ""
         
         if (currentAction == actionTypes.Add){ //添加操作
             
             strSql = "insert into \(tableName) values ("
+            
             var strValue = ""
             var isAllEmpty = true //输入框是否全为空
-            for var i=2; i<=Int(columnCount+1); i++  //从第2个输入框开始
+            for var i=2; i<Int(columnCount+2); i++  //从第2个输入框开始,因为第一个是隐藏的RowId
             {
-                var inputTextField: NSTextField = selectedViewItem.subviews[i] as NSTextField
-                var strInput = inputTextField.stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                var inputTextField: NSTextField = currentViewItem.subviews[i] as NSTextField
+                var strInput = inputTextField.stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) //去掉前后空格
                 if (!strInput.isEmpty){
                     isAllEmpty &= false
-                    strValue += "\(strInput),"
+
                 }else{
                     isAllEmpty &= true
-                    strValue += "\"\","
+                    //strValue += "\"\","
                 }
+                     strValue += "\"\(strInput)\","
             }
             
             if (!isAllEmpty){
                 strSql += strValue.substringToIndex(advance(strValue.startIndex, countElements(strValue)-1)) + ")" //去掉最后一个,再加上)
                 var result = DBUtilSingleton.shared.executeUpdateSql(strSql)
-                if (result != nil)
-                {
+                if (result == false) {
                   
                     //var insertedItemDetail: TableInfo = TableInfo()
                     //insertedItemDetail = tableInfos[currentIndex] as TableInfo
-                    showTableDetailInfo(tableName) //刷新显示
+                    alertViewPopped(false, message: "输入数据有误！")
                 }
+                showTableDetailInfo(tableName) //刷新显示
             }else{
-                undoAction() //取消操作
+                undoAction() //输入内容全部为空则取消操作
             }
+
             
-            isRowSelected = false
-            setButton()
+        }else if(currentAction == actionTypes.Edit){ //编辑操作
+            
+            strSql = "update \(tableName) set "
+            
+            var strValue = ""
+            for var i=0; i<arrayColumnName.count; i++
+            {
+                var inputTextField: NSTextField = currentViewItem.subviews[i+2] as NSTextField
+                var strInput = inputTextField.stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) //去掉前后空格
+                strValue += "\(arrayColumnName[i])=\"\(strInput)\","
+            }
+            strSql += strValue.substringToIndex(advance(strValue.startIndex, countElements(strValue)-1)) + " where rowid=\(currentRowId)" //去掉最后一个,
+            var result = DBUtilSingleton.shared.executeUpdateSql(strSql)
+            if (result == false) {
+                alertViewPopped(false, message: "输入数据有误！")
+            }
+            showTableDetailInfo(tableName) //刷新显示
         }
         
+        isRowSelected = false
+        setButton()
         currentAction = actionTypes.None
     }
     
-    //取消操作
+    //取消
     @IBAction func cancelAction(sender: NSButton) {
         
-        if (currentAction == actionTypes.Add){
+        if (currentAction == actionTypes.Add){ //取消之前的添加操
+            
             undoAction()
-            isRowSelected = false
-            setButton()
-            currentAction = actionTypes.None
+        }else if(currentAction == actionTypes.Edit){ //取消之前的编辑操作
+            
+            showTableDetailInfo(tableName) //刷新显示
         }
+        
+        isRowSelected = false
+        setButton()
+        currentAction = actionTypes.None
     }
     
-    //取消操作
+    //取消上一步操作
     func undoAction(){
         
         //取消之前选择的记录
@@ -448,9 +478,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTab
         selectedViewItem = tableInfoCollectionView.itemAtIndex(currentIndex).view as MyItemView
         selectedViewItem.setSelected(false)
         
-        infoArrayController.removeObjectAtArrangedObjectIndex(currentIndex)
+        tableInfos.removeObjectAtIndex(currentIndex)
         infoArrayController.rearrangeObjects()
         currentIndex = 0
+        currentRowId = 0
     }
 }
 
