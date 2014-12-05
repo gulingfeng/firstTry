@@ -11,7 +11,7 @@ import Foundation
 class TableInfo: NSObject{
     //列数
     class var numberOfColumn: Int{
-        return 11
+        return 12
     }
     
     //列宽
@@ -24,9 +24,9 @@ class TableInfo: NSObject{
     return 20
     }
     
-    var column0 = String()
-    var column1 = String()
-    var column2 = String()
+    var column0 = String() //Index of Array Controller
+    var column1 = String() //RowId
+    var column2 = String() //Columns of table
     var column3 = String()
     var column4 = String()
     var column5 = String()
@@ -35,6 +35,7 @@ class TableInfo: NSObject{
     var column8 = String()
     var column9 = String()
     var column10 = String()
+    var column11 = String()
     
     override init(){
         column0 = ""
@@ -48,6 +49,7 @@ class TableInfo: NSObject{
         column8 = ""
         column9 = ""
         column10 = ""
+        column11 = ""
     }
     
     //设置列
@@ -72,6 +74,8 @@ class TableInfo: NSObject{
         case 8:
             column8 = columnValue
         case 9:
+            column9 = columnValue
+        case 10:
             column9 = columnValue
         default:
             column10 = columnValue

@@ -13,13 +13,17 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="DBBuilder" customModuleProvider="target">
             <connections>
+                <outlet property="addButton" destination="Wuo-Ph-yPB" id="uNO-i4-tW8"/>
                 <outlet property="arrayController" destination="Tvd-Ke-3Xw" id="kp3-8q-5o8"/>
+                <outlet property="cancelButton" destination="i4z-sP-eYl" id="eEW-Wa-Udw"/>
                 <outlet property="connButton" destination="Nt4-ZK-7tf" id="hM1-au-xFE"/>
+                <outlet property="deleteButton" destination="Kia-Ww-gae" id="ICM-bv-FMP"/>
                 <outlet property="fileNameTextField" destination="fyQ-cv-ctV" id="AAV-gU-MLi"/>
                 <outlet property="infoArrayController" destination="JU0-vq-ALV" id="awi-Iv-NcU"/>
                 <outlet property="lableTableName" destination="V9Z-Qa-UcK" id="sfX-8k-otR"/>
                 <outlet property="selectButton" destination="Lay-2w-Kjt" id="aP7-ev-qlX"/>
                 <outlet property="selectButtonN" destination="Lay-2w-Kjt" id="abK-3X-N3C"/>
+                <outlet property="submitButton" destination="HWD-De-MxE" id="9qg-Jd-tzD"/>
                 <outlet property="tableInfoCollectionView" destination="QRH-5m-E4W" id="Vga-EN-qId"/>
                 <outlet property="tableInfoCollectionViewItem" destination="ZLe-4U-ETe" id="cEd-HZ-SYC"/>
                 <outlet property="tableInfoView" destination="h8T-jr-eRM" id="JD9-w5-kUf"/>
@@ -838,20 +842,6 @@
                             <action selector="selectDBFile:" target="Voe-Tx-rLC" id="npu-UY-J5T"/>
                         </connections>
                     </button>
-                    <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kia-Ww-gae">
-                        <rect key="frame" x="324" y="8" width="80" height="40"/>
-                        <buttonCell key="cell" type="square" title="删除" bezelStyle="shadowlessSquare" image="delete" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LLP-n5-sKd">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
-                    <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i4z-sP-eYl">
-                        <rect key="frame" x="504" y="8" width="80" height="40"/>
-                        <buttonCell key="cell" type="square" title="取消" bezelStyle="shadowlessSquare" image="cancel" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2W-Jj-p1e">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
                     <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wuo-Ph-yPB">
                         <rect key="frame" x="234" y="8" width="80" height="40"/>
                         <buttonCell key="cell" type="square" title="添加" bezelStyle="shadowlessSquare" image="add" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jM5-wE-v7o">
@@ -870,6 +860,26 @@
                         </buttonCell>
                         <connections>
                             <action selector="submitAction:" target="Voe-Tx-rLC" id="3gg-WW-FZs"/>
+                        </connections>
+                    </button>
+                    <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kia-Ww-gae">
+                        <rect key="frame" x="324" y="8" width="80" height="40"/>
+                        <buttonCell key="cell" type="square" title="删除" bezelStyle="shadowlessSquare" image="delete" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LLP-n5-sKd">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="deleteAction:" target="Voe-Tx-rLC" id="8DG-R4-aWF"/>
+                        </connections>
+                    </button>
+                    <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i4z-sP-eYl">
+                        <rect key="frame" x="504" y="8" width="80" height="40"/>
+                        <buttonCell key="cell" type="square" title="取消" bezelStyle="shadowlessSquare" image="cancel" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2W-Jj-p1e">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelAction:" target="Voe-Tx-rLC" id="2QP-oU-u9B"/>
                         </connections>
                     </button>
                 </subviews>
@@ -949,6 +959,8 @@
                 <string>column7</string>
                 <string>column8</string>
                 <string>column9</string>
+                <string>column10</string>
+                <string>column11</string>
             </declaredKeys>
             <connections>
                 <binding destination="Voe-Tx-rLC" name="contentArray" keyPath="tableInfos" id="ZSR-uE-cdN"/>
